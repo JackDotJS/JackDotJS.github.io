@@ -94,14 +94,17 @@ h1, h2, h3 {
 }
 
 h1 {
+  font-weight: 600;
   font-size: 44px;
 }
 
 h2 {
+  font-weight: 500;
   font-size: 32px;
 }
 
 h3 {
+  font-weight: 200;
   font-size: 22px;
 }
 
@@ -117,12 +120,14 @@ h3 {
   flex-grow: 1;
   background-color: var(--button-bg);
   color: var(--button-text);
+  font-size: 18px;
   padding: 1rem;
   border-radius: 3em;
   text-align: center;
   text-decoration: none;
   border: 3px solid transparent;
   transition: all 100ms cubic-bezier(0,.65,.5,1);
+  letter-spacing: 0.5px;
 }
 
 .button-list > a:hover {
