@@ -1,3 +1,25 @@
+:root {
+  --section-background: #FFF;
+  --text: #333;
+  --button-bg: #333;
+  --button-text: #FFF;
+  --button-bg-hover: transparent;
+  --button-text-hover: var(--button-bg);
+  --focus-outline: #FF932B;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --section-background: #333;
+    --text: #EEE;
+    --button-bg: #EEE;
+    --button-text: #333;
+    --button-bg-hover: transparent;
+    --button-text-hover: var(--button-bg);
+    --focus-outline: #FF932B;
+  }
+}
+
 @font-face {
   font-family: "CoreSans Extra Bold";
   src: url("../assets/Core\ Sans\ CR\ 75\ ExtraBold.ttf") format("opentype")
@@ -45,8 +67,8 @@ main {
 }
 
 main > * {
-  background-color: #FFF;
-  color: #333;
+  background-color: var(--section-background);
+  color: var(--text);
   border-radius: 1rem;
   width: 100%;
   padding: 2rem;
@@ -65,11 +87,22 @@ header > img {
   width: 33%;
 }
 
-main h1 {
+h1, h2, h3 {
   font-family: "CoreSans Extra Bold";
-  font-size: 36px;
   text-align: center;
   margin: 0;
+}
+
+h1 {
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 22px;
 }
 
 .button-list {
@@ -82,8 +115,8 @@ main h1 {
 .button-list > a {
   width: 25%;
   flex-grow: 1;
-  background-color: #333;
-  color: #FFF;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   padding: 1rem;
   border-radius: 3em;
   text-align: center;
@@ -93,23 +126,24 @@ main h1 {
 }
 
 .button-list > a:hover {
-  background-color: #FFF;
-  color: #333;
-  border: 3px solid #333;
+  background-color: var(--button-bg-hover);
+  color: var(--button-text-hover);
+  border: 3px solid var(--button-text-hover);
   text-decoration: underline;
 }
 
 a {
-  outline: 3px solid transparent;
-  outline-offset: 0px;
+  font-weight: bold;
+  outline: 10px solid transparent;
+  outline-offset: 10px;
 }
 
 a:focus, a:focus-visible {
-  outline: 3px solid #ff912b;
-  outline-offset: 2px;
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 3px;
 }
 
-@media (max-width: 800px) or (max-height: 800px) {
+@media (max-width: 800px) or (max-height: 900px) {
   body {
     align-items: flex-start;
   }
