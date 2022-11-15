@@ -87,6 +87,10 @@ header > img {
   width: 25%;
 }
 
+header > img:hover {
+  transform: scaleX(-100%);
+}
+
 h1, h2, h3 {
   font-family: "CoreSans Extra Bold";
   text-align: center;
