@@ -4,7 +4,8 @@
   --button-bg: #333;
   --button-text: #FFF;
   --button-bg-hover: transparent;
-  --button-text-hover: var(--button-bg);
+  --button-text-hover: #FFF;
+  --button-outline-hover: var(--button-bg);
   --focus-outline: #FF932B;
 }
 
@@ -16,6 +17,7 @@
     --button-text: #333;
     --button-bg-hover: transparent;
     --button-text-hover: var(--button-bg);
+    --button-outline-hover: var(--button-bg);
     --focus-outline: #FF932B;
   }
 }
@@ -33,10 +35,12 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0;
-  background: transparent;
+  background-image: linear-gradient(90deg, #FF672B, #FFA92B);
 }
 
 #backgrounds {
+  pointer-events: none;
+  user-select: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -70,12 +74,12 @@ main > * {
   background-color: var(--section-background);
   color: var(--text);
   max-width: 600px;
-  border-radius: 1rem;
-  padding: 2rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  border-radius: 3rem;
   contain: content;
 }
 
@@ -116,7 +120,7 @@ h3 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .button-list > a {
@@ -129,7 +133,7 @@ h3 {
   border-radius: 3em;
   text-align: center;
   text-decoration: none;
-  border: 3px solid transparent;
+  border: 3px solid var(--button-bg);
   transition: all 100ms cubic-bezier(0,.65,.5,1);
   letter-spacing: 0.5px;
 }
@@ -137,7 +141,7 @@ h3 {
 .button-list > a:hover {
   background-color: var(--button-bg-hover);
   color: var(--button-text-hover);
-  border: 3px solid var(--button-text-hover);
+  border: 3px solid var(--button-outline-hover);
   text-decoration: underline;
 }
 
@@ -150,4 +154,32 @@ a {
 a:focus, a:focus-visible {
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
+}
+
+#li-cohost:hover {
+  background-color: #83254F;
+}
+
+#li-discord:hover {
+  background-color: #5865F2;
+}
+
+#li-retrospring:hover {
+  background-color: #5e35b1;
+}
+
+#li-github:hover {
+  background-color: #161b22;
+}
+
+#li-steam:hover {
+  background-color: #13396D;
+}
+
+#li-youtube:hover {
+  background-color: #FF1919;
+}
+
+#li-source:hover {
+  background-color: #FF932B;
 }

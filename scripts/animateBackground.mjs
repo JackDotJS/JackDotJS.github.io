@@ -8,7 +8,7 @@ function wrapNumber(num, max) {
 }
 
 // fancy background slideshow
-function changeBackground(i = 1) {
+function changeBackground(i = 0) {
   const last1 = wrapNumber(i - 1, images.length);
   const last2 = wrapNumber(i - 2, images.length);
 
