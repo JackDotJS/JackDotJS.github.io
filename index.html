@@ -43,7 +43,8 @@
   <meta name="twitter:card" content="summary" />
   <meta property="og:locale" content="en_US" />
 
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ff932b" />
+  <meta name="theme-color" content="#ff932b" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#333333" />
 
   <!-- stylesheets -->
@@ -56,6 +57,8 @@
 </head>
 
 <body>
+  <div id="_test"></div>
+
   <div id="backgrounds" aria-hidden="true">
     <img src="./assets/background0.png" />
     <img src="./assets/background1.png" />
@@ -74,19 +77,54 @@
     <section>
       <h2>here are some places you can find me at:</h2>
       <div class="button-list">
-        <a id="li-cohost" rel="external" href="https://cohost.org/JackDotJS" title="Cohost">Cohost</a>
-        <a id="li-discord" rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">Discord</a>
-        <a id="li-retrospring" rel="external" href="https://retrospring.net/@JackDotJS" title="Retrospring">Retrospring</a>
-        <a id="li-github" rel="external" href="https://github.com/JackDotJS" title="GitHub">GitHub</a>
-        <a id="li-steam" rel="external" href="https://steamcommunity.com/id/JackDotJS/" title="Steam">Steam</a>
-        <a id="li-youtube" rel="external" href="https://www.youtube.com/@JackDotJS" title="YouTube">YouTube</a>
+        <a id="li-cohost" rel="external" href="https://cohost.org/JackDotJS" title="Cohost">
+          <div class="icon" aria-hidden="true"></div>
+          <span>Cohost</span>
+        </a>
+
+        <a id="li-discord" rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
+          <div class="icon" aria-hidden="true"></div>
+          <span>Discord</span>
+        </a>
+
+        <a id="li-github" rel="external" href="https://github.com/JackDotJS" title="GitHub">
+          <div class="icon" aria-hidden="true"></div>
+          <span>Git&shy;Hub</span>
+        </a>
+
+        <a id="li-retrospring" rel="external" href="https://retrospring.net/@JackDotJS" title="Retrospring">
+          <div class="icon" aria-hidden="true"></div>
+          <span>Retro&shy;spring</span>
+        </a>
+
+        <a id="li-tumblr" rel="external" href="https://www.tumblr.com/jackdotjs" title="Tumblr">
+          <div class="icon" aria-hidden="true"></div>
+          <span>Tumblr</span>
+        </a>
+
+        <a id="li-steam" rel="external" href="https://steamcommunity.com/id/JackDotJS/" title="Steam">
+          <div class="icon" aria-hidden="true"></div>
+          <span>Steam</span>
+        </a>
+
+        <a id="li-youtube" rel="external" href="https://www.youtube.com/@JackDotJS" title="YouTube">
+          <div class="icon" aria-hidden="true"></div>
+          <span>YouTube</span>
+        </a>
+
+        <a id="li-email" rel="external" href="mailto:JackDotBusiness@proton.me" title="E-mail">
+          <div class="icon" aria-hidden="true"></div>
+          <span>E-mail</span>
+        </a>
       </div>
     </section>
 
     <footer>
-      <h3>the source code for this page:</h3>
+      <h2>this page was last updated<br/><time datetime="2022-11-22">November 22, 2022</time></h2>
       <div class="button-list">
-        <a id="li-source" href="https://github.com/JackDotJS/JackDotJS.github.io" rel="external" title="Source Code">Source Code</a>
+        <a id="li-source" href="https://github.com/JackDotJS/JackDotJS.github.io" rel="external" title="Source Code">
+          <span>Source Code</span>
+        </a>
       </div>
     </footer>
   </main>

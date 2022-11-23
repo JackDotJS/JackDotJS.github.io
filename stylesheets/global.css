@@ -3,7 +3,7 @@
   --text: #333;
   --button-bg: #333;
   --button-text: #FFF;
-  --button-bg-hover: transparent;
+  --button-bg-hover: #FF672B;
   --button-text-hover: #FFF;
   --button-outline-hover: var(--button-bg);
   --focus-outline: #FF932B;
@@ -15,7 +15,7 @@
     --text: #EEE;
     --button-bg: #EEE;
     --button-text: #333;
-    --button-bg-hover: transparent;
+    --button-bg-hover: #FF672B;
     --button-text-hover: var(--button-bg);
     --button-outline-hover: var(--button-bg);
     --focus-outline: #FF932B;
@@ -27,16 +27,7 @@
   src: url("../assets/Core\ Sans\ CR\ 75\ ExtraBold.ttf") format("opentype")
 }
 
-body {
-  width: 100%;
-  min-height: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  background-image: linear-gradient(90deg, #FF672B, #FFA92B);
-}
+/* animated background images */
 
 #backgrounds {
   pointer-events: none;
@@ -58,6 +49,19 @@ body {
   transition-property: opacity;
   transition-duration: 2.5s;
   transition-timing-function: ease-in-out;
+}
+
+/* general layout stuff */
+
+body {
+  width: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background-image: linear-gradient(90deg, #FF672B, #FFA92B);
 }
 
 main {
@@ -83,19 +87,7 @@ main > * {
   contain: content;
 }
 
-header {
-  align-items: center;
-}
-
-header > img {
-  width: 25%;
-}
-
-header > img:hover {
-  transform: scaleX(-100%);
-}
-
-h1, h2, h3 {
+h1, h2 {
   font-family: "CoreSans Extra Bold";
   text-align: center;
   margin: 0;
@@ -108,41 +100,7 @@ h1 {
 
 h2 {
   font-weight: 500;
-  font-size: 24px;
-}
-
-h3 {
-  font-weight: 200;
-  font-size: 18px;
-}
-
-.button-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.button-list > a {
-  width: 25%;
-  flex-grow: 1;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  font-size: 18px;
-  padding: 1rem;
-  border-radius: 3em;
-  text-align: center;
-  text-decoration: none;
-  border: 3px solid var(--button-bg);
-  transition: all 100ms cubic-bezier(0,.65,.5,1);
-  letter-spacing: 0.5px;
-}
-
-.button-list > a:hover {
-  background-color: var(--button-bg-hover);
-  color: var(--button-text-hover);
-  border: 3px solid var(--button-outline-hover);
-  text-decoration: underline;
+  font-size: 22px;
 }
 
 a {
@@ -156,30 +114,190 @@ a:focus, a:focus-visible {
   outline-offset: 3px;
 }
 
+/* header */
+
+header {
+  align-items: center;
+}
+
+header > img {
+  width: 25%;
+}
+
+header > img:hover {
+  transform: scaleX(-100%);
+}
+
+/* buttons */
+
+.button-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.button-list > a {
+  --b-padding: 0.25em;
+
+  position: relative;
+  width: 33%;
+  height: 3em;
+  flex-grow: 1;
+  background-color: var(--button-bg);
+  border-radius: 1.5em;
+  border: 3px solid var(--button-bg);
+  transition: all 100ms cubic-bezier(0,.65,.5,1);
+  letter-spacing: 0.5px;
+  box-sizing: border-box;
+  word-wrap: anywhere;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 18px;
+  color: var(--button-text);
+  overflow: hidden;
+  padding: var(--b-padding);
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  -webkit-hyphenate-character: " ";
+  hyphenate-character: " ";
+}
+
+.button-list > a:hover {
+  background-color: var(--button-bg-hover);
+  border: 3px solid var(--button-outline-hover);
+  color: var(--button-text-hover);
+}
+
+.button-list > a > span, .button-list > a > .icon {
+  position: absolute;
+  transition: all 250ms cubic-bezier(0,.65,.5,1);
+  box-sizing: border-box;
+  width: calc(100% - (var(--b-padding) * 2));
+  height: calc(100% - (var(--b-padding) * 2));
+}
+
+.button-list > a > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* button labels are offset and have variable opacity if it has a .icon class element as a sibling */
+/* cus it looks cool lmao */
+
+.button-list > a > .icon ~ span {
+  opacity: 0;
+  transform: translateY(25%);
+}
+
+.button-list > a:hover > .icon ~ span {
+  opacity: 1;
+  transform: translateY(0%);
+  text-decoration: underline;
+}
+
+.button-list > a > .icon {
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background-color: var(--button-text);
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.button-list > a:hover > .icon {
+  background-color: var(--button-text-hover);
+  opacity: 0;
+  transform: translateY(-25%);
+}
+
+/* cohost */
+
+#li-cohost > .icon {
+  -webkit-mask-image: url("../assets/social-icon-cohost.svg");
+  mask-image: url("../assets/social-icon-cohost.svg");
+}
+
 #li-cohost:hover {
   background-color: #83254F;
+}
+
+/* discord */
+
+#li-discord > .icon {
+  -webkit-mask-image: url("../assets/social-icon-discord.svg");
+  mask-image: url("../assets/social-icon-discord.svg");
 }
 
 #li-discord:hover {
   background-color: #5865F2;
 }
 
+/* retrospring */
+
+#li-retrospring > .icon {
+  -webkit-mask-image: url("../assets/social-icon-retrospring.svg");
+  mask-image: url("../assets/social-icon-retrospring.svg");
+}
+
 #li-retrospring:hover {
   background-color: #5e35b1;
+}
+
+/* tumblr */
+
+#li-tumblr > .icon {
+  -webkit-mask-image: url("../assets/social-icon-tumblr.svg");
+  mask-image: url("../assets/social-icon-tumblr.svg");
+}
+
+#li-tumblr:hover {
+  background-color: #34526F;
+}
+
+/* github */
+
+#li-github > .icon {
+  -webkit-mask-image: url("../assets/social-icon-github.svg");
+  mask-image: url("../assets/social-icon-github.svg");
 }
 
 #li-github:hover {
   background-color: #161b22;
 }
 
+/* steam */
+
+#li-steam > .icon {
+  -webkit-mask-image: url("../assets/social-icon-steam.svg");
+  mask-image: url("../assets/social-icon-steam.svg");
+}
+
 #li-steam:hover {
-  background-color: #13396D;
+  background-color: #28313F;
+}
+
+/* youtube */
+
+#li-youtube > .icon {
+  -webkit-mask-image: url("../assets/social-icon-youtube.svg");
+  mask-image: url("../assets/social-icon-youtube.svg");
 }
 
 #li-youtube:hover {
-  background-color: #FF1919;
+  background-color: #FF3333;
 }
 
-#li-source:hover {
-  background-color: #FF932B;
+/* email */
+
+#li-email > .icon {
+  -webkit-mask-image: url("../assets/social-icon-email.svg");
+  mask-image: url("../assets/social-icon-email.svg");
+}
+
+#li-email:hover {
+  background-color: #6D4AFF;
 }
