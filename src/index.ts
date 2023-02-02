@@ -1,6 +1,8 @@
 import isInterface from './is-interface';
 import startSlideshow from './animate-bg';
 
+history.scrollRestoration = `manual`;
+
 // epic super cool page open animation
 
 function updateAnimLogoPos() {
