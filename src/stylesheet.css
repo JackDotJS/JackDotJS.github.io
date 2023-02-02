@@ -9,7 +9,7 @@
   --button-outline-hover: var(--button-bg);
   --focus-outline: #FF932B;
 
-  --anim-delay: 0s;
+  --anim-delay: 0.5s;
   --anim-duration: 0.66;
 }
 
@@ -104,13 +104,16 @@ main {
     top: 50%;
     width: 100%;
     height: 15rem;
-    background-color: var(--section-background);
+    background-color: #FFF;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
   }
 
   66% {
     opacity: 1;
     width: 100%;
     height: 100%;
+    background-color: var(--section-background);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
   }
 
   100% {
@@ -119,15 +122,20 @@ main {
     width: 100%;
     height: 100%;
     background-color: var(--section-background);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
   }
 }
 
 @keyframes animLogo {
-  from {
+  0% {
     opacity: 1;
   }
 
-  to {
+  99% {
+    opacity: 1;
+  }
+
+  100% {
     opacity: 0;
   }
 }
@@ -147,7 +155,7 @@ main > :not(#logoAnim) {
 
   opacity: 0;
   animation-name: animMain;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: cubic-bezier(0,.65,.5,1);
   animation-delay: calc((3s * var(--anim-duration)) + var(--anim-delay));
   animation-fill-mode: both;
   animation-duration: calc(1s * var(--anim-duration));
@@ -163,7 +171,7 @@ main > :not(#logoAnim) {
   gap: var(--se-padding);
   border-radius: 0.75rem;
   contain: content;
-  -box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
 }
 
 #logoAnim {
@@ -176,7 +184,7 @@ main > :not(#logoAnim) {
   opacity: 1;
 
   animation-name: animLogoContainer;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: cubic-bezier(0,.65,.5,1);
   animation-delay: calc((1s * var(--anim-duration)) + var(--anim-delay));
   animation-fill-mode: both;
   animation-duration: calc(3s * var(--anim-duration));
@@ -189,12 +197,11 @@ main > :not(#logoAnim) {
 #logoAnim > * {
   opacity: 1;
   animation-name: animLogo;
-  animation-timing-function: step-end;
+  animation-timing-function: linear;
   animation-delay: calc((1s * var(--anim-duration)) + var(--anim-delay));
   animation-fill-mode: both;
   animation-duration: calc(1s * var(--anim-duration));
 
-  width: 100%;
   height: 100%;
 }
 

@@ -21,6 +21,7 @@ function updateAnimLogoPos() {
 }
 
 updateAnimLogoPos();
+window.addEventListener(`load`, updateAnimLogoPos);
 window.addEventListener(`resize`, updateAnimLogoPos);
 
 // sets up build date and rev hash in footer
