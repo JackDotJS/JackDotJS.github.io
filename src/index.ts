@@ -1,4 +1,27 @@
+import isInterface from './is-interface';
 import startSlideshow from './animate-bg';
+
+// epic super cool page open animation
+
+function updateAnimLogoPos() {
+  const animMain = document.querySelector(`main`);
+  const animLogo = document.querySelector(`#logoAnim`);
+
+  if (animLogo != null && animMain != null) {
+    if (!isInterface<HTMLElement>(animLogo, `style`)) return;
+    if (!isInterface<HTMLElement>(animMain, `style`)) return;
+
+    const windowHeight = window.innerHeight;
+    const mainRect = animMain.getBoundingClientRect();
+
+    console.debug(windowHeight, mainRect.top);
+
+    animLogo.setAttribute(`style`, `top: ${(windowHeight / 2) - mainRect.top}px;`)
+  }
+}
+
+updateAnimLogoPos();
+window.addEventListener(`resize`, updateAnimLogoPos);
 
 // sets up build date and rev hash in footer
 
@@ -49,6 +72,7 @@ Promise.all([
 startSlideshow();
 
 // shows my local time and updates it in (sort of) real-time
+
 function updateMyTime() {
   const tz = document.querySelector(`#mytime`);
 
