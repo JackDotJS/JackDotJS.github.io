@@ -9,8 +9,8 @@
   --button-outline-hover: var(--button-bg);
   --focus-outline: #FF932B;
 
-  --anim-delay: 0.5s;
-  --anim-duration: 0.66;
+  --anim-delay: 0.3s;
+  --anim-duration: 0.6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -212,17 +212,17 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 40px;
 }
 
 h2 {
-  font-size: 22px;
+  font-size: 26px;
 }
 
 p {
   font-family: "CoreSans";
   font-weight: normal;
-  font-size: 18px;
+  font-size: 19px;
   color: var(--text-2);
   text-align: center;
   margin: 0.2em;
