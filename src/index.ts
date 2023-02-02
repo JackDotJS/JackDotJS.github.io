@@ -14,14 +14,19 @@ function updateAnimLogoPos() {
     const windowHeight = window.innerHeight;
     const mainRect = animMain.getBoundingClientRect();
 
-    console.debug(windowHeight, mainRect.top);
-
     animLogo.setAttribute(`style`, `top: ${(windowHeight / 2) - mainRect.top}px;`)
   }
 }
 
 updateAnimLogoPos();
-window.addEventListener(`load`, updateAnimLogoPos);
+
+window.addEventListener(`load`, () => {
+  updateAnimLogoPos();
+  // trying to fix weird mobile issue
+  const page = document.querySelector(`html`);
+  if (page != null) page.scrollTop = 0;
+});
+
 window.addEventListener(`resize`, updateAnimLogoPos);
 
 // sets up build date and rev hash in footer
