@@ -10,7 +10,7 @@
   --focus-outline: #FF932B;
 
   --anim-delay: 0.3s;
-  --anim-duration: 0.6;
+  --anim-duration: 0.7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -127,11 +127,19 @@ main {
 
 @keyframes animLogo {
   0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1
+  }
+
+  97% {
     opacity: 1;
   }
 
-  99% {
-    opacity: 1;
+  98% {
+    opacity: 0;
   }
 
   100% {
@@ -194,12 +202,12 @@ main > :not(#logoAnim) {
 }
 
 #logoAnim > * {
-  opacity: 1;
+  opacity: 0;
   animation-name: animLogo;
-  animation-timing-function: linear;
-  animation-delay: calc((1s * var(--anim-duration)) + var(--anim-delay));
+  animation-timing-function: cubic-bezier(0,.65,.5,1);
+  animation-delay: var(--anim-delay);
   animation-fill-mode: both;
-  animation-duration: calc(1s * var(--anim-duration));
+  animation-duration: calc(2s * var(--anim-duration));
 
   height: 100%;
 }
