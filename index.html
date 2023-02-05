@@ -17,24 +17,24 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-  <link rel="manifest" href="public/manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="msapplication-TileColor" content="#FFFFFF">
   <meta name="msapplication-TileImage" content="./assets/ms-icon-144x144.png">
 
-  <title>welcome to the website</title>
+  <title>the website</title>
 
   <!-- embed data -->
 
-  <meta property="og:title" content="welcome to the website" />
-  <meta name="twitter:title" content="welcome to the website" />
+  <meta property="og:title" content="the website" />
+  <meta name="twitter:title" content="the website" />
 
   <link rel="canonical" href="https://jackdotjs.github.io" />
   <meta property="og:url" content="https://jackdotjs.github.io" />
   <meta name="twitter:url" content="https://jackdotjs.github.io" />
 
-  <meta name="description" content="my name is jack. i make stuff." />
-  <meta property="og:description" content="my name is jack. i make stuff." />
-  <meta name="twitter:description" content="my name is jack. i make stuff." />
+  <meta name="description" content="i'm jack. i make stuff." />
+  <meta property="og:description" content="i'm jack. i make stuff." />
+  <meta name="twitter:description" content="i'm jack. i make stuff." />
 
   <meta property="og:image" content="https://raw.githubusercontent.com/JackDotJS/JackDotJS.github.io/main/assets/icon.png" />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/JackDotJS/JackDotJS.github.io/main/assets/icon.png" />
@@ -70,68 +70,272 @@
       <img src="./assets/logo.png" />
     </div>
 
-    <header>
-      <img src="./assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
-      <h1>i'm jack. i make stuff.</h1>
-      <p>my pronouns are <b>he/him</b></p>
-      <p>it's about <b id="mytime">0:00 PM</b> where i live</p>
-    </header>
+    <div id="content">
+      <header>
+        <img src="./assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
+        <h1>i'm jack. i make stuff.</h1>
+        <p>
+          my pronouns are <b>he/him</b><br/>
+          <br/>
+          it's about <b id="mytime">0:00 PM</b> where i live
+        </p>
+        <div class="button-list">
+          <a id="bt-gallery" href="?p=gallery" title="Gallery">
+            <span>stuff i made</span>
+          </a>
+  
+          <a id="bt-stuff" href="?p=stuff-i-use" title="Stuff I Use">
+            <span>stuff i use</span>
+          </a>
+  
+          <a id="bt-tos" href="?p=commission-tos" title="Commission Terms of Service">
+            <span>commission tos</span>
+          </a>
+  
+          <a id="bt-comms" href="?p=commission-info" title="Commission Information">
+            <span>commission info</span>
+          </a>
+        </div>
+      </header>
 
-    <section>
-      <h2>some places you can find me at</h2>
-      <div class="button-list">
-        <a id="li-cohost" rel="external" href="https://cohost.org/JackDotJS" title="Cohost">
-          <div class="icon" aria-hidden="true"></div>
-          <span>cohost</span>
-        </a>
+      <div id="collapsibles">
+        <section id="gallery">
+          <!-- big todo -->
+          <h2>stuff i made</h2>
+          <p>
+            coming soon!<br/>
+            <br/>
+            sorry, i got tired before i could finish this part of the site lol
+          </p>
+        </section>
+  
+        <section id="commission-info">
+          <h2>commission info</h2>
 
-        <a id="li-discord" rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
-          <div class="icon" aria-hidden="true"></div>
-          <span>discord</span>
-        </a>
+          <h1>status: open!</h1>
+          <h3>0/3 slots remaining</h3>
 
-        <a id="li-github" rel="external" href="https://github.com/JackDotJS" title="GitHub">
-          <div class="icon" aria-hidden="true"></div>
-          <span>git&shy;hub</span>
-        </a>
+          <table>
+            <colgroup>
+              <col />
+              <col />
+            </colgroup>
+            <tr>
+              <th>will do</th>
+              <th>will <em>not</em> do</th>
+            </tr>
+            <tr>
+              <td>anthros/furries, including hybrid species</td>
+              <td>anything racist, sexist, queerphobic, or otherwise discriminatory</td>
+              
+            </tr>
+            <tr>
+              <td>aliens, monsters, and any other non-human creatures (depends on how they look)</td>
+              <td>nsfw/adult content, including "extremely questionable" content</td>
+            </tr>
+            <tr>
+              <td>weapons, tools, and other items</td>
+              <td>excessive gore</td>
+            </tr>
+            <tr>
+              <td>fictional vehicles, including spaceships</td>
+              <td>fetish art</td>
+            </tr>
+            <tr>
+              <td>interior environments</td>
+              <td>any excessively complex subjects</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>softbody, cloth, and other complex physics simulations</td>
+            </tr>
+          </table>
 
-        <a id="li-retrospring" rel="external" href="https://retrospring.net/@JackDotJS" title="Retrospring">
-          <div class="icon" aria-hidden="true"></div>
-          <span>retro&shy;spring</span>
-        </a>
+          <p>this is meant to be a general guide. if you're unsure of something, feel free to ask!</p>
 
-        <a id="li-tumblr" rel="external" href="https://www.tumblr.com/jackdotjs" title="Tumblr">
-          <div class="icon" aria-hidden="true"></div>
-          <span>tumblr</span>
-        </a>
+          <h2>pricing</h2>
+          <p>
+            all commissions start at $20 and will be raised based on the complexity of the work you want done. feel free to contact me for a quote!<br/>
+            <br/>i admit that i'm still new to doing commission work like this, and i'm not yet sure what prices i'm comfortable with. basically, prices may vary.<br/>
+            <br/>
+            <em>please make sure to thoroughly read my terms of service before commissioning me.</em> my preferred method of contact is via Discord. you can find me through my Discord server below!<br/>
+            <br/>
+            thank you for your interest!!!
+          </p>
 
-        <a id="li-steam" rel="external" href="https://steamcommunity.com/id/JackDotJS/" title="Steam">
-          <div class="icon" aria-hidden="true"></div>
-          <span>steam</span>
-        </a>
-
-        <a id="li-youtube" rel="external" href="https://www.youtube.com/channel/UCiY8MRmlDVjVva6N-2zy36A" title="YouTube">
-          <div class="icon" aria-hidden="true"></div>
-          <span>youtube</span>
-        </a>
-
-        <a id="li-email" rel="external" href="mailto:JackDotBusiness@proton.me" title="E-mail">
-          <div class="icon" aria-hidden="true"></div>
-          <span>e-mail</span>
-        </a>
+          
+        </section>
+    
+        <section id="commission-tos">
+          <h2>commission terms of service</h2>
+    
+          <h3>I. General Terms</h3>
+          <ul>
+            <li>By commissioning me, you are agreeing to these terms. Should you have any questions about these terms, please don't hesitate to contact me.</li>
+            <li>I, the artist, reserve the right to refuse or discontinue a commission at any time, without explanation.</li>
+            <li>I retain the rights over any commissioned works, unless you purchase the commercial rights (see <em>"Payment & Fees"</em>).</li>
+            <li>I do not claim rights to any character or other intellectual property used in the commissioned work.</li>
+            <li>I may post work-in-progress and/or finished images of the commission on my social media pages with a watermark. If this is an issue, please inform me <em>before</em> (preferably) or <em>during</em> the commission process.</li>
+            <li>Static image artwork will generally be delivered in .PNG format. I can also provide .JPEG formats, if desired.</li>
+            <li>Source files for any work can be provided for an additional fee of 10$.</li>
+            <li>Failure to comply with these terms may result in you being permanently blacklisted from commissioning me in the future.</li>
+          </ul>
+    
+          <h3>II. Client Obligations</h3>
+          <ul>
+            <li>As the client, you will provide a clear and concise description of the work you wish to commission me for.</li>
+            <li>If applicable, you will provide clear reference images for the work.</li>
+            <li>You will maintain professional conduct throughout the commission process.</li>
+            <li>You will respond within a timely fashion.</li>
+            <li>You will assume responsibility for any clear descriptions, references, and other important information you fail to provide that results in my inability to complete your commission to your full satisfaction.</li>
+            <li>You will carefully read through my Terms of Service.</li>
+          </ul>
+    
+          <h3>III. Payment & Fees</h3>
+          <ul>
+            <li>Payment is in USD and processed via PayPal invoices.</li>
+            <li><em>You will be required to pay 50% of the commission price upfront, and the remaining 50% at completion of the commission.</em></li>
+            <li>If you are not able to pay the last 50% on time, I am generally willing to give you up to 1 week of leeway to sort out your finances.</li>
+            <li>For commercial use of the commission, you must purchase the rights from me at 300% of the original price of the work.</li>
+            <li>Additional fees will be charged for excessive or major revisions of the commission work (see <em>"Revisions"</em>).</li>
+            <li>The exact prices for the fees described above will be dependent upon the complexity of the commission.</li>
+          </ul>
+    
+          <h3>IV. Refund Policy</h3>
+          <ul>
+            <li>Full refunds are available at any time before commission work has started. </li>
+            <li><em>I will not offer any refunds for work that is completed, or nearly completed.</em></li>
+            <li>If you, the client, cancel the commission during the work process, the amount refunded will be equivalent to the amount of work not done. The amount is up to my discretion and will generally be handled on a case-by-case basis.</li>
+            <li>If I, the artist, cancel the commission for any reason, I will offer a full refund.</li>
+            <li>Similarly, I will offer a full refund if I cannot complete the work within 90 days of purchase.</li>
+            <li>You may not file a chargeback against me after you have given approval of the finished work.</li>
+          </ul>
+    
+          <h3>V. Work Process</h3>
+          <ul>
+            <li>I will send you regular updates throughout the work process, via your communication method of choice.</li>
+            <li>In-progress shots of the work will be sent as low-res, watermarked images.</li>
+            <li>I will always do my best to complete your commission within a timely manner, but please understand that <em>this is not my full-time job</em>, and my real life responsibilities can and will get in the way from time to time. As such, should any major delay occur in the process of the commission, I will notify you as soon as possible.</li>
+            <li>For works that involve static images, the resolution of the finished artwork will be around 2000x2000 px, and will vary depending on the needs of the work itself. Larger resolutions (up to 5000x5000 px) are available upon request for an additional fee.</li>
+          </ul>
+    
+          <h3>VI. Revisions</h3>
+          <ul>
+            <li>One major revision is allowed in the early stages of the work process, and is covered in the initial commission price. Additional major revisions will incur additional fees.</li>
+            <li>A limited amount of minor revisions are allowed throughout the entire work process, and are covered in the initial commission price. Excessive minor revisions to the point that forward progress on the work has halted will incur additional fees.</li>
+            <li>Revisions due to my own negligence are free of charge.</li>
+            <li>As the artist, it is up to my discretion as to what constitutes minor and major revisions.</li>
+          </ul>
+    
+          <h3>VII. Usage Policy</h3>
+          <ul>
+            <li>All commissioned work is for non-commercial purposes only, unless you purchase commercial rights to the work (see <em>"Payment & Fees"</em>).</li>
+            <li>As the client, you may use the finished work anywhere you like, as long as proper credit is given (including a link to my website). This also applies to commercial usage of the work.</li>
+            <li>You may not claim the work as your own.</li>
+            <li>You may not remove my watermark/signature.</li>
+            <li>You may not use the work for anything involving NFTs (Non-Fungible Tokens), blockchain, cryptocurrency, or AI training in any way, shape, or form.</li>
+            <li>You may not reproduce the work commercially without purchasing the rights from me (again, see <em>"Payment & Fees"</em>).</li>
+          </ul>
+        </section>
+    
+        <section id="stuff-i-use">
+          <h2>stuff i use</h2>
+    
+          <h3>pc specs</h3>
+          <ul class="no-bullet">
+            <li><em>cpu:</em> AMD Ryzen 7 2700 @ 3.20 GHz</li>
+            <li><em>gpu:</em> Zotac RTX 2070 SUPER MINI @ 1605 MHz</li>
+            <li><em>ram:</em> T-FORCE DARK Zα, 2x16GB DDR4 @ 3333 MHz</li>
+          </ul>
+    
+          <h3>peripherals</h3>
+          <ul class="no-bullet">
+            <li><em>display:</em> ViewSonic VP3481, 3440x1440 @ 100 Hz</li>
+            <li><em>keyboard:</em> Keychron K1 SE w/ Mint Optical Switches</li>
+            <li><em>mouse:</em> Logitech G305 @ 1000 DPI</li>
+            <li><em>microphone:</em> Razer Seiren Mini</li>
+            <li><em>headphones:</em> Bose QuietComfort 35 II</li>
+          </ul>
+    
+          <h3>software</h3>
+          <p>
+            <em>3d artwork and graphic design:</em><br/>
+            <a href="https://www.blender.org/" rel="external">Blender</a>,
+            <a href="https://www.getpaint.net/" rel="external">Paint.NET</a>
+          </p>
+    
+          <p>
+            <em>programming and web dev:</em><br/>
+            <a href="https://code.visualstudio.com/" rel="external">Visual Studio Code</a>
+          </p>
+    
+          <p>
+            <em>video production:</em><br/>
+            <a href="https://obsproject.com/" rel="external">OBS Studio</a>,
+            <a href="https://www.blackmagicdesign.com/products/davinciresolve" rel="external">DaVinci Resolve</a>
+          </p>
+        </section>
       </div>
-    </section>
-
-    <footer>
-      <h2>i made this website</h2>
-      <p>build date: <b><time id="gh-build" datetime="2022-11-22">November 22, 2022</time></b></p>
-      <p>rev: <b><a id="gh-rev" href="">N/A</a></b></p>
-      <div class="button-list">
-        <a id="li-source" href="https://github.com/JackDotJS/JackDotJS.github.io" rel="external" title="Source Code">
-          <span>source code</span>
-        </a>
-      </div>
-    </footer>
+  
+      <section>
+        <h2>some places you can find me at</h2>
+        <div class="button-list">
+          <a id="li-cohost" rel="external" href="https://cohost.org/JackDotJS" title="Cohost">
+            <div class="icon" aria-hidden="true"></div>
+            <span>cohost</span>
+          </a>
+  
+          <a id="li-discord" rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
+            <div class="icon" aria-hidden="true"></div>
+            <span>discord</span>
+          </a>
+  
+          <a id="li-github" rel="external" href="https://github.com/JackDotJS" title="GitHub">
+            <div class="icon" aria-hidden="true"></div>
+            <span>git&shy;hub</span>
+          </a>
+  
+          <a id="li-retrospring" rel="external" href="https://retrospring.net/@JackDotJS" title="Retrospring">
+            <div class="icon" aria-hidden="true"></div>
+            <span>retro&shy;spring</span>
+          </a>
+  
+          <a id="li-tumblr" rel="external" href="https://www.tumblr.com/jackdotjs" title="Tumblr">
+            <div class="icon" aria-hidden="true"></div>
+            <span>tumblr</span>
+          </a>
+  
+          <a id="li-steam" rel="external" href="https://steamcommunity.com/id/JackDotJS/" title="Steam">
+            <div class="icon" aria-hidden="true"></div>
+            <span>steam</span>
+          </a>
+  
+          <a id="li-youtube" rel="external" href="https://www.youtube.com/channel/UCiY8MRmlDVjVva6N-2zy36A" title="YouTube">
+            <div class="icon" aria-hidden="true"></div>
+            <span>youtube</span>
+          </a>
+  
+          <a id="li-email" rel="external" href="mailto:JackDotBusiness@proton.me" title="E-mail">
+            <div class="icon" aria-hidden="true"></div>
+            <span>e-mail</span>
+          </a>
+        </div>
+      </section>
+  
+      <footer>
+        <h2>i made this website</h2>
+        <p>
+          build date: <b><time id="gh-build" datetime="2022-11-22">November 22, 2022</time></b><br/>
+          <br/>
+          rev: <b><a id="gh-rev" href="">N/A</a></b>
+        </p>
+        <div class="button-list">
+          <a href="https://github.com/JackDotJS/JackDotJS.github.io" rel="external" title="Source Code">
+            <span>source code</span>
+          </a>
+        </div>
+      </footer>
+    </div>
   </main>
 </body>
 

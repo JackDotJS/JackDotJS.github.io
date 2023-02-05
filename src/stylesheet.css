@@ -2,6 +2,7 @@
   --section-background: #FFF;
   --text: #292929;
   --text-2: #757575;
+  --text-2-em: #404040;
   --button-bg: #292929;
   --button-text: var(--section-background);
   --button-bg-hover: #FF672B;
@@ -9,8 +10,8 @@
   --button-outline-hover: var(--button-bg);
   --focus-outline: #FF932B;
 
-  --anim-delay: 0.3s;
-  --anim-duration: 0.7;
+  --anim-delay: 300ms;
+  --anim-duration: 0.75;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +19,7 @@
     --section-background: #292929;
     --text: #EEE;
     --text-2: #919191;
+    --text-2-em: #BBB;
     --button-bg: #EEE;
     --button-text: #292929;
     --button-bg-hover: #FF672B;
@@ -84,12 +86,17 @@ main {
   flex-direction: column;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 2rem;
-  gap: 2rem;
+  width: 600px;
+  max-width: 600px;
 }
 
 @keyframes animLogoContainer {
   0% {
+    opacity: 1;
+    width: 15rem;
+    height: 15rem;
     background-color: rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
   }
 
   33% {
@@ -97,12 +104,14 @@ main {
     width: 15rem;
     height: 15rem;
     background-color: #FFF;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
   }
 
   50% {
     opacity: 1;
     width: 100%;
     height: 15rem;
+    background-color: #FFF;
     box-shadow: 0 0 0 rgba(0,0,0,0);
   }
 
@@ -157,20 +166,22 @@ main {
   }
 }
 
-main > :not(#logoAnim) {
-  --se-padding: 1rem;
-
+#content {
   opacity: 0;
   animation-name: animMain;
   animation-timing-function: cubic-bezier(0,.65,.5,1);
-  animation-delay: calc((3s * var(--anim-duration)) + var(--anim-delay));
+  animation-delay: calc(3000ms * var(--anim-duration) + var(--anim-delay));
   animation-fill-mode: both;
-  animation-duration: calc(1s * var(--anim-duration));
+  animation-duration: calc(1000ms * var(--anim-duration));
+}
+
+#content :is(header, section, footer) {
+  --se-padding: 1rem;
+  --se-gap: 2rem;
 
   font-family: "CoreSans";
   background-color: var(--section-background);
   color: var(--text);
-  max-width: 600px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -179,6 +190,10 @@ main > :not(#logoAnim) {
   border-radius: 0.75rem;
   contain: content;
   box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+#content > :not(:last-child), #content :is(header, section, footer) {
+  margin-bottom: var(--se-gap);
 }
 
 #logoAnim {
@@ -192,9 +207,9 @@ main > :not(#logoAnim) {
 
   animation-name: animLogoContainer;
   animation-timing-function: cubic-bezier(0,.65,.5,1);
-  animation-delay: calc((1s * var(--anim-duration)) + var(--anim-delay));
+  animation-delay: calc((1000ms * var(--anim-duration)) + var(--anim-delay));
   animation-fill-mode: both;
-  animation-duration: calc(3s * var(--anim-duration));
+  animation-duration: calc(3000ms * var(--anim-duration));
   
   position: absolute;
   border-radius: 0.75rem;
@@ -227,18 +242,27 @@ h2 {
   font-size: 26px;
 }
 
+h3 {
+  margin-top: 0.75em;
+}
+
 p {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+p, ul, table {
   font-family: "CoreSans";
   font-weight: normal;
-  font-size: 19px;
+  font-size: 17px;
   color: var(--text-2);
-  text-align: center;
-  margin: 0.2em;
 }
 
 a {
   color: var(--focus-outline);
   transition: all 250ms cubic-bezier(0,.65,.5,1);
+  font-weight: bold;
   outline: 10px solid transparent;
   outline-offset: 10px;
   border-radius: 0.1em;
@@ -252,6 +276,117 @@ a:focus, a:focus-visible {
   color: var(--text);
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
+}
+
+ul {
+  margin: 0 2em;
+  padding: 0;
+  margin-top: 0;
+}
+
+ul.no-bullet {
+  list-style: none;
+}
+
+li:not(:first-of-type) {
+  margin-top: 1em;
+  text-align: justify;
+}
+
+em {
+  color: var(--text-2-em);
+  font-weight: bold;
+  font-style: oblique 10deg;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.25rem;
+  border-style: hidden;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
+}
+
+td, th {
+  text-align: center;
+  border: 2px solid rgba(0,0,0,0.5);
+  padding: 1em;
+}
+
+th {
+  font-size: 28px;
+  background-color: rgba(0,0,0,0.1);
+}
+
+/* collapsible sections */
+
+/* 
+these use grid layout for the sole purpose of making each
+section occupy the same space.
+
+im using this instead of the usual relative/absolute
+positioning trick because that requires manually setting
+the height of the container to whatever panel is
+currently being displayed. so by using grid layout, i can
+accomplish essentially the same thing but with the
+container automatically taking the height of the largest
+child element.
+
+now you might be wondering why i need all the panels to
+overlap to begin with. simple: it looks better when
+the user switches to a different panel instead of closing
+the current one.
+
+i have no fucks left to give.
+*/
+#collapsibles {
+  display: grid; 
+  grid-template-rows: auto;
+  grid-template-columns: 100%;
+  align-items: start;
+}
+
+#collapsibles > *, #collapsibles > * * {
+  transition-timing-function: cubic-bezier(0,.65,.5,1);
+  transition-duration: 250ms;
+}
+
+#collapsibles > * {
+  transition-property: opacity, gap, margin-bottom, padding;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#collapsibles > *.visible {
+  transition-delay: 500ms, 0ms, 0ms, 0ms;
+}
+
+#collapsibles > *:not(.visible) {
+  transition-delay: 0ms, 250ms, 250ms, 250ms;
+  gap: 0;
+  margin-bottom: 0;
+  padding: 0;
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+#collapsibles > * * {
+  transition-property: font-size, margin, padding;
+}
+
+#collapsibles > *.visible * {
+  transition-delay: 0ms;
+}
+
+#collapsibles > *:not(.visible) * {
+  transition-delay: 250ms;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  pointer-events: none;
 }
 
 /* header */
@@ -278,6 +413,7 @@ header > img:hover {
 
 .button-list {
   display: flex;
+  width: 100%;
   justify-content: center;
   flex-wrap: wrap;
   gap: var(--se-padding);
@@ -291,7 +427,7 @@ header > img:hover {
   height: 3em;
   flex-grow: 1;
   background-color: var(--button-bg);
-  border-radius: 0.25em;
+  border-radius: 0.25rem;
   border: 3px solid var(--button-bg);
   letter-spacing: 0.5px;
   box-sizing: border-box;
@@ -306,6 +442,7 @@ header > img:hover {
   hyphens: manual;
   -webkit-hyphenate-character: " ";
   hyphenate-character: " ";
+
 }
 
 .button-list > a:hover {

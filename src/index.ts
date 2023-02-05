@@ -1,7 +1,9 @@
 import isInterface from './is-interface';
 import startSlideshow from './animate-bg';
 
-history.scrollRestoration = `manual`;
+import(`./collapsible-sections`);
+
+history.scrollRestoration = `auto`;
 
 // epic super cool page open animation
 
