@@ -1,10 +1,19 @@
 export {}
 
+const interactablesQuery = `a, input, button, textarea`;
 const sections: Element[] = [];
 
 function updateSectionVisibility() {
-  for (const otherElems of sections) {
-    otherElems.classList.remove(`visible`);
+  for (const otherElem of sections) {
+    otherElem.classList.remove(`visible`);
+    otherElem.setAttribute(`aria-hidden`, `true`);
+
+    const interactables = otherElem.querySelectorAll(interactablesQuery);
+    if (interactables.length > 0) {
+      for (const interactable of interactables) {
+        interactable.setAttribute(`tabindex`, `-1`);
+      }
+    }
   }
 
   const elemId = window.location.search.slice(3);
@@ -14,6 +23,14 @@ function updateSectionVisibility() {
   if (elem == null) return;
 
   elem.classList.add(`visible`);
+  elem.removeAttribute(`aria-hidden`);
+
+  const interactables = elem.querySelectorAll(interactablesQuery);
+  if (interactables.length > 0) {
+    for (const interactable of interactables) {
+      interactable.removeAttribute(`tabindex`);
+    }
+  }
 };
 
 for (const elem of document.querySelectorAll(`a[href^="?p="]`)) {
