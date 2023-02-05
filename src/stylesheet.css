@@ -348,7 +348,7 @@ i have no fucks left to give.
 }
 
 #collapsibles > *, #collapsibles > * * {
-  transition-timing-function: cubic-bezier(0,.65,.5,1);
+  transition-timing-function: cubic-bezier(.75,0,.25,1);
   transition-duration: 250ms;
 }
 
