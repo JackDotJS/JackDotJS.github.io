@@ -167,6 +167,9 @@ main {
 }
 
 #content {
+  --se-padding: 1rem;
+  --se-gap: 2rem;
+
   opacity: 0;
   animation-name: animMain;
   animation-timing-function: cubic-bezier(0,.65,.5,1);
@@ -176,9 +179,6 @@ main {
 }
 
 #content :is(header, section, footer) {
-  --se-padding: 1rem;
-  --se-gap: 2rem;
-
   font-family: "CoreSans";
   background-color: var(--section-background);
   color: var(--text);
@@ -187,12 +187,15 @@ main {
   flex-direction: column;
   padding: var(--se-padding);
   gap: var(--se-padding);
-  border-radius: 0.75rem;
   contain: content;
+}
+
+#content > * {
+  border-radius: 0.75rem;
   box-shadow: 0 5px 10px rgba(0,0,0,0.5);
 }
 
-#content > :not(:last-child), #content :is(header, section, footer) {
+#content > :not(:last-child) {
   margin-bottom: var(--se-gap);
 }
 
@@ -321,70 +324,47 @@ th {
 
 /* collapsible sections */
 
-/* 
-these use grid layout for the sole purpose of making each
-section occupy the same space.
-
-im using this instead of the usual relative/absolute
-positioning trick because that requires manually setting
-the height of the container to whatever panel is
-currently being displayed. so by using grid layout, i can
-accomplish essentially the same thing but with the
-container automatically taking the height of the largest
-child element.
-
-now you might be wondering why i need all the panels to
-overlap to begin with. simple: it looks better when
-the user switches to a different panel instead of closing
-the current one.
-
-i have no fucks left to give.
-*/
 #collapsibles {
-  display: grid; 
-  grid-template-rows: auto;
-  grid-template-columns: 100%;
-  align-items: start;
+  /*
+  transition-delay is done via collapsible-sections.ts
+  cus im not sure how else to keep it at a certain value
+  when changing which panels are shown, as opposed to
+  opening or closing them.
+  */
+  transition-property: height, margin-bottom;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px) brightness(90%);
+  -webkit-backdrop-filter: blur(5px) brightness(90%);
 }
 
-#collapsibles > *, #collapsibles > * * {
+#collapsibles:not(.visible) {
+  margin-bottom: 0;
+}
+
+#collapsibles, #collapsibles > *, #collapsibles > * * {
   transition-timing-function: cubic-bezier(.75,0,.25,1);
   transition-duration: 250ms;
 }
 
 #collapsibles > * {
-  transition-property: opacity, gap, margin-bottom, padding;
-  grid-column: 1;
-  grid-row: 1;
+  transition-property: opacity;
+  position: absolute;
+  width: 100%;
 }
 
 #collapsibles > *.visible {
-  transition-delay: 500ms, 0ms, 0ms, 0ms;
+  transition-delay: 500ms;
 }
 
 #collapsibles > *:not(.visible) {
-  transition-delay: 0ms, 250ms, 250ms, 250ms;
-  gap: 0;
-  margin-bottom: 0;
-  padding: 0;
+  transition-delay: 0ms;
   opacity: 0;
   user-select: none;
   pointer-events: none;
 }
 
-#collapsibles > * * {
-  transition-property: font-size, margin, padding;
-}
-
-#collapsibles > *.visible * {
-  transition-delay: 0ms;
-}
-
 #collapsibles > *:not(.visible) * {
-  transition-delay: 250ms;
-  font-size: 0;
-  margin: 0;
-  padding: 0;
   user-select: none;
   pointer-events: none;
 }

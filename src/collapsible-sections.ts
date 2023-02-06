@@ -1,36 +1,53 @@
-export {}
+import isInterface from './is-interface';
 
 const interactablesQuery = `a, input, button, textarea`;
 const sections: Element[] = [];
 
 function updateSectionVisibility() {
-  for (const otherElem of sections) {
-    otherElem.classList.remove(`visible`);
-    otherElem.setAttribute(`aria-hidden`, `true`);
+  const targetId = window.location.search.slice(3);
+  let targetHeight = 0;
 
-    const interactables = otherElem.querySelectorAll(interactablesQuery);
+  for (const section of sections) {
+    const found = (section.id == targetId);
+
+    if (found) {
+      targetHeight = section.getBoundingClientRect().height;
+      section.classList.add(`visible`);
+      section.removeAttribute(`aria-hidden`);
+    } else {
+      section.classList.remove(`visible`);
+      section.setAttribute(`aria-hidden`, `true`);
+    }
+
+    const interactables = section.querySelectorAll(interactablesQuery);
     if (interactables.length > 0) {
       for (const interactable of interactables) {
-        interactable.setAttribute(`tabindex`, `-1`);
+        if (found) {
+          interactable.removeAttribute(`tabindex`)
+        } else {
+          interactable.setAttribute(`tabindex`, `-1`);
+        }
       }
     }
   }
 
-  const elemId = window.location.search.slice(3);
-  if (elemId == ``) return;
+  const container = document.querySelector(`#collapsibles`);
+  if (container == null) return console.error(`could not find container element`);
 
-  const elem = document.querySelector(`#` + elemId);
-  if (elem == null) return;
-
-  elem.classList.add(`visible`);
-  elem.removeAttribute(`aria-hidden`);
-
-  const interactables = elem.querySelectorAll(interactablesQuery);
-  if (interactables.length > 0) {
-    for (const interactable of interactables) {
-      interactable.removeAttribute(`tabindex`);
-    }
+  if (!isInterface<HTMLElement>(container, `style`)) {
+    return console.error(`container is not an HTMLElement... somehow`);
   }
+  
+  let delay = `transition-delay: 250ms;`;
+  if (parseInt(container.style.height) == 0) delay = `transition-delay: 0ms;`;
+
+  if (targetHeight > 0) {
+    container.classList.add(`visible`);
+  } else {
+    container.classList.remove(`visible`);
+  }
+
+  container.setAttribute(`style`, `${delay}height: ${targetHeight}px`);
 };
 
 for (const elem of document.querySelectorAll(`a[href^="?p="]`)) {
