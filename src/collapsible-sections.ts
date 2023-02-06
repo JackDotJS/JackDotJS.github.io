@@ -47,7 +47,6 @@ function updateSectionVisibility() {
           that way, this only runs when the element *actually* gets resized.
         */
         if (observerSkip) {
-          
           observerSkip = false;
           return;
         }
@@ -58,6 +57,7 @@ function updateSectionVisibility() {
       });
 
       observerSkip = true;
+      observer.observe(section);
     }
   }
 
