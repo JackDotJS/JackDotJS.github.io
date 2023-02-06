@@ -2,10 +2,20 @@ import isInterface from './is-interface';
 
 const interactablesQuery = `a, input, button, textarea`;
 const sections: Element[] = [];
+let observerSkip = true;
+let observer: ResizeObserver;
 
 function updateSectionVisibility() {
+  const container = document.querySelector(`#collapsibles`);
+  if (container == null) return console.error(`could not find container element`);
+
   const targetId = window.location.search.slice(3);
   let targetHeight = 0;
+
+  if (observer != null) {
+    console.debug(`resetting observer`);
+    observer.disconnect();
+  }
 
   for (const section of sections) {
     const found = (section.id == targetId);
@@ -29,10 +39,27 @@ function updateSectionVisibility() {
         }
       }
     }
-  }
 
-  const container = document.querySelector(`#collapsibles`);
-  if (container == null) return console.error(`could not find container element`);
+    if (found) {
+      observer = new ResizeObserver((targets) => {
+        /*
+          prevents callback from running when ResizeObserver.observe() is initially called
+          that way, this only runs when the element *actually* gets resized.
+        */
+        if (observerSkip) {
+          
+          observerSkip = false;
+          return;
+        }
+
+        targetHeight = targets[0].target.getBoundingClientRect().height;
+
+        container.setAttribute(`style`, `transition: none; height: ${targetHeight}px`);
+      });
+
+      observerSkip = true;
+    }
+  }
 
   if (!isInterface<HTMLElement>(container, `style`)) {
     return console.error(`container is not an HTMLElement... somehow`);
