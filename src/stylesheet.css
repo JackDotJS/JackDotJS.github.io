@@ -350,7 +350,7 @@ th {
   transition-property: opacity;
   position: absolute;
   width: var(--content-width);
-  max-width: var(--content-width);
+  max-width: calc(100vw - (var(--se-gap) * 2));
 }
 
 #collapsibles > *.visible {
