@@ -11,6 +11,7 @@ function updateSectionVisibility() {
 
   const targetId = window.location.search.slice(3);
   let targetHeight = 0;
+  let targetWidth = 0;
 
   if (observer != null) {
     console.debug(`resetting observer`);
@@ -21,7 +22,9 @@ function updateSectionVisibility() {
     const found = (section.id == targetId);
 
     if (found) {
-      targetHeight = section.getBoundingClientRect().height;
+      const rect = section.getBoundingClientRect();
+      targetWidth = rect.width;
+      targetHeight = rect.height;
       section.classList.add(`visible`);
       section.removeAttribute(`aria-hidden`);
     } else {
@@ -51,9 +54,12 @@ function updateSectionVisibility() {
           return;
         }
 
-        targetHeight = targets[0].target.getBoundingClientRect().height;
+        const rect = targets[0].target.getBoundingClientRect();
 
-        container.setAttribute(`style`, `transition: none; height: ${targetHeight}px`);
+        targetWidth = rect.width;
+        targetHeight = rect.height;
+
+        container.setAttribute(`style`, `transition: none; width: ${targetWidth}px; height: ${targetHeight}px`);
       });
 
       observerSkip = true;
@@ -74,7 +80,7 @@ function updateSectionVisibility() {
     container.classList.remove(`visible`);
   }
 
-  container.setAttribute(`style`, `${delay}height: ${targetHeight}px`);
+  container.setAttribute(`style`, `${delay}width: ${targetWidth}px; height: ${targetHeight}px`);
 };
 
 for (const elem of document.querySelectorAll(`a[href^="?p="]`)) {
