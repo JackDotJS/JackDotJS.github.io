@@ -2,6 +2,7 @@ import isInterface from './is-interface';
 import startSlideshow from './animate-bg';
 
 import(`./collapsible-sections`);
+import(`./gallery-viewer`);
 
 history.scrollRestoration = `auto`;
 

@@ -70,6 +70,18 @@
       <img src="./assets/logo.png" />
     </div>
 
+    <div id="viewer-container" tabindex="-1">
+      <figure>
+        <div>
+          <img src="" />
+        </div>
+        <figcaption class="g-label-container">
+          <p></p>
+          <time datetime=""></time>
+        </figcaption>
+      </figure>
+    </div>
+
     <div id="content">
 
       <!-- panel: header/navigation -->
@@ -83,19 +95,19 @@
           it's about <b id="mytime">0:00 PM</b> where i live
         </p>
         <div class="button-list">
-          <a id="bt-gallery" href="?p=gallery" title="Gallery">
+          <a id="bt-gallery" role="button" href="?p=gallery" title="Gallery">
             <span>stuff i made</span>
           </a>
   
-          <a id="bt-stuff" href="?p=stuff-i-use" title="Stuff I Use">
+          <a id="bt-stuff" role="button" href="?p=stuff-i-use" title="Stuff I Use">
             <span>stuff i use</span>
           </a>
   
-          <a id="bt-tos" href="?p=commission-tos" title="Commission Terms of Service">
+          <a id="bt-tos" role="button" href="?p=commission-tos" title="Commission Terms of Service">
             <span>commission ToS</span>
           </a>
   
-          <a id="bt-comms" href="?p=commission-info" title="Commission Information">
+          <a id="bt-comms" role="button" href="?p=commission-info" title="Commission Information">
             <span>commission info</span>
           </a>
         </div>
@@ -108,11 +120,88 @@
         <section id="gallery">
           <!-- big todo -->
           <h2>stuff i made</h2>
-          <p>
-            coming soon!<br/>
-            <br/>
-            sorry, i got tired before i could finish this part of the site lol
-          </p>
+
+          <div id="gallery-items">
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/spaceship_corridor.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>U.S.S. Turing: Interior Corridor</p>
+                <time datetime="2023">2023</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/shark.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>Unnamed Anthro Shark (work in progress)</p>
+                <time datetime="2022">2022</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/spaceship.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>U.S.S. Turing</p>
+                <time datetime="2022">2022</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/hall.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>Hall</p>
+                <time datetime="2022">2022</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/default_tardis_shell.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>Default Shell</p>
+                <time datetime="2022">2022</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/console_room_wip.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>Console Room (work in progress)</p>
+                <time datetime="2022">2022</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/eye_of_harmony.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>Eye of Harmony</p>
+                <time datetime="2022">2022</time>
+              </figcaption>
+            </figure>
+
+            <figure class="g-item">
+              <a href="javascript:void(0)" class="g-img-container">
+                <img src="./assets/gallery/police_box.jpg"/>
+              </a>
+              <figcaption class="g-label-container">
+                <p>2011 Police Box</p>
+                <time datetime="2018">2018</time>
+              </figcaption>
+            </figure>
+          </div>
         </section>
   
         <!-- panel: commission information -->
