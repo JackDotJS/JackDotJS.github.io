@@ -315,6 +315,7 @@ td, th {
   text-align: center;
   border: 2px solid rgba(0,0,0,0.5);
   padding: 1em;
+  overflow-wrap: break-word;
 }
 
 th {
@@ -555,7 +556,7 @@ header > img:hover {
   border: 3px solid var(--button-bg);
   letter-spacing: 0.5px;
   box-sizing: border-box;
-  word-wrap: anywhere;
+  overflow-wrap: break-word;
   vertical-align: middle;
   text-decoration: none;
   font-size: 18px;
