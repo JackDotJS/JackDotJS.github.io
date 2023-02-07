@@ -27,7 +27,7 @@ viewer?.addEventListener(`keydown`, (event) => {
   }
 });
 
-for (const elem of document.querySelectorAll(`.g-img-container`)) {
+for (const elem of document.querySelectorAll(`.g-item-container`)) {
   if (viewer == null) {
     console.error(`could not find image viewer`);
     break;
@@ -37,8 +37,8 @@ for (const elem of document.querySelectorAll(`.g-img-container`)) {
     event.preventDefault();
 
     const targetImageSrc = elem.querySelector(`img`)?.getAttribute(`src`);
-    const targetDesc = elem.parentElement?.querySelector(`p`);
-    const targetDate = elem.parentElement?.querySelector(`time`);
+    const targetDesc = elem.querySelector(`p`);
+    const targetDate = elem.querySelector(`time`);
 
     const viewerImage = viewer.querySelector(`img`);
     const viewerDesc = viewer.querySelector(`p`);

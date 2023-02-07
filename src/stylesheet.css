@@ -262,9 +262,20 @@ p, ul, table, time {
   color: var(--text-2);
 }
 
+p a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+}
+
+p a:is(:hover, :focus, :focus-visible) {
+  text-decoration-color: currentColor;
+}
+
 a {
   color: var(--focus-outline);
   transition: all 250ms cubic-bezier(0,.65,.5,1);
+  text-decoration: none;
   font-weight: bold;
   outline: 10px solid transparent;
   outline-offset: 10px;
@@ -272,10 +283,10 @@ a {
 }
 
 a:hover {
-  color: var(--text);
+  color: var(--text); 
 }
 
-a:focus, a:focus-visible {
+a:is(:focus, :focus-visible) {
   color: var(--text);
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
@@ -394,6 +405,7 @@ th {
 .g-item-container {
   width: calc(33% - (var(--se-padding) / 2));
   aspect-ratio: 1 / 1;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -406,6 +418,17 @@ th {
   .g-item-container {
     width: calc(50% - (var(--se-padding) / 2));
   }
+}
+
+.g-item-container :is(p, time) {
+  transition: all 250ms cubic-bezier(0,.65,.5,1);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+}
+
+.g-item-container:is(:hover, :focus, :focus-visible) :is(p, time) {
+  text-decoration-color: currentColor;
 }
 
 .g-item {
@@ -436,7 +459,7 @@ th {
   box-shadow: 0 5px 10px rgba(0,0,0,0.5);
 }
 
-.g-img-container:not(:active):hover > img {
+.g-item:not(:active):hover img {
   transform: translateY(-5px);
 }
 
@@ -450,6 +473,7 @@ th {
 }
 
 .g-label-container > p {
+  
   text-align: left;
   width: 100%;
   font-style: oblique 10deg;
@@ -586,7 +610,6 @@ header > img:hover {
   box-sizing: border-box;
   overflow-wrap: break-word;
   vertical-align: middle;
-  text-decoration: none;
   font-size: 18px;
   color: var(--button-text);
   overflow: hidden;
@@ -595,13 +618,20 @@ header > img:hover {
   hyphens: manual;
   -webkit-hyphenate-character: " ";
   hyphenate-character: " ";
-
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
 }
 
-.button-list > a:hover {
+.button-list > a:is(:hover, :focus, :focus-visible) {
   background-color: var(--button-bg-hover);
   border: 3px solid var(--button-outline-hover);
   color: var(--button-text-hover);
+}
+
+.button-list > a:is(:hover, :focus, :focus-visible) > span {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .button-list > a > span, .button-list > a > .icon {
@@ -627,10 +657,11 @@ header > img:hover {
   transform: translateY(25%);
 }
 
-.button-list > a:hover > .icon ~ span {
+.button-list > a:is(:hover, :focus, :focus-visible) > .icon ~ span {
   opacity: 1;
-  transform: translateY(0%);
   text-decoration: underline;
+  text-decoration-thickness: 2px;
+  transform: translateY(0%);
 }
 
 .button-list > a > .icon {
@@ -645,7 +676,7 @@ header > img:hover {
   transform: translateY(0%);
 }
 
-.button-list > a:hover > .icon {
+.button-list > a:is(:hover, :focus, :focus-visible) > .icon {
   background-color: var(--button-text-hover);
   opacity: 0;
   transform: translateY(-25%);
@@ -658,7 +689,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-cohost.svg");
 }
 
-#li-cohost:hover {
+#li-cohost:is(:hover, :focus, :focus-visible) {
   background-color: #83254F;
 }
 
@@ -669,7 +700,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-discord.svg");
 }
 
-#li-discord:hover {
+#li-discord:is(:hover, :focus, :focus-visible) {
   background-color: #5865F2;
 }
 
@@ -680,7 +711,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-retrospring.svg");
 }
 
-#li-retrospring:hover {
+#li-retrospring:is(:hover, :focus, :focus-visible) {
   background-color: #5e35b1;
 }
 
@@ -691,7 +722,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-tumblr.svg");
 }
 
-#li-tumblr:hover {
+#li-tumblr:is(:hover, :focus, :focus-visible) {
   background-color: #34526F;
 }
 
@@ -702,7 +733,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-github.svg");
 }
 
-#li-github:hover {
+#li-github:is(:hover, :focus, :focus-visible) {
   background-color: #161b22;
 }
 
@@ -713,7 +744,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-steam.svg");
 }
 
-#li-steam:hover {
+#li-steam:is(:hover, :focus, :focus-visible) {
   background-color: #28313F;
 }
 
@@ -724,7 +755,7 @@ header > img:hover {
   mask-image: url("../assets/social-icon-youtube.svg");
 }
 
-#li-youtube:hover {
+#li-youtube:is(:hover, :focus, :focus-visible) {
   background-color: #FF3333;
 }
 
@@ -735,6 +766,6 @@ header > img:hover {
   mask-image: url("../assets/social-icon-email.svg");
 }
 
-#li-email:hover {
+#li-email:is(:hover, :focus, :focus-visible) {
   background-color: #6D4AFF;
 }
