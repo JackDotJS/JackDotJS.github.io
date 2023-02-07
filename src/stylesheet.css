@@ -421,6 +421,7 @@ th {
   text-align: left;
   width: 100%;
   font-style: oblique 10deg;
+  font-weight: bold;
 }
 
 .g-label-container > time {
