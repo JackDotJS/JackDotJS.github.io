@@ -1,5 +1,3 @@
-import isInterface from './is-interface';
-
 const interactablesQuery = `a, input, button, textarea`;
 const sections: Element[] = [];
 let observerSkip = true;
@@ -67,7 +65,7 @@ function updateSectionVisibility() {
     }
   }
 
-  if (!isInterface<HTMLElement>(container, `style`)) {
+  if (!(container instanceof HTMLElement)) {
     return console.error(`container is not an HTMLElement... somehow`);
   }
   
@@ -108,3 +106,5 @@ for (const elem of document.querySelectorAll(`a[href^="?p="]`)) {
 }
 
 updateSectionVisibility();
+
+export {}

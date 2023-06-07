@@ -1,5 +1,3 @@
-import isInterface from './is-interface';
-
 const images = document.querySelectorAll("#backgrounds > img");
 
 console.debug(images);
@@ -17,9 +15,9 @@ export default function changeBackground(i = 0) {
   const last1 = images[wrapNumber(i - 1, images.length)];
   const last2 = images[wrapNumber(i - 2, images.length)];
 
-  if (!isInterface<HTMLElement>(next, `style`)) return;
-  if (!isInterface<HTMLElement>(last1, `style`)) return;
-  if (!isInterface<HTMLElement>(last2, `style`)) return;
+  if (!(next instanceof HTMLImageElement)) return;
+  if (!(last1 instanceof HTMLImageElement)) return;
+  if (!(last2 instanceof HTMLImageElement)) return;
 
   next.style.setProperty(`z-index`, `-1000`);
   last1.style.setProperty(`z-index`, `-1001`);

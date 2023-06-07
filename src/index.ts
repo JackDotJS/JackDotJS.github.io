@@ -1,4 +1,3 @@
-import isInterface from './is-interface';
 import startSlideshow from './animate-bg';
 
 import(`./collapsible-sections`);
@@ -13,8 +12,8 @@ function updateAnimLogoPos() {
   const animLogo = document.querySelector(`#logoAnim`);
 
   if (animLogo != null && animMain != null) {
-    if (!isInterface<HTMLElement>(animLogo, `style`)) return;
-    if (!isInterface<HTMLElement>(animMain, `style`)) return;
+    if (!(animMain instanceof HTMLElement)) return;
+    if (!(animLogo instanceof HTMLElement)) return;
 
     const windowHeight = window.innerHeight;
     const mainRect = animMain.getBoundingClientRect();
@@ -78,7 +77,7 @@ Promise.all([
 
 startSlideshow();
 
-// shows my local time and updates it in (sort of) real-time
+// shows my local time and updates it in (almost) real-time
 
 function updateMyTime() {
   const tz = document.querySelector(`#mytime`);

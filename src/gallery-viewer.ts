@@ -1,10 +1,8 @@
-import isInterface from './is-interface';
-
 let prevElem: Element | null;
 const viewer = document.querySelector(`#viewer-container`);
 
 function resetActiveElem() {
-  if (prevElem != null && isInterface<HTMLElement>(prevElem, `focus`)) {
+  if (prevElem != null && prevElem instanceof HTMLElement) {
     prevElem.focus();
   }
 }
@@ -19,7 +17,7 @@ viewer?.addEventListener(`click`, (event) => {
 viewer?.addEventListener(`keydown`, (event) => {
   event.preventDefault();
 
-  if (!isInterface<KeyboardEvent>(event, `key`)) return;
+  if (!(event instanceof KeyboardEvent)) return;
 
   if (event.key == `Enter`) {
     viewer.classList.remove(`visible`);
@@ -61,9 +59,11 @@ for (const elem of document.querySelectorAll(`.g-item-container`)) {
 
     prevElem = document.activeElement;
 
-    if (!isInterface<HTMLElement>(viewer, `focus`)) return;
+    if (!(viewer instanceof HTMLElement)) return;
 
     viewer.focus();
     viewer.classList.add(`visible`);
   });
 }
+
+export {}
