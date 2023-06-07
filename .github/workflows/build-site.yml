@@ -33,12 +33,12 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 17
-          cache: 'pnpm'
       
       - name: Set Up PNPM
         uses: pnpm/action-setup@v2
         with:
           version: 8.5.0
+          run_install: false
       
       - name: Get PNPM Store Directory
         id: pnpm-cache
