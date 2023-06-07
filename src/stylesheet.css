@@ -682,15 +682,15 @@ header > img:hover {
   transform: translateY(-25%);
 }
 
-/* cohost */
+/* revolt */
 
-#li-cohost > .icon {
-  -webkit-mask-image: url("../assets/social-icon-cohost.svg");
-  mask-image: url("../assets/social-icon-cohost.svg");
+#li-revolt > .icon {
+  -webkit-mask-image: url("../assets/social-icon-revolt.svg");
+  mask-image: url("../assets/social-icon-revolt.svg");
 }
 
-#li-cohost:is(:hover, :focus, :focus-visible) {
-  background-color: #83254F;
+#li-revolt:is(:hover, :focus, :focus-visible) {
+  background-color: #FF4654;
 }
 
 /* discord */
@@ -715,15 +715,15 @@ header > img:hover {
   background-color: #5e35b1;
 }
 
-/* tumblr */
+/* cohost */
 
-#li-tumblr > .icon {
-  -webkit-mask-image: url("../assets/social-icon-tumblr.svg");
-  mask-image: url("../assets/social-icon-tumblr.svg");
+#li-cohost > .icon {
+  -webkit-mask-image: url("../assets/social-icon-cohost.svg");
+  mask-image: url("../assets/social-icon-cohost.svg");
 }
 
-#li-tumblr:is(:hover, :focus, :focus-visible) {
-  background-color: #34526F;
+#li-cohost:is(:hover, :focus, :focus-visible) {
+  background-color: #83254F;
 }
 
 /* github */
@@ -768,4 +768,15 @@ header > img:hover {
 
 #li-email:is(:hover, :focus, :focus-visible) {
   background-color: #6D4AFF;
+}
+
+/* ko-fi */
+
+#li-kofi > .icon {
+  -webkit-mask-image: url("../assets/social-icon-kofi.svg");
+  mask-image: url("../assets/social-icon-kofi.svg");
+}
+
+#li-kofi:is(:hover, :focus, :focus-visible) {
+  background-color: #ff4646;
 }
