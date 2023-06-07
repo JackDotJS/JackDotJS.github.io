@@ -26,7 +26,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Pages
+      - name: Set Up Pages
         uses: actions/configure-pages@v2
 
       - name: Set Up Node.JS Environment
@@ -34,6 +34,25 @@ jobs:
         with:
           node-version: 17
           cache: 'pnpm'
+      
+      - name: Set Up PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.5.0
+      
+      - name: Get PNPM Store Directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup PNPM Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: pnpm i
