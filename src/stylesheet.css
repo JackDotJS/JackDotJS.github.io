@@ -613,7 +613,6 @@ header > img:hover {
   font-size: 18px;
   color: var(--button-text);
   overflow: hidden;
-  padding: var(--b-padding);
   -webkit-hyphens: manual;
   hyphens: manual;
   -webkit-hyphenate-character: " ";
@@ -632,14 +631,15 @@ header > img:hover {
 .button-list > a:is(:hover, :focus, :focus-visible) > span {
   text-decoration: underline;
   text-decoration-thickness: 2px;
+  transform: translateY(-5%);
 }
 
 .button-list > a > span, .button-list > a > .icon {
   position: absolute;
   transition: all 250ms cubic-bezier(0,.65,.5,1);
   box-sizing: border-box;
-  width: calc(100% - (var(--b-padding) * 2));
-  height: calc(100% - (var(--b-padding) * 2));
+  width: 100%;
+  height: 100%;
 }
 
 .button-list > a > span {
@@ -652,34 +652,28 @@ header > img:hover {
 /* button labels are offset and have variable opacity if it has a .icon class element as a sibling */
 /* cus it looks cool lmao */
 
-.button-list > a > .icon ~ span {
-  opacity: 0;
-  transform: translateY(25%);
-}
-
-.button-list > a:is(:hover, :focus, :focus-visible) > .icon ~ span {
-  opacity: 1;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  transform: translateY(0%);
-}
-
 .button-list > a > .icon {
-  -webkit-mask-size: contain;
-  mask-size: contain;
+  -webkit-mask-size: auto 300%;
+  mask-size: auto 300%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+  -webkit-mask-position: -10% 50%;
+  mask-position: -10% 50%;
+  background-color: #000;
   background-color: var(--button-text);
-  opacity: 1;
-  transform: translateY(0%);
+  opacity: 0.1;
+}
+
+@media screen and (max-width: 600px) {
+  .button-list > a > .icon {
+    -webkit-mask-position: 50% 50%;
+    mask-position: 50% 50%;
+  }
 }
 
 .button-list > a:is(:hover, :focus, :focus-visible) > .icon {
   background-color: var(--button-text-hover);
-  opacity: 0;
-  transform: translateY(-25%);
+  opacity: 0.15;
 }
 
 /* revolt */
@@ -687,10 +681,59 @@ header > img:hover {
 #li-revolt > .icon {
   -webkit-mask-image: url("../assets/social-icon-revolt.svg");
   mask-image: url("../assets/social-icon-revolt.svg");
+  -webkit-mask-position: -10% 55%;
+  mask-position: -10% 55%;
+}
+
+@media screen and (max-width: 600px) {
+  #li-revolt > .icon {
+    -webkit-mask-position: 50% 55%;
+    mask-position: 50% 55%;
+  }
 }
 
 #li-revolt:is(:hover, :focus, :focus-visible) {
   background-color: #FF4654;
+}
+
+/* mastodon/soapbox */
+
+.li-comingsoon {
+  display: inline;
+  position: absolute;
+  background-color: var(--button-bg-hover);
+  width: 200%;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+#li-fediverse {
+  pointer-events: none;
+}
+
+#li-fediverse > .icon {
+  -webkit-mask-image: url("../assets/social-icon-mastodon.svg");
+  mask-image: url("../assets/social-icon-mastodon.svg");
+  -webkit-mask-position: -10% 30%;
+  mask-position: -10% 30%;
+}
+
+@media screen and (max-width: 600px) {
+  #li-fediverse > .icon {
+    -webkit-mask-position: 50% 30%;
+    mask-position: 50% 30%;
+  }
+}
+
+#li-fediverse:is(:hover, :focus, :focus-visible) {
+  /* new mastodon logo */
+  /* background-color: #5C4EE5;  */
+  /* old mastodon logo */
+  background-color: #3088d4; 
+  /* soapbox logo */
+  /* background-color: #0482d8; */
 }
 
 /* discord */
@@ -709,6 +752,15 @@ header > img:hover {
 #li-retrospring > .icon {
   -webkit-mask-image: url("../assets/social-icon-retrospring.svg");
   mask-image: url("../assets/social-icon-retrospring.svg");
+  -webkit-mask-position: -10% 30%;
+  mask-position: -10% 30%;
+}
+
+@media screen and (max-width: 600px) {
+  #li-retrospring > .icon {
+    -webkit-mask-position: 50% 30%;
+    mask-position: 50% 30%;
+  }
 }
 
 #li-retrospring:is(:hover, :focus, :focus-visible) {
@@ -720,6 +772,15 @@ header > img:hover {
 #li-cohost > .icon {
   -webkit-mask-image: url("../assets/social-icon-cohost.svg");
   mask-image: url("../assets/social-icon-cohost.svg");
+  -webkit-mask-position: -10% 60%;
+  mask-position: -10% 60%;
+}
+
+@media screen and (max-width: 600px) {
+  #li-cohost > .icon {
+    -webkit-mask-position: 50% 60%;
+    mask-position: 50% 60%;
+  }
 }
 
 #li-cohost:is(:hover, :focus, :focus-visible) {
@@ -731,6 +792,15 @@ header > img:hover {
 #li-github > .icon {
   -webkit-mask-image: url("../assets/social-icon-github.svg");
   mask-image: url("../assets/social-icon-github.svg");
+  -webkit-mask-position: -10% 20%;
+  mask-position: -10% 20%;
+}
+
+@media screen and (max-width: 600px) {
+  #li-github > .icon {
+    -webkit-mask-position: 50% 20%;
+    mask-position: 50% 20%;
+  }
 }
 
 #li-github:is(:hover, :focus, :focus-visible) {
