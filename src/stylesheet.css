@@ -696,22 +696,7 @@ header > img:hover {
   background-color: #FF4654;
 }
 
-/* mastodon/soapbox */
-
-.li-comingsoon {
-  display: inline;
-  position: absolute;
-  background-color: var(--button-bg-hover);
-  width: 200%;
-  text-align: center;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-15deg);
-}
-
-#li-fediverse {
-  pointer-events: none;
-}
+/* fediverse/mastodon */
 
 #li-fediverse > .icon {
   -webkit-mask-image: url("../assets/social-icon-mastodon.svg");
@@ -728,12 +713,7 @@ header > img:hover {
 }
 
 #li-fediverse:is(:hover, :focus, :focus-visible) {
-  /* new mastodon logo */
-  /* background-color: #5C4EE5;  */
-  /* old mastodon logo */
-  background-color: #3088d4; 
-  /* soapbox logo */
-  /* background-color: #0482d8; */
+  background-color: #6364ff;
 }
 
 /* discord */
