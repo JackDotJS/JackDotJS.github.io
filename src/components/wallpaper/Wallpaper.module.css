@@ -19,3 +19,7 @@
   transition-duration: 2.5s;
   transition-timing-function: ease-in-out;
 }
+
+.wallpaper:first-of-type {
+  opacity: 1;
+}
