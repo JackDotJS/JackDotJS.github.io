@@ -1,4 +1,4 @@
-import type { Component } from 'solid-js';
+import type { Component, JSXElement } from 'solid-js';
 import { For, onMount } from 'solid-js';
 
 import styles from './Wallpaper.module.css';
@@ -19,46 +19,50 @@ function wrapNumber(num: number, max: number) {
 }
 
 const Wallpaper: Component = () => {
-  onMount(() => {
-    // literally no way this is correct but it was the first thing that came to mind
-    const _select = `.${styles.wallpaper}`;
-    const images = document.querySelectorAll(_select);
-    console.debug(_select);
+  // this feels INCREDIBLY wrong but it seems to work so whatever
+  const imageComponents: JSXElement[] = [];
 
-    // fancy slideshow
-    const swapWallpaper = (i = 0) => {
-      const next = images[i];
-      const last1 = images[wrapNumber(i - 1, images.length)];
-      const last2 = images[wrapNumber(i - 2, images.length)];
+  // fancy slideshow
+  const swapWallpaper = (i = 0, first = false) => {
+    const next = imageComponents[i];
+    const last1 = imageComponents[wrapNumber(i - 1, imageComponents.length)];
+    const last2 = imageComponents[wrapNumber(i - 2, imageComponents.length)];
+  
+    if (!(next instanceof HTMLImageElement)) return;
+    if (!(last1 instanceof HTMLImageElement)) return;
+    if (!(last2 instanceof HTMLImageElement)) return;
+  
+    next.style.setProperty(`z-index`, `-1000`);
+    last1.style.setProperty(`z-index`, `-1001`);
+    last2.style.setProperty(`z-index`, `-1002`);
+  
+    next.style.setProperty(`opacity`, `1`);
+    last2.style.setProperty(`opacity`, `0`);
     
-      if (!(next instanceof HTMLImageElement)) return;
-      if (!(last1 instanceof HTMLImageElement)) return;
-      if (!(last2 instanceof HTMLImageElement)) return;
-    
-      next.style.setProperty(`z-index`, `-1000`);
-      last1.style.setProperty(`z-index`, `-1001`);
-      last2.style.setProperty(`z-index`, `-1002`);
-    
-      next.style.setProperty(`opacity`, `1`);
-      last2.style.setProperty(`opacity`, `0`);
+  
+    setTimeout(() => {
+      if (i+1 === imageComponents.length) {
+        i = 0;
+      } else {
+        i++;
+      }
       
-    
-      setTimeout(() => {
-        if (i+1 === images.length) {
-          i = 0;
-        } else {
-          i++;
-        }
-        
-        swapWallpaper(i);
-      }, delay);
-    };
+      swapWallpaper(i);
+    }, first ? 0 : delay);
+  };
+
+  onMount(() => {
+    swapWallpaper(0, true);
   })
 
   return (
     <div class={styles.slideshowBase} aria-hidden="true">
       <For each={images}>
-        {(item) => <img src={item} class={styles.wallpaper}></img>}
+        {(item) => {
+          const component = <img src={item} class={styles.wallpaper}></img>
+          imageComponents.push(component);
+          return component;
+        }}
       </For>
     </div>
   );
