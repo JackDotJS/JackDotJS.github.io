@@ -4,9 +4,7 @@ import Wallpaper from './components/wallpaper';
 
 const App: Component = () => {
   return (
-    <>
-      <Wallpaper />
-    </>
+    <Wallpaper />
   );
 };
 
