@@ -4,11 +4,11 @@ import { For, onMount } from 'solid-js';
 import styles from './Wallpaper.module.css';
 
 const images = [
-  `/public/assets/background-slideshow/background0.jpg`,
-  `/public/assets/background-slideshow/background1.jpg`,
-  `/public/assets/background-slideshow/background2.jpg`,
-  `/public/assets/background-slideshow/background3.jpg`,
-  `/public/assets/background-slideshow/background4.jpg`,
+  `/assets/background-slideshow/background0.jpg`,
+  `/assets/background-slideshow/background1.jpg`,
+  `/assets/background-slideshow/background2.jpg`,
+  `/assets/background-slideshow/background3.jpg`,
+  `/assets/background-slideshow/background4.jpg`,
 ];
 
 const delay = 2500;
