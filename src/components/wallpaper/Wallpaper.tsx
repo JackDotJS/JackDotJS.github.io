@@ -3,7 +3,7 @@ import { For, onMount } from 'solid-js';
 
 import styles from './Wallpaper.module.css';
 
-const images = [
+const wallpapers = [
   `/assets/background-slideshow/background0.jpg`,
   `/assets/background-slideshow/background1.jpg`,
   `/assets/background-slideshow/background2.jpg`,
@@ -13,14 +13,14 @@ const images = [
 
 const delay = 2500;
 
-// wrap a given number between 0 and a max number
-function wrapNumber(num: number, max: number) {
-  return ((num % max) + max) % max
-}
-
 const Wallpaper: Component = () => {
   // this feels INCREDIBLY wrong but it seems to work so whatever
   const imageComponents: JSXElement[] = [];
+
+  // wrap a given number between 0 and a max number
+  const wrapNumber = (num: number, max: number) => {
+    return ((num % max) + max) % max
+  }
 
   // fancy slideshow
   const swapWallpaper = (i = 0, first = false) => {
@@ -38,7 +38,6 @@ const Wallpaper: Component = () => {
   
     next.style.setProperty(`opacity`, `1`);
     last2.style.setProperty(`opacity`, `0`);
-    
   
     setTimeout(() => {
       if (i+1 === imageComponents.length) {
@@ -57,9 +56,9 @@ const Wallpaper: Component = () => {
 
   return (
     <div class={styles.slideshowBase} aria-hidden="true">
-      <For each={images}>
-        {(item) => {
-          const component = <img src={item} class={styles.wallpaper}></img>
+      <For each={wallpapers}>
+        {(image) => {
+          const component = <img src={image} class={styles.wallpaper}></img>
           imageComponents.push(component);
           return component;
         }}
