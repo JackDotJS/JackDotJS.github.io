@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 
-import Wallpaper from './components/wallpaper/Wallpaper';
+import Wallpaper from './components/Wallpaper';
 
 const App: Component = () => {
   return (
