@@ -55,6 +55,7 @@ body {
   --se-gap: 2rem;
 
   font-family: "CoreSans", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-2);
   width: 100%;
   min-height: 100%;
   min-height: 100vh;
@@ -72,7 +73,6 @@ body {
 :is(header, main, footer) {
   width: var(--content-width);
   background-color: var(--section-background);
-  color: var(--text);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -84,6 +84,7 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
+  color: var(--text);
   font-weight: bold;
   margin: 0;
 }
