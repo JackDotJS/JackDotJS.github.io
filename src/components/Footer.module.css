@@ -1,1 +1,10 @@
- 
+.footer {
+  text-align: center;
+}
+
+.buildInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4rem;
+}
