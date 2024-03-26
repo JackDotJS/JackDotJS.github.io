@@ -17,7 +17,7 @@ const Header: Component = () => {
         </div>
       </div>
       <nav class={styles.navigation}>
-        <a href="/gallery">stuff i made</a>
+        <a href="/gallery">things i made</a>
         <a href="/specs">stuff i use</a>
         <a href="/commissions">commission info</a>
         <a href="/links">social links</a>
