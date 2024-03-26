@@ -2,6 +2,8 @@ import type { Component } from 'solid-js';
 
 import styles from './Footer.module.css';
 
+// TODO: add logic to load build date and revision id
+
 const Footer: Component = () => {
   return (
     <footer>
