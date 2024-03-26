@@ -10,11 +10,11 @@ import Footer from './components/Footer';
 const App: Component = (props: any) => {
   return (
     <>
-      <Wallpaper />
-
       <Header />
       {props.children}
       <Footer />
+
+      <Wallpaper />
     </>
   );
 };
