@@ -6,6 +6,9 @@ import { Route, Router } from '@solidjs/router';
 import './global.css';
 import App from './App';
 
+// TODO: figure out how to do routing transitions
+// cus instant transitions are lame
+
 // Routes
 const Gallery = lazy(() => import(`./pages/Gallery`));
 const Specs = lazy(() => import(`./pages/Specs`));

@@ -4,6 +4,9 @@ import styles from './Commissions.module.css';
 
 
 // FIXME: missing all styling rules
+
+// TODO: add info regarding art trades
+
 const Commissions: Component = () => {
   return (
     <main>

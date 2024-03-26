@@ -5,6 +5,11 @@ import styles from './Links.module.css';
 
 
 // FIXME: missing all styling rules
+
+// TODO: maybe use a single column this time, so
+// we dont have to constantly worry about having
+// an even number of links
+
 const Links: Component = () => {
   return (
     <main>

@@ -3,6 +3,8 @@ import { For, onMount } from 'solid-js';
 
 import styles from './Wallpaper.module.css';
 
+// TODO: make more wallpapers
+
 const wallpapers = [
   `/assets/wallpapers/blender.jpg`,
   `/assets/wallpapers/github.jpg`,
