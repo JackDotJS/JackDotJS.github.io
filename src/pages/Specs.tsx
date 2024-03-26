@@ -5,7 +5,7 @@ import styles from './Specs.module.css';
 const Specs: Component = () => {
   return (
     <main class={styles.specs}>
-      <h2>stuff i use</h2>
+      <h2>things i use</h2>
     
       <h3>pc specs</h3>
       {/* TODO: maybe add a pcpartpicker link here? */}
