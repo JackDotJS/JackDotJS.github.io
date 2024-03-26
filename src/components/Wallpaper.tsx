@@ -4,11 +4,10 @@ import { For, onMount } from 'solid-js';
 import styles from './Wallpaper.module.css';
 
 const wallpapers = [
-  `/assets/background-slideshow/background0.jpg`,
-  `/assets/background-slideshow/background1.jpg`,
-  `/assets/background-slideshow/background2.jpg`,
-  `/assets/background-slideshow/background3.jpg`,
-  `/assets/background-slideshow/background4.jpg`,
+  `/assets/wallpapers/blender.jpg`,
+  `/assets/wallpapers/github.jpg`,
+  `/assets/wallpapers/rns.jpg`,
+  `/assets/wallpapers/coding.jpg`
 ];
 
 const delay = 2500;
