@@ -2,6 +2,8 @@ import type { Component } from 'solid-js';
 
 import styles from './Header.module.css';
 
+// TODO: fix this layout for smaller screens and mobile devices
+
 const Header: Component = () => {
   return (
     <header class={styles.header}>
@@ -12,6 +14,7 @@ const Header: Component = () => {
           <p>
             my pronouns are <b>he/him</b><br/>
             <br/>
+            {/* TODO: add logic to update time value */}
             it's about <b id="mytime">0:00 PM</b> where i live
           </p>
         </div>
