@@ -1,10 +1,26 @@
-import type { Component } from 'solid-js';
+import { createSignal, type Component, onMount } from 'solid-js';
 
 import styles from './Header.module.css';
 
 // TODO: fix this layout for smaller screens and mobile devices
 
 const Header: Component = () => {
+  const [time, setTime] = createSignal(`0:00 PM`);
+
+  const updateMyTime = () => {
+    setTime(new Date().toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+      timeZone: `America/Los_Angeles`
+    }));
+  }
+
+  onMount(() => {
+    updateMyTime();
+    setInterval(updateMyTime, 1000);
+  });
+
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
@@ -14,8 +30,7 @@ const Header: Component = () => {
           <p>
             my pronouns are <b>he/him</b><br/>
             <br/>
-            {/* TODO: add logic to update time value */}
-            it's about <b id="mytime">0:00 PM</b> where i live
+            it's about <b>{time()}</b> where i live
           </p>
         </div>
       </div>
