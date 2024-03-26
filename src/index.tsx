@@ -9,11 +9,13 @@ import App from './App';
 // Routes
 const Specs = lazy(() => import(`./pages/Specs`));
 const Commissions = lazy(() => import(`./pages/Commissions`));
+const Links = lazy(() => import(`./pages/Links`));
 
 render(() => (
   <Router root={App}>
     <Route path="/" />
     <Route path="/specs" component={Specs} />
     <Route path="/commissions" component={Commissions} />
+    <Route path="/links" component={Links} />
   </Router>
 ), document.body);
