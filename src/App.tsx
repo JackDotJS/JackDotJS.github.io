@@ -1,10 +1,19 @@
 import type { Component } from 'solid-js';
 
-import Wallpaper from './components/Wallpaper';
+import './global.css';
 
-const App: Component = () => {
+import Wallpaper from './components/Wallpaper';
+import Header from './components/Header';
+
+// FIXME: WTF is this type???
+const App: Component = (props: any) => {
   return (
-    <Wallpaper />
+    <>
+      <Wallpaper />
+
+      <Header />
+      {props.children}
+    </>
   );
 };
 

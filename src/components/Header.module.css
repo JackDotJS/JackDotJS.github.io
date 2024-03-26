@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.whoami {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 10rem;
+}
+
+@media screen and (max-width: 600px) {
+  .avatar {
+    width: 44%;
+  }
+}
+
+.avatar:hover {
+  transform: scaleX(-100%);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.summary > p {
+  margin: 0;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.navigation > a {
+  padding: 0.5rem 1rem;
+}
