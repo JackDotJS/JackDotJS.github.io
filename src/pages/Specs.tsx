@@ -4,18 +4,19 @@ import styles from './Specs.module.css';
 
 const Specs: Component = () => {
   return (
-    <main>
+    <main class={styles.specs}>
       <h2>stuff i use</h2>
     
       <h3>pc specs</h3>
-      <ul class="no-bullet">
+      {/* TODO: maybe add a pcpartpicker link here? */}
+      <ul class={styles.specList}>
         <li><em>cpu:</em> AMD Ryzen 7 7700X @ 4.5 GHz</li>
         <li><em>gpu:</em> NVIDIA GeForce RTX 4070 Ti @ 2310 MHz</li>
         <li><em>ram:</em> G.Skill Trident Z, 2x16GB DDR5 CL30 @ 6000 MHz</li>
       </ul>
 
       <h3>peripherals</h3>
-      <ul class="no-bullet">
+      <ul class={styles.specList}>
         <li><em>display:</em> ViewSonic VP3481, 3440x1440 @ 100 Hz</li>
         <li><em>keyboard:</em> Keychron K1 SE w/ Mint Optical Switches</li>
         <li><em>mouse:</em> Logitech G305 @ 1000 DPI</li>
@@ -24,6 +25,7 @@ const Specs: Component = () => {
       </ul>
 
       <h3>software</h3>
+      {/* TODO: thinking i might ditch the categories idea and just have a grid of icons or something */}
       <p>
         <em>3d artwork and graphic design:</em><br/>
         <a href="https://www.blender.org/" rel="external">Blender</a>,
