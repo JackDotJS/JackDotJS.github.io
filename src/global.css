@@ -126,3 +126,45 @@ a:is(:focus, :focus-visible) {
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }
+
+ul {
+  margin: 0 2em;
+  padding: 0;
+  margin-top: 0;
+}
+
+ul.no-bullet {
+  list-style: none;
+}
+
+li:not(:first-of-type) {
+  margin-top: 1em;
+  text-align: justify;
+}
+
+em {
+  color: var(--text-2-em);
+  font-weight: bold;
+  font-style: oblique 10deg;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.25rem;
+  border-style: hidden;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
+}
+
+td, th {
+  text-align: center;
+  border: 2px solid rgba(0,0,0,0.5);
+  padding: 1em;
+  overflow-wrap: break-word;
+}
+
+th {
+  font-size: 28px;
+  background-color: rgba(0,0,0,0.1);
+}
