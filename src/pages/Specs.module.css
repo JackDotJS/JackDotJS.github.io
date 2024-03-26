@@ -1,1 +1,14 @@
- 
+.specs {
+  text-align: center;
+}
+
+.specList {
+  margin: 0 4rem;
+}
+
+.specList > li {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
