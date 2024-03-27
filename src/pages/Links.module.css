@@ -19,17 +19,25 @@
 }
 
 .linklist > a > div {
+  --L-offset: 20%;
+  --L-offset-hover: 10%;
+  --R-offset: 80%;
+  --R-offset-hover: 90%;
+
   position: absolute;
   transition: all 250ms cubic-bezier(0,.65,.5,1);
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  -webkit-mask-image: var(--social-icon-url);
+  mask-image: var(--social-icon-url);
   -webkit-mask-size: auto 300%;
   mask-size: auto 300%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  background-color: var(--section-background);
+  background-color: transparent;
   border-radius: 1.5rem;
+  opacity: 0.5;
 }
 
 .linklist > a:is(:hover, :focus, :focus-visible) {
@@ -41,13 +49,46 @@
   background-color: var(--social-icon-color);
 }
 
+.linklist > a span {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+:is(
+  .discord, 
+  .revolt, 
+  .cohost, 
+  .github, 
+  .steam, 
+  .youtube, 
+  .kofi, 
+  .email
+) > span:before {
+  content: '';
+  display: block;
+  background-color: currentColor;
+  width: 2rem;
+  aspect-ratio: 1;
+  -webkit-mask-image: var(--social-icon-url);
+  mask-image: var(--social-icon-url);
+  -webkit-mask-position: var(--L-offset) 50%;
+  mask-position: var(--L-offset) 50%;
+}
+
 /* discord */
 
+.discord {
+  --social-icon-url: url("/assets/social_icons/discord.svg");
+}
+
 .discord > div {
-  -webkit-mask-image: url("/assets/social_icons/discord.svg");
-  mask-image: url("/assets/social_icons/discord.svg");
-  -webkit-mask-position: 10% 50%;
-  mask-position: 10% 50%;
+  -webkit-mask-image: var(--social-icon-url);
+  mask-image: var(--social-icon-url);
+  -webkit-mask-position: var(--L-offset) 50%;
+  mask-position: var(--L-offset) 50%;
 }
 
 .discord:is(:hover, :focus, :focus-visible) {
@@ -55,13 +96,20 @@
   --social-icon-color: #FFF;
 }
 
+.discord:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--L-offset-hover) 50%;
+  mask-position: var(--L-offset-hover) 50%;
+}
+
 /* revolt */
 
+.revolt {
+  --social-icon-url: url("/assets/social_icons/revolt.svg");
+}
+
 .revolt > div {
-  -webkit-mask-image: url("/assets/social_icons/revolt.svg");
-  mask-image: url("/assets/social_icons/revolt.svg");
-  -webkit-mask-position: 90% 55%;
-  mask-position: 90% 55%;
+  -webkit-mask-position: var(--R-offset) 55%;
+  mask-position: var(--R-offset) 55%;
 }
 
 .revolt:is(:hover, :focus, :focus-visible) {
@@ -69,13 +117,20 @@
   --social-icon-color: #FF4654;
 }
 
+.revolt:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--R-offset-hover) 55%;
+  mask-position: var(--R-offset-hover) 55%;
+}
+
 /* cohost */
 
+.cohost {
+  --social-icon-url: url("/assets/social_icons/cohost.svg");
+}
+
 .cohost > div {
-  -webkit-mask-image: url("/assets/social_icons/cohost.svg");
-  mask-image: url("/assets/social_icons/cohost.svg");
-  -webkit-mask-position: 10% 60%;
-  mask-position: 10% 60%;
+  -webkit-mask-position: var(--L-offset) 60%;
+  mask-position: var(--L-offset) 60%;
 }
 
 .cohost:is(:hover, :focus, :focus-visible) {
@@ -83,13 +138,20 @@
   --social-icon-color: #FFF9F2;
 }
 
+.cohost:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--L-offset-hover) 60%;
+  mask-position: var(--L-offset-hover) 60%;
+}
+
 /* github */
 
+.github {
+  --social-icon-url: url("/assets/social_icons/github.svg");
+}
+
 .github > div {
-  -webkit-mask-image: url("/assets/social_icons/github.svg");
-  mask-image: url("/assets/social_icons/github.svg");
-  -webkit-mask-position: 90% 20%;
-  mask-position: 90% 20%;
+  -webkit-mask-position: var(--R-offset) 20%;
+  mask-position: var(--R-offset) 20%;
 }
 
 .github:is(:hover, :focus, :focus-visible) {
@@ -97,13 +159,20 @@
   --social-icon-color: #E6EDF3;
 }
 
+.github:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--R-offset-hover) 20%;
+  mask-position: var(--R-offset-hover) 20%;
+}
+
 /* steam */
 
+.steam {
+  --social-icon-url: url("/assets/social_icons/steam.svg");
+}
+
 .steam > div {
-  -webkit-mask-image: url("/assets/social_icons/steam.svg");
-  mask-image: url("/assets/social_icons/steam.svg");
-  -webkit-mask-position: 10% 50%;
-  mask-position: 10% 50%;
+  -webkit-mask-position: var(--L-offset) 50%;
+  mask-position: var(--L-offset) 50%;
 }
 
 .steam:is(:hover, :focus, :focus-visible) {
@@ -111,13 +180,20 @@
   --social-icon-color: #C5C3C0;
 }
 
+.steam:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--L-offset-hover) 50%;
+  mask-position: var(--L-offset-hover) 50%;
+}
+
 /* youtube */
 
+.youtube {
+  --social-icon-url: url("/assets/social_icons/youtube.svg");
+}
+
 .youtube > div {
-  -webkit-mask-image: url("/assets/social_icons/youtube.svg");
-  mask-image: url("/assets/social_icons/youtube.svg");
-  -webkit-mask-position: 90% 50%;
-  mask-position: 90% 50%;
+  -webkit-mask-position: var(--R-offset) 50%;
+  mask-position: var(--R-offset) 50%;
 }
 
 .youtube:is(:hover, :focus, :focus-visible) {
@@ -125,13 +201,20 @@
   --social-icon-color: #FFF;
 }
 
+.youtube:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--R-offset-hover) 50%;
+  mask-position: var(--R-offset-hover) 50%;
+}
+
 /* kofi */
 
+.kofi {
+  --social-icon-url: url("/assets/social_icons/kofi.svg");
+}
+
 .kofi > div {
-  -webkit-mask-image: url("/assets/social_icons/kofi.svg");
-  mask-image: url("/assets/social_icons/kofi.svg");
-  -webkit-mask-position: 10% 50%;
-  mask-position: 10% 50%;
+  -webkit-mask-position: var(--L-offset) 50%;
+  mask-position: var(--L-offset) 50%;
 }
 
 .kofi:is(:hover, :focus, :focus-visible) {
@@ -139,16 +222,28 @@
   --social-icon-color: #FFF;
 }
 
+.kofi:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--L-offset-hover) 50%;
+  mask-position: var(--L-offset-hover) 50%;
+}
+
 /* email */
 
+.email {
+  --social-icon-url: url("/assets/social_icons/email.svg");
+}
+
 .email > div {
-  -webkit-mask-image: url("/assets/social_icons/email.svg");
-  mask-image: url("/assets/social_icons/email.svg");
-  -webkit-mask-position: 90% 50%;
-  mask-position: 90% 50%;
+  -webkit-mask-position: var(--R-offset) 50%;
+  mask-position: var(--R-offset) 50%;
 }
 
 .email:is(:hover, :focus, :focus-visible) {
   background-color: #6D4AFF;
   --social-icon-color: #FFF;
+}
+
+.email:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--R-offset-hover) 50%;
+  mask-position: var(--R-offset-hover) 50%;
 }
