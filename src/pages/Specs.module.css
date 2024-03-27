@@ -4,7 +4,7 @@
 }
 
 .specList {
-  width: 75%;
+  width: 90%;
   margin: 0 4rem;
 }
 
@@ -17,7 +17,7 @@
 
 .icongrid {
   display: flex;
-  width: 75%;
+  width: 100%;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
