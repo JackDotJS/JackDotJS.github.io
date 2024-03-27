@@ -6,10 +6,18 @@ import styles from './Wallpaper.module.css';
 // TODO: make more wallpapers
 
 const wallpapers = [
-  `/assets/wallpapers/blender.jpg`,
-  `/assets/wallpapers/github.jpg`,
-  `/assets/wallpapers/rns.jpg`,
-  `/assets/wallpapers/coding.jpg`
+  `/assets/wallpapers/jack.webp`,
+  `/assets/wallpapers/code.webp`,
+  `/assets/wallpapers/github.webp`,
+  `/assets/wallpapers/caramel.webp`,
+  `/assets/wallpapers/architecture.webp`,
+  `/assets/wallpapers/cartower.webp`,
+  `/assets/wallpapers/orika.webp`,
+  `/assets/wallpapers/heavy.webp`,
+  `/assets/wallpapers/ragdoll.webp`,
+  `/assets/wallpapers/cartower.webp`,
+  `/assets/wallpapers/turing.webp`,
+  `/assets/wallpapers/kytalian.webp`,
 ];
 
 const delay = 2500;
