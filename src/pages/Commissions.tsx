@@ -9,7 +9,7 @@ import styles from './Commissions.module.css';
 
 const Commissions: Component = () => {
   return (
-    <main>
+    <main class={styles.comms}>
       <h2>commission info</h2>
 
       <h1>status: closed</h1>
@@ -57,7 +57,7 @@ const Commissions: Component = () => {
       <p>
         i've been a generalist 3d blender artist for around ~13 years, mostly doing my own thing. starting 2023, i'm hoping to expand my talents by doing work for others. whether it's for a video game project, or just some cool artwork to look at, i can probably do it for you! i also use blender to make logos and 2d graphics. probably not the best tool for the job, but hey it works lol.<br/>
         <br/>
-        check out my gallery for examples of my work! ("stuff i made" button above)
+        check out <a href="/gallery">my gallery</a> for examples of my work!
       </p>
 
       <h2>pricing</h2>
