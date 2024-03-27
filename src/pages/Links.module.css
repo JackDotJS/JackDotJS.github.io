@@ -14,7 +14,7 @@
   background-color: var(--button-bg);
   height: 4rem;
   border: 4px solid var(--section-background);
-  border-radius: 2rem;
+  border-radius: 1rem;
   box-sizing: border-box;
 }
 
