@@ -68,7 +68,19 @@ body {
   padding: var(--se-gap);
   box-sizing: border-box;
   background-image: linear-gradient(90deg, #FF672B, #FFA92B);
+  overflow-y: scroll;
 }
+
+/* idea to reduce the amount of jumping
+around that happens during routing */
+
+/* body:has(main) {
+  justify-content: flex-start;
+}
+
+body:has(main) > footer {
+  margin-top: auto;
+} */
 
 :is(header, main, footer) {
   width: var(--content-width);
