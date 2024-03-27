@@ -1,8 +1,10 @@
 .specs {
   text-align: center;
+  align-items: center;
 }
 
 .specList {
+  width: 75%;
   margin: 0 4rem;
 }
 
@@ -11,4 +13,31 @@
   flex-direction: row;
   gap: 0.5rem;
   justify-content: space-between;
+}
+
+.icongrid {
+  display: flex;
+  width: 75%;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.icongrid a {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 6rem;
+  align-items: center;
+}
+
+.icongrid img {
+  width: 4rem;
+  aspect-ratio: 1;
+  transition: 75ms;
+}
+
+.icongrid > a:hover > img {
+  transform: translateY(-4px);
 }

@@ -26,23 +26,28 @@ const Specs: Component = () => {
       </ul>
 
       <h3>software</h3>
-      {/* TODO: thinking i might ditch the categories idea and just have a grid of icons or something */}
-      <p>
-        <em>3d artwork and graphic design:</em><br/>
-        <a href="https://www.blender.org/" rel="external">Blender</a>,
-        <a href="https://www.getpaint.net/" rel="external">Paint.NET</a>
-      </p>
-
-      <p>
-        <em>programming and web dev:</em><br/>
-        <a href="https://code.visualstudio.com/" rel="external">Visual Studio Code</a>
-      </p>
-
-      <p>
-        <em>video production:</em><br/>
-        <a href="https://obsproject.com/" rel="external">OBS Studio</a>,
-        <a href="https://www.blackmagicdesign.com/products/davinciresolve" rel="external">DaVinci Resolve</a>
-      </p>
+      <div class={styles.icongrid}>
+        <a href="https://www.blender.org/" rel="external">
+          <img src="/assets/software_icons/blender.svg" />
+          Blender
+        </a>
+        <a href="https://vscodium.com/" rel="external">
+          <img src="/assets/software_icons/vscodium.svg" />
+          VSCodium
+        </a>
+        <a href="https://www.gimp.org/" rel="external">
+          <img src="/assets/software_icons/gimp.svg" />
+          GIMP
+        </a>
+        <a href="https://obsproject.com/" rel="external">
+          <img src="/assets/software_icons/obs.svg" />
+          OBS Studio
+        </a>
+        <a href="https://www.blackmagicdesign.com/products/davinciresolve" rel="external">
+          <img src="/assets/software_icons/davinci.svg" />
+          DaVinci Resolve
+        </a>
+      </div>
     </main>
   );
 };
