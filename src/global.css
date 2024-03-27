@@ -113,15 +113,14 @@ a {
   outline: 10px solid transparent;
   outline-offset: 10px;
   border-radius: 0.1em;
+}
+
+a:hover, a:is(:focus, :focus-visible) {
+  color: var(--text); 
   text-decoration: underline;
 }
 
-a:hover {
-  color: var(--text); 
-}
-
 a:is(:focus, :focus-visible) {
-  color: var(--text);
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }
