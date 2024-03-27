@@ -15,7 +15,7 @@ import styles from './Gallery.module.css';
 
 const Gallery: Component = () => {
   return (
-    <main>
+    <main class={styles.gallery}>
       <h2>under construction</h2>
 
       <p>i can't be bothered to rebuild this part of the site yet, come back later</p>
