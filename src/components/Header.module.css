@@ -11,18 +11,21 @@
   gap: 1rem;
 }
 
-.avatar {
+.avatar > img {
   width: 10rem;
+  border-radius: 100%;
+  transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: perspective(5cm);
+}
+
+.avatar:hover > img {
+  transform: perspective(5cm) rotateY(180deg);
 }
 
 @media screen and (max-width: 600px) {
   .avatar {
     width: 44%;
   }
-}
-
-.avatar:hover {
-  transform: scaleX(-100%);
 }
 
 .summary {

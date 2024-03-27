@@ -24,7 +24,9 @@ const Header: Component = () => {
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
-        <img class={styles.avatar} src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
+        <div class={styles.avatar}>
+          <img src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
+        </div>
         <div class={styles.summary}>
           <h1>i'm jack. i make stuff.</h1>
           <p>
