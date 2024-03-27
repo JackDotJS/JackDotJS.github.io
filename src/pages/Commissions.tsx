@@ -2,9 +2,6 @@ import type { Component } from 'solid-js';
 
 import styles from './Commissions.module.css';
 
-
-// FIXME: missing all styling rules
-
 // TODO: add info regarding art trades
 
 const Commissions: Component = () => {
@@ -55,24 +52,22 @@ const Commissions: Component = () => {
 
       <h2>what i do</h2>
       <p>
-        i've been a generalist 3d blender artist for around ~13 years, mostly doing my own thing. starting 2023, i'm hoping to expand my talents by doing work for others. whether it's for a video game project, or just some cool artwork to look at, i can probably do it for you! i also use blender to make logos and 2d graphics. probably not the best tool for the job, but hey it works lol.<br/>
+        i'm a blender artist! i make 3d models, and it's something i've been doing for over 13 years. most of the time i'm just making my own things, but now i'm hoping to expand my talents by doing work for others (like you, perhaps!). whether it's for a video game project, or just some cool artwork to look at, i can probably do it for you! i can also use blender to make logos and other 2d graphics, which might sound weird? but trust me, it works lol.<br/>
         <br/>
-        check out <a href="/gallery">my gallery</a> for examples of my work!
+        if you're interested, feel free to contact me! my preferred method of contact is via Discord, and you can find me through my own server, <a href="/links">which can found on the links page here.</a><br/>
+        <br/>
+        also feel free to check out <a href="/gallery">my gallery</a> for examples of my work!
       </p>
 
       <h2>pricing</h2>
       <p>
         all commissions start at $40 and will be raised based on the complexity of the work you want done. you will be required to pay at least 50% of the commission upfront (see ToS for details). feel free to contact me for a quote!<br/>
         <br/>i admit that i'm still new to doing commission work like this, and i'm not yet sure what prices i'm comfortable with. basically, prices may vary.<br/>
-        <br/>
-        <em>please make sure to thoroughly read my terms of service before commissioning me.</em> my preferred method of contact is via Discord. you can find me through my Discord server below!<br/>
-        <br/>
-        thank you for your interest!!!
       </p>
 
       <h2>commission terms of service</h2>
 
-      <p>last updated: <time datetime="2023-06-07">june 7, 2023</time></p>
+      <p>last updated: <time datetime="2024-03-26">march 26, 2024</time></p>
 
       <h3>I. General Terms</h3>
       <ul>
@@ -113,7 +108,7 @@ const Commissions: Component = () => {
       <h3>IV. Refund Policy</h3>
       <ul>
         <li>Full refunds are available at any time before commission work has started. </li>
-        <li><em>I will not offer any refunds for work that is completed, or nearly completed.</em></li>
+        <li><em>I will not offer any refunds for work that is fully (or nearly) completed.</em></li>
         <li>If you, the client, cancel the commission during the work process, the amount refunded will be equivalent to the amount of work not done. The amount is up to my discretion and will generally be handled on a case-by-case basis.</li>
         <li>If I, the artist, cancel the commission for any reason, I will offer a full refund. Additionally, I will offer a full refund if I cannot complete the work within 90 days of purchase.</li>
         <li>You may not file a chargeback against me after you have given approval of the finished work.</li>
