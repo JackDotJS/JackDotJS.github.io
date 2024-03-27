@@ -3,7 +3,7 @@
   --text: #292929;
   --text-2: #757575;
   --text-2-em: #404040;
-  --button-bg: #292929;
+  --button-bg: #F2F2F2;
   --button-text: var(--section-background);
   --button-bg-hover: #FF672B;
   --button-text-hover: var(--section-background);
@@ -20,7 +20,7 @@
     --text: #EEE;
     --text-2: #919191;
     --text-2-em: #BBB;
-    --button-bg: #EEE;
+    --button-bg: #353535;
     --button-text: #292929;
     --button-bg-hover: #FF672B;
     --button-text-hover: var(--button-bg);
@@ -102,8 +102,7 @@ h3 {
 }
 
 p {
-  margin-top: 0;
-  margin-bottom: 1em;
+  margin: 0;
 }
 
 a {
