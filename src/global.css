@@ -128,7 +128,7 @@ a {
   border-radius: 0.1em;
 }
 
-a:hover, a:is(:focus, :focus-visible) {
+a[href]:hover, a:is(:focus, :focus-visible) {
   color: var(--text); 
   text-decoration: underline;
 }
