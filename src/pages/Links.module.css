@@ -1,1 +1,154 @@
- 
+.linklist {
+  display: flex;
+  align-items: center;
+}
+
+.linklist > a {
+  --social-icon-color: var(--text);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--button-bg);
+  height: 4rem;
+  border: 4px solid var(--section-background);
+  border-radius: 2rem;
+  box-sizing: border-box;
+}
+
+.linklist > a > div {
+  position: absolute;
+  transition: all 250ms cubic-bezier(0,.65,.5,1);
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-size: auto 300%;
+  mask-size: auto 300%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background-color: var(--section-background);
+  border-radius: 1.5rem;
+}
+
+.linklist > a:is(:hover, :focus, :focus-visible) {
+  border-color: var(--social-icon-color);
+  color: var(--social-icon-color);
+}
+
+.linklist > a:is(:hover, :focus, :focus-visible) > div {
+  background-color: var(--social-icon-color);
+}
+
+/* discord */
+
+.discord > div {
+  -webkit-mask-image: url("/assets/social_icons/discord.svg");
+  mask-image: url("/assets/social_icons/discord.svg");
+  -webkit-mask-position: 10% 50%;
+  mask-position: 10% 50%;
+}
+
+.discord:is(:hover, :focus, :focus-visible) {
+  background-color: #5865F2;
+  --social-icon-color: #FFF;
+}
+
+/* revolt */
+
+.revolt > div {
+  -webkit-mask-image: url("/assets/social_icons/revolt.svg");
+  mask-image: url("/assets/social_icons/revolt.svg");
+  -webkit-mask-position: 90% 55%;
+  mask-position: 90% 55%;
+}
+
+.revolt:is(:hover, :focus, :focus-visible) {
+  background-color: #172333;
+  --social-icon-color: #FF4654;
+}
+
+/* cohost */
+
+.cohost > div {
+  -webkit-mask-image: url("/assets/social_icons/cohost.svg");
+  mask-image: url("/assets/social_icons/cohost.svg");
+  -webkit-mask-position: 10% 60%;
+  mask-position: 10% 60%;
+}
+
+.cohost:is(:hover, :focus, :focus-visible) {
+  background-color: #83254f;
+  --social-icon-color: #FFF9F2;
+}
+
+/* github */
+
+.github > div {
+  -webkit-mask-image: url("/assets/social_icons/github.svg");
+  mask-image: url("/assets/social_icons/github.svg");
+  -webkit-mask-position: 90% 20%;
+  mask-position: 90% 20%;
+}
+
+.github:is(:hover, :focus, :focus-visible) {
+  background-color: #161B22;
+  --social-icon-color: #E6EDF3;
+}
+
+/* steam */
+
+.steam > div {
+  -webkit-mask-image: url("/assets/social_icons/steam.svg");
+  mask-image: url("/assets/social_icons/steam.svg");
+  -webkit-mask-position: 10% 50%;
+  mask-position: 10% 50%;
+}
+
+.steam:is(:hover, :focus, :focus-visible) {
+  background-color: #171D25;
+  --social-icon-color: #C5C3C0;
+}
+
+/* youtube */
+
+.youtube > div {
+  -webkit-mask-image: url("/assets/social_icons/youtube.svg");
+  mask-image: url("/assets/social_icons/youtube.svg");
+  -webkit-mask-position: 90% 50%;
+  mask-position: 90% 50%;
+}
+
+.youtube:is(:hover, :focus, :focus-visible) {
+  background-color: #FF1111;
+  --social-icon-color: #FFF;
+}
+
+/* kofi */
+
+.kofi > div {
+  -webkit-mask-image: url("/assets/social_icons/kofi.svg");
+  mask-image: url("/assets/social_icons/kofi.svg");
+  -webkit-mask-position: 10% 50%;
+  mask-position: 10% 50%;
+}
+
+.kofi:is(:hover, :focus, :focus-visible) {
+  background-color: #ff4646;
+  --social-icon-color: #FFF;
+}
+
+/* email */
+
+.email > div {
+  -webkit-mask-image: url("/assets/social_icons/email.svg");
+  mask-image: url("/assets/social_icons/email.svg");
+  -webkit-mask-position: 90% 50%;
+  mask-position: 90% 50%;
+}
+
+.email:is(:hover, :focus, :focus-visible) {
+  background-color: #6D4AFF;
+  --social-icon-color: #FFF;
+}
