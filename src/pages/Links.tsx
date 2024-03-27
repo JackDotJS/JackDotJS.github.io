@@ -47,7 +47,7 @@ const Links: Component = () => {
         <div aria-hidden="true"></div>
       </a>
 
-      <p>if it's not linked here, it's probably not me. you have been warned!</p>
+      <span>if it's not linked here, chances are it's not me. <em>you have been warned!</em></span>
     </main>
   );
 };
