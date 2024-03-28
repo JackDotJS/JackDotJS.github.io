@@ -1,10 +1,10 @@
 {
-  "title": "",
-  "description": "",
-  "details": [
+  "title": "REQUIRED",
+  "description": "REQUIRED",
+  "images": [
     {
-      "filename": "",
-      "description": "",
+      "filename": "REQUIRED",
+      "description": "OPTIONAL",
       "year": 0
     }
   ]
