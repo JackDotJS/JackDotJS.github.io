@@ -32,12 +32,12 @@ jobs:
       - name: Set Up Node.JS Environment
         uses: actions/setup-node@master
         with:
-          node-version: 17
+          node-version: 20
       
       - name: Set Up PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 8.5.0
+          version: 8.14.1
           run_install: false
       
       - name: Get PNPM Store Directory

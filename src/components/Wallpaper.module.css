@@ -1,0 +1,25 @@
+.slideshowBase {
+  pointer-events: none;
+  user-select: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1000;
+  width: 100vw;
+  height: 100vh;
+}
+
+.wallpaper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 2.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.wallpaper:first-of-type {
+  opacity: 1;
+}
