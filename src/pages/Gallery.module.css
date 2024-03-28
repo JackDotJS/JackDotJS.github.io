@@ -1,4 +1,4 @@
 /* extra specificity just to be sure */
 main.gallery {
-  width: 100%;
+  max-width: 100%;
 }
