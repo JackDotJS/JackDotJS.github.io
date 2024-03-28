@@ -2,8 +2,6 @@ import { createSignal, type Component, onMount } from 'solid-js';
 
 import styles from './Header.module.css';
 
-// TODO: fix this layout for smaller screens and mobile devices
-
 const Header: Component = () => {
   const [time, setTime] = createSignal(`0:00 PM`);
 

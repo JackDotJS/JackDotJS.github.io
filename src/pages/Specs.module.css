@@ -13,6 +13,7 @@
   flex-direction: row;
   gap: 0.5rem;
   justify-content: space-between;
+  text-align: right;
 }
 
 .icongrid {

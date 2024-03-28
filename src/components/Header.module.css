@@ -14,18 +14,12 @@
 .avatar > img {
   width: 10rem;
   border-radius: 100%;
-  transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
   transform: perspective(5cm);
 }
 
 .avatar:hover > img {
   transform: perspective(5cm) rotateY(180deg);
-}
-
-@media screen and (max-width: 600px) {
-  .avatar {
-    width: 44%;
-  }
 }
 
 .summary {
@@ -44,10 +38,29 @@
 .navigation {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
 .navigation > a {
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 1rem;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: calc(800px + 4rem)) {
+  .whoami {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar > img {
+    width: 14rem;
+  }
+
+  .summary {
+    text-align: center;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 }

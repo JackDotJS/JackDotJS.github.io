@@ -1,4 +1,7 @@
 :root {
+  --void-gap: 2rem;
+  --default-content-width: 800px;
+  
   --section-background: #FFF;
   --text: #292929;
   --text-2: #757575;
@@ -27,14 +30,6 @@
     --button-outline-hover: var(--button-bg);
     --focus-outline: #FF932B;
   }
-
-  #logo-dark {
-    display: none;
-  }
-
-  #logo-light {
-    display: initial;
-  }
 }
 
 @font-face {
@@ -50,12 +45,9 @@
 }
 
 body {
-  --void-gap: 2rem;
-
   font-family: "CoreSans", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-2);
   width: 100%;
-  min-height: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -66,7 +58,7 @@ body {
   padding: var(--void-gap);
   box-sizing: border-box;
   background-image: linear-gradient(90deg, #FF672B, #FFA92B);
-  overflow-y: scroll;
+  overflow-y: scroll; /* fixes page shifting when content becomes scrollable */
 }
 
 /* idea to reduce the amount of jumping
@@ -80,8 +72,9 @@ body:has(main) > footer {
   margin-top: auto;
 } */
 
-:is(header, main, footer) {
-  width: 800px;
+header, main, footer {
+  width: 100%;
+  max-width: var(--default-content-width);
   background-color: var(--section-background);
   box-sizing: border-box;
   display: flex;
@@ -98,6 +91,7 @@ main {
 
 h1, h2, h3, h4, h5 {
   color: var(--text);
+  text-align: center;
   font-weight: bold;
   margin: 0;
 }
