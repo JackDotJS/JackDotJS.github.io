@@ -18,7 +18,7 @@ const Gallery: Component = () => {
     <main class={styles.gallery}>
       <h2>under construction</h2>
 
-      <p>i can't be bothered to rebuild this part of the site yet, come back later</p>
+      <p>still working on rebuilding the gallery, pls come back later</p>
     </main>
   );
 };
