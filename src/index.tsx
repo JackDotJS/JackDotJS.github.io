@@ -10,10 +10,10 @@ import App from './App';
 // cus instant transitions are lame
 
 // Routes
-const Gallery = lazy(() => import(`./pages/Gallery`));
-const Specs = lazy(() => import(`./pages/Specs`));
-const Commissions = lazy(() => import(`./pages/Commissions`));
-const Links = lazy(() => import(`./pages/Links`));
+const Gallery = lazy(() => import(`./pages/Gallery` /* @vite-ignore */));
+const Specs = lazy(() => import(`./pages/Specs` /* @vite-ignore */));
+const Commissions = lazy(() => import(`./pages/Commissions` /* @vite-ignore */));
+const Links = lazy(() => import(`./pages/Links` /* @vite-ignore */));
 
 render(() => (
   <Router root={App}>
