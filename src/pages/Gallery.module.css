@@ -2,3 +2,7 @@
 main.gallery {
   max-width: 100%;
 }
+
+.lightbox {
+  position: absolute;
+}

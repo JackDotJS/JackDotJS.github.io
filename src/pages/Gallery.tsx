@@ -1,5 +1,5 @@
  
-import type { Component } from 'solid-js';
+import { For, type Component, onMount, Show, createSignal } from 'solid-js';
 
 import styles from './Gallery.module.css';
 
@@ -13,13 +13,63 @@ import styles from './Gallery.module.css';
 
 // TODO: support zoom controls in lightbox
 
-const Gallery: Component = () => {
-  return (
-    <main class={styles.gallery}>
-      <h2>under construction</h2>
+interface GalleryEntryImageData {
+  filename: string,
+  description?: string,
+  year: number,
+}
 
-      <p>still working on rebuilding the gallery, pls come back later</p>
-    </main>
+interface GalleryEntryData {
+  title: string,
+  description: string,
+  images: GalleryEntryImageData[]
+}
+
+// gallerydata.json gets saved here so we only have to fetch it once per session
+let cachedGalleryData: GalleryEntryData[];
+
+const Gallery: Component = () => {
+  const [gallery, setGallery] = createSignal<GalleryEntryData[]>([]);
+
+  if (cachedGalleryData != null) {
+    // load cached data
+    setGallery(cachedGalleryData);
+  } else {
+    // fetch and cache gallery data
+    fetch(`/gallerydata.json`).then(async (response) => {
+      if (response.status !== 200) {
+        return console.error(`couldn't fetch gallery data: ${response.status}`);
+      }
+  
+      const data: GalleryEntryData[] = JSON.parse(await response.text());
+  
+      console.debug(data);
+      cachedGalleryData = data;
+      setGallery(data);
+    });
+  }
+
+  return (
+    <>
+      <div class={styles.lightbox}>
+
+      </div>
+
+      <main class={styles.gallery}>
+        <h2>stuff i made</h2>
+
+        <div class={styles.entries}>
+          <Show when={gallery().length > 0} fallback={<h3>loading...</h3>}>
+            <For each={gallery()}>
+              {(entry) => {
+                const component = <img src={entry.images[0].filename} />
+                return component;
+              }}
+            </For>
+          </Show>
+        </div>
+      </main>
+    </>
   );
 };
 
