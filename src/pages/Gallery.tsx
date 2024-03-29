@@ -58,12 +58,36 @@ const Gallery: Component = () => {
       <main class={styles.gallery}>
         <h2>stuff i made</h2>
 
-        <div class={styles.entries}>
+        <div class={styles.entryList}>
           <Show when={gallery().length > 0} fallback={<h3>loading...</h3>}>
             <For each={gallery()}>
               {(entry) => {
-                const component = <img src={entry.images[0].filename} />
-                return component;
+                const yearStart = Math.floor(entry.images[entry.images.length-1].year);
+                const yearEnd = Math.floor(entry.images[0].year);
+
+                let yearLabel;
+
+                if (yearStart === yearEnd) {
+                  yearLabel = (
+                    <span><time datetime={yearEnd.toString()}>{yearEnd.toString()}</time></span>
+                  )
+                } else {
+                  yearLabel = (
+                    <span>
+                      <time datetime={yearStart.toString()}>{yearStart.toString()}</time>
+                      -
+                      <time datetime={yearEnd.toString()}>{yearEnd.toString()}</time>
+                    </span>
+                  )
+                }
+
+                return (
+                  <a class={styles.entry} href="javascript:void(0)" onClick={() => { /** TODO: do stuff */}}>
+                    <img src={entry.images[0].filename} />
+                    <h3>{entry.title}</h3>
+                    {yearLabel}
+                  </a>
+                )
               }}
             </For>
           </Show>
