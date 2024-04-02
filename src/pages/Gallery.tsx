@@ -1,5 +1,5 @@
  
-import { For, type Component, onMount, Show, createSignal } from 'solid-js';
+import { For, type Component, onMount, Show, createSignal, JSXElement } from 'solid-js';
 
 import styles from './Gallery.module.css';
 
@@ -9,7 +9,7 @@ import styles from './Gallery.module.css';
 
 // TODO: make sure pressing back button to close lightbox works!!!
 
-// TODO: support zoom controls in lightbox
+// TODO: lightbox controls: zoom in/out, pan, next/prev img, close
 
 interface GalleryEntryImageData {
   filename: string,
@@ -29,6 +29,8 @@ let cachedGalleryData: GalleryEntryData[];
 
 const Gallery: Component = () => {
   const [gallery, setGallery] = createSignal<GalleryEntryData[]>([]);
+  const [LBItems, setLBItems] = createSignal<GalleryEntryImageData[]>([]);
+  let lightbox!: HTMLDialogElement;
 
   if (cachedGalleryData != null) {
     // load cached data
@@ -48,11 +50,25 @@ const Gallery: Component = () => {
     });
   }
 
+  const openLightbox = (items: GalleryEntryImageData[]) => {
+    console.debug(`lightbox opened`);
+    setLBItems(items)
+    lightbox.showModal();
+  };
+
+  const closeLightbox = () => {
+    console.debug(`lightbox closed`);
+    lightbox.close();
+  }
+
   return (
     <>
-      <div class={styles.lightbox}>
-
-      </div>
+      <dialog class={styles.lightbox} ref={lightbox}>
+        <button autofocus onClick={() => { closeLightbox() }}>Close</button>
+        <For each={LBItems()}>
+          {(image) => <img src={image.filename}></img>}
+        </For>
+      </dialog>
 
       <main class={styles.gallery}>
         <h2>stuff i made</h2>
@@ -87,7 +103,7 @@ const Gallery: Component = () => {
                 }
 
                 return (
-                  <a class={styles.entry} href="javascript:void(0)" onClick={() => { /** TODO: open gallery lightbox */}}>
+                  <a class={styles.entry} href="javascript:void(0)" onClick={() => { openLightbox(entry.images) }}>
                     <img src={featureImage} />
                     <h3>{entry.title}</h3>
                     {yearLabel}
