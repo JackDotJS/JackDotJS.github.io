@@ -30,6 +30,7 @@ let cachedGalleryData: GalleryEntryData[];
 const Gallery: Component = () => {
   const [gallery, setGallery] = createSignal<GalleryEntryData[]>([]);
   const [LBItems, setLBItems] = createSignal<GalleryEntryImageData[]>([]);
+  const [LBSelected, setLBSelected] = createSignal<GalleryEntryImageData>();
   let lightbox!: HTMLDialogElement;
 
   if (cachedGalleryData != null) {
@@ -52,22 +53,35 @@ const Gallery: Component = () => {
 
   const openLightbox = (items: GalleryEntryImageData[]) => {
     console.debug(`lightbox opened`);
-    setLBItems(items)
+    setLBItems(items);
+    setLBSelected(items[0]);
     lightbox.showModal();
   };
 
   const closeLightbox = () => {
     console.debug(`lightbox closed`);
     lightbox.close();
+    setLBItems([]);
   }
 
   return (
     <>
       <dialog class={styles.lightbox} ref={lightbox}>
-        <button autofocus onClick={() => { closeLightbox() }}>Close</button>
-        <For each={LBItems()}>
-          {(image) => <img src={image.filename}></img>}
-        </For>
+        <div class={styles.lightboxWrapper}>
+          <button autofocus onClick={() => { closeLightbox() }}>Close</button>
+          <img src={LBSelected()?.filename} class={styles.lightboxSelected}></img>
+          <div class={styles.carousel}>
+            <For each={LBItems()}>
+              {(image) => {
+                return (
+                  <button onClick={() => { setLBSelected(image) }}>
+                    <img src={image.filename}></img>
+                  </button>
+                )
+              }}
+            </For>
+          </div>
+        </div>
       </dialog>
 
       <main class={styles.gallery}>
