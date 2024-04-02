@@ -9,8 +9,6 @@ import styles from './Gallery.module.css';
 
 // TODO: make sure pressing back button to close lightbox works!!!
 
-// TODO: somehow find a way to load and create gallery items dynamically instead of having to hardcode everything like before, maybe use something in github pages?
-
 // TODO: support zoom controls in lightbox
 
 interface GalleryEntryImageData {
@@ -22,6 +20,7 @@ interface GalleryEntryImageData {
 interface GalleryEntryData {
   title: string,
   description: string,
+  featured?: string,
   images: GalleryEntryImageData[]
 }
 
@@ -62,11 +61,17 @@ const Gallery: Component = () => {
           <Show when={gallery().length > 0} fallback={<h3>loading...</h3>}>
             <For each={gallery()}>
               {(entry) => {
+                let featureImage = entry.images[0].filename
+                let yearLabel;
                 const yearStart = Math.floor(entry.images[entry.images.length-1].year);
                 const yearEnd = Math.floor(entry.images[0].year);
 
-                let yearLabel;
+                // use featured image if available
+                if (entry.featured != null) {
+                  featureImage = entry.featured;
+                }
 
+                // show year range if applicable, otherwise use year value from first image entry
                 if (yearStart === yearEnd) {
                   yearLabel = (
                     <span><time datetime={yearEnd.toString()}>{yearEnd.toString()}</time></span>
@@ -82,8 +87,8 @@ const Gallery: Component = () => {
                 }
 
                 return (
-                  <a class={styles.entry} href="javascript:void(0)" onClick={() => { /** TODO: do stuff */}}>
-                    <img src={entry.images[0].filename} />
+                  <a class={styles.entry} href="javascript:void(0)" onClick={() => { /** TODO: open gallery lightbox */}}>
+                    <img src={featureImage} />
                     <h3>{entry.title}</h3>
                     {yearLabel}
                   </a>
