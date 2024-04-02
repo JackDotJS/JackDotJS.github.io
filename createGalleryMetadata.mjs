@@ -92,6 +92,9 @@ for (const item of galleryItems) {
     entry.filename = `/gallery/${item.name}/${entry.filename}`;
   }
 
+  // fix filepath for featured image
+  metadata.featured = `/gallery/${item.name}/${metadata.featured}`;
+
   // ensure each entry is sorted by year
   metadata.images.sort((a, b) => b.year - a.year);
 
