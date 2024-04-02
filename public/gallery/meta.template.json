@@ -1,6 +1,7 @@
 {
   "title": "REQUIRED",
   "description": "REQUIRED",
+  "featured": "OPTIONAL",
   "images": [
     {
       "filename": "REQUIRED",

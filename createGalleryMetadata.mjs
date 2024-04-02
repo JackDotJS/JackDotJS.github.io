@@ -35,6 +35,10 @@ for (const item of galleryItems) {
       throw new TypeError(`(metadata.description) expected type "string", got "${typeof metadata.description}"`);
     }
 
+    if (typeof metadata.featured !== `string` && metadata.featured != null) {
+      throw new TypeError(`(metadata.featured) expected type "string | null | undefined", got "${typeof metadata.featured}"`);
+    }
+
     for (const i in metadata.images) {
       const entry = metadata.images[i];
 
@@ -56,8 +60,35 @@ for (const item of galleryItems) {
     continue;
   }
 
-  // fix filepath for each entry
+  const imageFiles = readdirSync(`${item.path}/${item.name}`, { withFileTypes: true })
+    .filter((item) => (item.isDirectory() || item.name !== `meta.json`));
+
+  //console.debug(imageFiles);
+
+  // check if featured image exists
+  if (metadata.featured != null && !imageFiles.some((data) => data.name === metadata.featured)) {
+    console.warn(`WARNING: could not find file "${metadata.featured}" in directory "${item.path}/${item.name}"!`);
+  }
+
+  // check for unused files
+  checkUnused: for (const dirFile of imageFiles) {
+    if (metadata.featured != null && metadata.featured === dirFile.name) continue checkUnused;
+    
+    for (const entry2 of metadata.images) {
+      if (entry2.filename === dirFile.name) continue checkUnused;
+    }
+
+    // if we reach this point, then this file isn't listed in meta.json
+    console.warn(`WARNING: possibly unused file "${dirFile.name}" in "${item.path}/${item.name}"!`)
+  }
+
   for (const entry of metadata.images) {
+    // check if file actually exists
+    if (!imageFiles.some((data) => data.name === entry.filename)) {
+      console.warn(`WARNING: could not find file "${entry.filename}" in directory "${item.path}/${item.name}"!`);
+    }
+
+    // fix filepath for each entry
     entry.filename = `/gallery/${item.name}/${entry.filename}`;
   }
 
@@ -70,7 +101,7 @@ for (const item of galleryItems) {
 // sort final array to ensure latest gallery items are first
 newData.sort((a, b) => a.images[0].year - b.images[0].year);
 
-console.debug(inspect(newData, { depth: null, colors: true }));
+//console.debug(inspect(newData, { depth: null, colors: true }));
 
 writeFileSync(`./public/gallerydata.json`, JSON.stringify(newData));
 
