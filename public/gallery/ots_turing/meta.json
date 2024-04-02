@@ -1,0 +1,32 @@
+{
+  "title": "O.T.S. Turing",
+  "description": "Part of a personal writing project. A 67th century semi-autonomous cargo freighter, operated by Orbital Transport Solutions Incorporated.",
+  "featured": "orbit.jpg",
+  "images": [
+    {
+      "filename": "spaceship.jpg",
+      "description": "An mid-early version of the model, which was kinda awkward-looking due to some growing pains in the design. A number of core elements were already in place by then.",
+      "year": 2022.4
+    },
+    {
+      "filename": "squarehead.webp",
+      "description": "todo",
+      "year": 2021.61
+    },
+    {
+      "filename": "squarehead2.webp",
+      "description": "todo",
+      "year": 2021.6
+    },
+    {
+      "filename": "klx2.jpg",
+      "description": "todo",
+      "year": 2019.2
+    },
+    {
+      "filename": "render_mark_ja.jpg",
+      "description": "todo",
+      "year": 2019.3
+    }
+  ]
+}
