@@ -93,13 +93,13 @@ for (const item of galleryItems) {
   }
 
   // ensure each entry is sorted by year
-  metadata.images.sort((a, b) => a.year - b.year);
+  metadata.images.sort((a, b) => b.year - a.year);
 
   newData.push(metadata);
 }
 
 // sort final array to ensure latest gallery items are first
-newData.sort((a, b) => a.images[0].year - b.images[0].year);
+newData.sort((a, b) => b.images[0].year - a.images[0].year);
 
 //console.debug(inspect(newData, { depth: null, colors: true }));
 
