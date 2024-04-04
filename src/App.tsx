@@ -1,4 +1,4 @@
-import { type Component } from 'solid-js';
+import { type JSXElement, type Component } from 'solid-js';
 
 import './global.css';
 
@@ -7,14 +7,15 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { Lightbox } from './components/Lightbox';
 
-const App: Component<{ children: string|Element }> = (props) => {
+const App: Component<{ children: string|JSXElement }> = (props) => {
   return (
     <>
-      <Header />
-        <Lightbox>
+      <Lightbox>
+        <Header />
           {props.children}
-        </Lightbox>
-      <Footer />
+        <Footer />
+      </Lightbox>
+      
 
       <Wallpaper />
     </>

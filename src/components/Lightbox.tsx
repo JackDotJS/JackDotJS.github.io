@@ -1,4 +1,4 @@
-import { For, type Component, createSignal, createEffect, onMount, createContext, Accessor } from 'solid-js';
+import { For, type Component, createSignal, createEffect, onMount, createContext, JSXElement } from 'solid-js';
 
 import styles from './Lightbox.module.css';
 
@@ -23,7 +23,7 @@ export interface GalleryEntryData {
 
 export const LightBoxContext = createContext();
 
-export const Lightbox: Component<{ children: string | Element }> = (props) => {
+export const Lightbox: Component<{ children: string | JSXElement }> = (props) => {
   const [images, setImages] = createSignal<GalleryEntryImageData[]>([]);
   const [selectedImage, setSelectedImage] = createSignal<GalleryEntryImageData>();
   const [canvasWidth, setCanvasWidth] = createSignal(document.documentElement.clientWidth);
