@@ -1,5 +1,5 @@
  
-import { For, type Component, Show, createSignal, createEffect } from 'solid-js';
+import { For, type Component, Show, createSignal, createEffect, onMount } from 'solid-js';
 
 import styles from './Gallery.module.css';
 
@@ -33,6 +33,21 @@ const Gallery: Component = () => {
   const [LBSelected, setLBSelected] = createSignal<GalleryEntryImageData>();
   const [canvasWidth, setCanvasWidth] = createSignal(document.documentElement.clientWidth);
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
+  const viewerImage = new Image();
+  const viewerTransform = {
+    default: {
+      posX: 0,
+      posY: 0,
+      width: 0,
+      height: 0
+    },
+    current: {
+      posX: 0,
+      posY: 0,
+      width: 0,
+      height: 0
+    }
+  }
   let lightbox!: HTMLDialogElement;
   let viewport!: HTMLCanvasElement;
 
@@ -54,7 +69,9 @@ const Gallery: Component = () => {
     });
   }
 
-  const loadViewerImage = (src: string) => {
+  const redrawViewerImage = () => {
+    if (viewerImage.src.length === 0) return;
+
     const ctx = viewport.getContext(`2d`);
 
     if (!(ctx instanceof CanvasRenderingContext2D)) {
@@ -63,10 +80,36 @@ const Gallery: Component = () => {
 
     ctx.clearRect(0, 0, viewport.width, viewport.height);
 
-    const image = new Image();
-    image.src = src;
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0);
+    // TODO: make this only run once for each new image
+    const vdefault = viewerTransform.default;
+
+    vdefault.width = Math.min(viewport.width, viewerImage.width);
+    vdefault.height = Math.min(viewport.height, viewerImage.height);
+
+    vdefault.width = Math.min(vdefault.width, viewerImage.width * (vdefault.height / viewerImage.height));
+    vdefault.height = Math.min(vdefault.height, viewerImage.height * (vdefault.width / viewerImage.width));
+
+    vdefault.posX = (viewport.width / 2) - (vdefault.width / 2);
+    vdefault.posY = (viewport.height / 2) - (vdefault.height / 2);
+
+    viewerTransform.current.posX = viewerTransform.default.posX;
+    viewerTransform.current.posY = viewerTransform.default.posY;
+    viewerTransform.current.width = viewerTransform.default.width;
+    viewerTransform.current.height = viewerTransform.default.height;
+
+    ctx.drawImage(
+      viewerImage, 
+      viewerTransform.current.posX, 
+      viewerTransform.current.posY, 
+      viewerTransform.current.width, 
+      viewerTransform.current.height
+    );
+  }
+
+  const loadViewerImage = (src: string) => {    
+    viewerImage.src = src;
+    viewerImage.onload = () => {
+      redrawViewerImage();
     };
   };
 
@@ -83,32 +126,38 @@ const Gallery: Component = () => {
     setLBItems([]);
   };
 
-  createEffect(() => {
-    loadViewerImage(LBSelected()!.filename)
-  })
+  onMount(() => {
+    window.addEventListener(`resize`, () => {
+      setCanvasWidth(document.documentElement.clientWidth);
+      setCanvasHeight(document.documentElement.clientHeight);
+      redrawViewerImage();
+    })
+
+    createEffect(() => {
+      loadViewerImage(LBSelected()!.filename)
+    })
+  });
 
   return (
     <>
       <dialog class={styles.lightbox} ref={lightbox}>
-        <div class={styles.lightboxWrapper}>
-          <div class={styles.lbTopBar}>
-            <button autofocus onClick={() => { closeLightbox() }}>Close</button>
-          </div>
+        <div class={styles.lbTopBar}>
+          <button autofocus onClick={() => { closeLightbox() }}>Close</button>
+        </div>
 
-          <canvas width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
+        <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
 
-          <div class={styles.lbBotBar}>
-            <div class={styles.carousel}>
-              <For each={LBItems()}>
-                {(image) => {
-                  return (
-                    <button onClick={() => { setLBSelected(image) }}>
-                      <img src={image.filename}></img>
-                    </button>
-                  )
-                }}
-              </For>
-            </div>
+        <div class={styles.lbBotBar}>
+          <div class={styles.carousel}>
+            <For each={LBItems()}>
+              {(image) => {
+                return (
+                  <button onClick={() => { setLBSelected(image) }}>
+                    <img src={image.filename}></img>
+                  </button>
+                )
+              }}
+            </For>
           </div>
         </div>
       </dialog>
