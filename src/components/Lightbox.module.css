@@ -1,4 +1,4 @@
-.lightbox {
+.lightbox, .lightboxNoUi {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -9,7 +9,16 @@
   background-color: #000;
 }
 
+.lightboxNoUi * {
+  cursor: none;
+}
+
+.lightboxNoUi > :is(.lbTopBar, .lbBotBar) {
+  opacity: 0;
+}
+
 .lbTopBar, .lbBotBar {
+  transition: opacity 400ms;
   position: fixed;
   width: 100%;
   background-color: rgba(0,0,0,0.75);

@@ -28,6 +28,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [selectedImage, setSelectedImage] = createSignal<GalleryEntryImageData>();
   const [canvasWidth, setCanvasWidth] = createSignal(document.documentElement.clientWidth);
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
+  const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const viewerImage = new Image();
   const viewerTransform = {
     default: {
@@ -45,6 +46,18 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
   let lightbox!: HTMLDialogElement;
   let viewport!: HTMLCanvasElement;
+
+  // TIL timeouts are just plain numbers... for some reason...
+  let uiFadeTimeout: number;
+
+  const restartUIFade = () => {
+    window.clearTimeout(uiFadeTimeout);
+
+    setUiVisible(true);
+    uiFadeTimeout = setTimeout(() => {
+      setUiVisible(false);
+    }, 2000);
+  }
 
   const redrawViewerImage = () => {
     if (viewerImage.src.length === 0) return;
@@ -96,6 +109,18 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       setCanvasHeight(document.documentElement.clientHeight);
       redrawViewerImage();
     });
+
+    window.addEventListener(`pointermove`, () => {
+      restartUIFade();
+    });
+
+    window.addEventListener(`keydown`, () => {
+      restartUIFade();
+    });
+
+    window.addEventListener(`pointerdown`, () => {
+      restartUIFade();
+    });
   });
 
   createEffect(() => {
@@ -111,6 +136,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       // TODO: dont show modal until first image has loaded
       console.debug(`lightbox opened`);
       setSelectedImage(images()[0]);
+      restartUIFade();
       lightbox.showModal();
     }
     
@@ -123,7 +149,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
   return (
     <LightBoxContext.Provider value={{images, setImages}}>
-      <dialog class={styles.lightbox} ref={lightbox}>
+      <dialog class={ uiVisible() ? styles.lightbox : styles.lightboxNoUi } ref={lightbox}>
         <div class={styles.lbTopBar}>
           <button autofocus onClick={() => { setImages([]) }}>Close</button>
         </div>
