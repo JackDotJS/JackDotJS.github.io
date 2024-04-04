@@ -1,5 +1,5 @@
  
-import { For, type Component, onMount, Show, createSignal, JSXElement } from 'solid-js';
+import { For, type Component, Show, createSignal, createEffect } from 'solid-js';
 
 import styles from './Gallery.module.css';
 
@@ -31,7 +31,10 @@ const Gallery: Component = () => {
   const [gallery, setGallery] = createSignal<GalleryEntryData[]>([]);
   const [LBItems, setLBItems] = createSignal<GalleryEntryImageData[]>([]);
   const [LBSelected, setLBSelected] = createSignal<GalleryEntryImageData>();
+  const [canvasWidth, setCanvasWidth] = createSignal(document.documentElement.clientWidth);
+  const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   let lightbox!: HTMLDialogElement;
+  let viewport!: HTMLCanvasElement;
 
   if (cachedGalleryData != null) {
     // load cached data
@@ -51,6 +54,22 @@ const Gallery: Component = () => {
     });
   }
 
+  const loadViewerImage = (src: string) => {
+    const ctx = viewport.getContext(`2d`);
+
+    if (!(ctx instanceof CanvasRenderingContext2D)) {
+      return console.error(`incorrect canvas context, something is broken!`, ctx);
+    }
+
+    ctx.clearRect(0, 0, viewport.width, viewport.height);
+
+    const image = new Image();
+    image.src = src;
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0);
+    };
+  };
+
   const openLightbox = (items: GalleryEntryImageData[]) => {
     console.debug(`lightbox opened`);
     setLBItems(items);
@@ -62,24 +81,34 @@ const Gallery: Component = () => {
     console.debug(`lightbox closed`);
     lightbox.close();
     setLBItems([]);
-  }
+  };
+
+  createEffect(() => {
+    loadViewerImage(LBSelected()!.filename)
+  })
 
   return (
     <>
       <dialog class={styles.lightbox} ref={lightbox}>
         <div class={styles.lightboxWrapper}>
-          <button autofocus onClick={() => { closeLightbox() }}>Close</button>
-          <img src={LBSelected()?.filename} class={styles.lightboxSelected}></img>
-          <div class={styles.carousel}>
-            <For each={LBItems()}>
-              {(image) => {
-                return (
-                  <button onClick={() => { setLBSelected(image) }}>
-                    <img src={image.filename}></img>
-                  </button>
-                )
-              }}
-            </For>
+          <div class={styles.lbTopBar}>
+            <button autofocus onClick={() => { closeLightbox() }}>Close</button>
+          </div>
+
+          <canvas width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
+
+          <div class={styles.lbBotBar}>
+            <div class={styles.carousel}>
+              <For each={LBItems()}>
+                {(image) => {
+                  return (
+                    <button onClick={() => { setLBSelected(image) }}>
+                      <img src={image.filename}></img>
+                    </button>
+                  )
+                }}
+              </For>
+            </div>
           </div>
         </div>
       </dialog>
