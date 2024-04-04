@@ -66,7 +66,7 @@ const Gallery: Component = () => {
               }
 
               return (
-                <a class={styles.entry} href="javascript:void(0)" onClick={() => { setImages(entry.images) }}>
+                <a class={styles.entry} href="javascript:void(0)" onClick={() => setImages(entry.images)}>
                   <img src={featureImage} />
                   <h3>{entry.title}</h3>
                   {yearLabel}

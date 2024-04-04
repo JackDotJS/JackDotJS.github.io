@@ -1,4 +1,6 @@
-import { createSignal, type Component, onMount } from 'solid-js';
+import { createSignal, type Component, onMount, useContext } from 'solid-js';
+
+import { GalleryEntryData, LightBoxContext } from './Lightbox';
 
 import styles from './Header.module.css';
 
@@ -19,12 +21,24 @@ const Header: Component = () => {
     setInterval(updateMyTime, 1000);
   });
 
+  // FIXME: what would be the correct type for this?
+  const { images, setImages }: any = useContext(LightBoxContext);
+
+  const avatarImageMetaData: GalleryEntryData = {
+    title: `Avatar`,
+    description: ``, 
+    images: [{
+      filename: `/assets/icon.png`,
+      year: 2022
+    }]
+  }
+
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
-        <div class={styles.avatar}>
+        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setImages(avatarImageMetaData.images)}>
           <img src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
-        </div>
+        </a>
         <div class={styles.summary}>
           <h1>i'm jack. i make stuff.</h1>
           <p>
