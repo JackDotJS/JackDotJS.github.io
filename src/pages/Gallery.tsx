@@ -28,6 +28,8 @@ interface GalleryEntryData {
 let cachedGalleryData: GalleryEntryData[];
 
 const Gallery: Component = () => {
+  //TODO: move all lightbox logic to its own component
+
   const [gallery, setGallery] = createSignal<GalleryEntryData[]>([]);
   const [LBItems, setLBItems] = createSignal<GalleryEntryImageData[]>([]);
   const [LBSelected, setLBSelected] = createSignal<GalleryEntryImageData>();
@@ -131,12 +133,14 @@ const Gallery: Component = () => {
       setCanvasWidth(document.documentElement.clientWidth);
       setCanvasHeight(document.documentElement.clientHeight);
       redrawViewerImage();
-    })
-
-    createEffect(() => {
-      loadViewerImage(LBSelected()!.filename)
-    })
+    });
   });
+
+  createEffect(() => {
+    const selected = LBSelected();
+
+    if (selected != null) loadViewerImage(LBSelected()!.filename);
+  })
 
   return (
     <>
