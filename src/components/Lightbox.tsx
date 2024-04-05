@@ -161,7 +161,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     const gdata = LBData();
 
     if (gdata !== null) {
-      console.debug(`lightbox opened`);
+      //console.debug(`lightbox opened`);
       document.documentElement.style.overflow = `hidden`;
       document.body.style.overflow = `hidden`;
       setSelectedImage(0);
@@ -170,7 +170,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     
     if (gdata === null) {
       // TODO: clear canvas data on close
-      console.debug(`lightbox closed`);
+      //console.debug(`lightbox closed`);
       document.documentElement.style.overflow = ``;
       document.body.style.overflow = ``;
       if (document.fullscreenElement === lightbox) {
@@ -191,12 +191,12 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     <LightBoxContext.Provider value={{LBData, setLBData}}>
       <div classList={{ [styles.lightbox]: true, [styles.activated]: LBData() !== null, [styles.hideUI]: !(uiVisible()) }} ref={lightbox}>
         <Show when={ LBData() !== null }>
-          <div class={styles.lbTopBar}>
+          <div class={styles.topBar}>
             <div class={styles.summary}>
               <h1>{ LBData()!.title }</h1>
               <span>{ LBData()!.description }</span>
             </div>
-            <button class={styles.closeLB} autofocus onClick={() => { setLBData(null);  }}>&times;</button>
+            <button class={styles.close} autofocus onClick={() => { setLBData(null);  }}>&times;</button>
           </div>
 
           <Show when={ LBData()!.images.length > 1 }>
@@ -206,7 +206,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
           <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
 
-          <div class={styles.lbBotBar}>
+          <div class={styles.bottomBar}>
             <Show when={ LBData()!.images[selectedImage()].description !== null }>
               <span>{LBData()!.images[selectedImage()].description}</span>
             </Show>

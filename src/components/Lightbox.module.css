@@ -26,7 +26,7 @@
   opacity: 0;
 }
 
-.lbTopBar, .lbBotBar {
+.topBar, .bottomBar {
   position: fixed;
   width: 100%;
   background-color: rgba(0,0,0,0.75);
@@ -35,11 +35,15 @@
   box-sizing: border-box;
 }
 
-.lbTopBar {
+.topBar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   top: 0;
+}
+
+.bottomBar {
+  bottom: 0;
 }
 
 .summary {
@@ -54,7 +58,7 @@
   text-align: left;
 }
 
-.closeLB {
+.close {
   font-size: 2.5rem;
   height: 5rem;
   background-color: transparent;
@@ -63,12 +67,8 @@
   aspect-ratio: 1;
 }
 
-.closeLB:hover {
+.close:hover {
   background-color: rgba(255,255,255,0.1);
-}
-
-.lbBotBar {
-  bottom: 0;
 }
 
 .viewport {

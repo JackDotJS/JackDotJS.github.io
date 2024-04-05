@@ -29,7 +29,7 @@ const Header: Component = () => {
     description: ``, 
     images: [{
       filename: `/assets/icon.png`,
-      year: 2022
+      year: 2022.3
     }]
   }
 
