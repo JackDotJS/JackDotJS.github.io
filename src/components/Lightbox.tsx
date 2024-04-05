@@ -1,4 +1,4 @@
-import { For, type Component, createSignal, createEffect, onMount, createContext, JSXElement } from 'solid-js';
+import { For, type Component, createSignal, createEffect, onMount, createContext, JSXElement, Show } from 'solid-js';
 
 import styles from './Lightbox.module.css';
 
@@ -157,17 +157,19 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
         <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
 
         <div class={styles.lbBotBar}>
-          <div class={styles.carousel}>
-            <For each={images()}>
-              {(image) => {
-                return (
-                  <button onClick={() => { setSelectedImage(image) }}>
-                    <img src={image.filename}></img>
-                  </button>
-                )
-              }}
-            </For>
-          </div>
+          <Show when={ images().length > 1 }>
+            <div class={styles.carousel}>
+              <For each={images()}>
+                {(image) => {
+                  return (
+                    <button onClick={() => { setSelectedImage(image) }}>
+                      <img src={image.filename}></img>
+                    </button>
+                  )
+                }}
+              </For>
+            </div>
+          </Show>
         </div>
       </dialog>
       {props.children}
