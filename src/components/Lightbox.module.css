@@ -14,7 +14,7 @@
   background-color: #000;
 }
 
-.lightbox > :not(.viewport) {
+.lightbox > :not(:is(.viewport, .loadingOverlay)) {
   transition: opacity 400ms;
 }
 
@@ -22,7 +22,7 @@
   cursor: none;
 }
 
-.hideUI > :not(.viewport) {
+.hideUI > :not(:is(.viewport, .loadingOverlay)) {
   opacity: 0;
 }
 
@@ -74,6 +74,44 @@
 .viewport {
   width: 100%;
   height: 100%;
+}
+
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.75);
+}
+
+@keyframes loadingCircle {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+.loadingOverlay:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 10rem;
+  aspect-ratio: 1;
+  background-image: conic-gradient(#FFF, rgba(255, 255, 255, 0));
+  mask-image: radial-gradient(closest-side circle at center, #000 90%, #FFF 91%);
+  mask-mode: luminance;
+  animation-name: loadingCircle;
+  animation-duration: 500ms;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .carousel {

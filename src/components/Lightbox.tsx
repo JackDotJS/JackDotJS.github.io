@@ -1,4 +1,4 @@
-import { For, type Component, createSignal, createEffect, onMount, createContext, JSXElement, Show } from 'solid-js';
+import { For, type Component, createSignal, createEffect, createContext, JSXElement, Show } from 'solid-js';
 
 import styles from './Lightbox.module.css';
 
@@ -29,6 +29,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [canvasWidth, setCanvasWidth] = createSignal(document.documentElement.clientWidth);
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
+  const [loadingState, setLoadingState] = createSignal<boolean>(true);
   const viewerImage = new Image();
   const viewerTransform = {
     default: {
@@ -55,6 +56,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     setUiVisible(true);
     uiFadeTimeout = setTimeout(() => {
+      if (LBData() === null) return;
       setUiVisible(false);
     }, 2000);
   }
@@ -98,7 +100,9 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
   const loadViewerImage = (src: string) => {
     viewerImage.src = src;
+    setLoadingState(true);
     viewerImage.onload = () => {
+      setLoadingState(false);
       redrawViewerImage();
     };
   };
@@ -129,25 +133,11 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     }
   }
 
-  onMount(() => {
-    window.addEventListener(`resize`, () => {
-      setCanvasWidth(document.documentElement.clientWidth);
-      setCanvasHeight(document.documentElement.clientHeight);
-      redrawViewerImage();
-    });
-
-    window.addEventListener(`pointermove`, () => {
-      restartUIFade();
-    });
-
-    window.addEventListener(`keydown`, () => {
-      restartUIFade();
-    });
-
-    window.addEventListener(`pointerdown`, () => {
-      restartUIFade();
-    });
-  });
+  const resizeHandler = () => {
+    setCanvasWidth(document.documentElement.clientWidth);
+    setCanvasHeight(document.documentElement.clientHeight);
+    redrawViewerImage();
+  }
 
   createEffect(() => {
     const gdata = LBData();
@@ -162,17 +152,34 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     if (gdata !== null) {
       //console.debug(`lightbox opened`);
+      window.addEventListener(`resize`, resizeHandler);
+      resizeHandler();
+
+      window.addEventListener(`pointermove`, restartUIFade);
+      window.addEventListener(`keydown`, restartUIFade);
+      window.addEventListener(`pointerdown`, restartUIFade);
+
       document.documentElement.style.overflow = `hidden`;
       document.body.style.overflow = `hidden`;
       setSelectedImage(0);
+
       restartUIFade();
     }
     
     if (gdata === null) {
       // TODO: clear canvas data on close
       //console.debug(`lightbox closed`);
+      window.removeEventListener(`resize`, resizeHandler);
+
+      window.removeEventListener(`pointermove`, restartUIFade);
+      window.removeEventListener(`keydown`, restartUIFade);
+      window.removeEventListener(`pointerdown`, restartUIFade);
+
       document.documentElement.style.overflow = ``;
       document.body.style.overflow = ``;
+
+      setUiVisible(true);
+
       if (document.fullscreenElement === lightbox) {
         document.exitFullscreen();
       }
@@ -191,6 +198,10 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     <LightBoxContext.Provider value={{LBData, setLBData}}>
       <div classList={{ [styles.lightbox]: true, [styles.activated]: LBData() !== null, [styles.hideUI]: !(uiVisible()) }} ref={lightbox}>
         <Show when={ LBData() !== null }>
+          <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
+          <Show when={loadingState()}>
+            <div class={styles.loadingOverlay}></div>
+          </Show>
           <div class={styles.topBar}>
             <div class={styles.summary}>
               <h1>{ LBData()!.title }</h1>
@@ -203,8 +214,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             <button class={styles.prevButton} onClick={() => gotoPrev()}>&lt;</button>
             <button class={styles.nextButton} onClick={() => gotoNext()}>&gt;</button>
           </Show>
-
-          <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
 
           <div class={styles.bottomBar}>
             <Show when={ LBData()!.images[selectedImage()].description !== null }>
