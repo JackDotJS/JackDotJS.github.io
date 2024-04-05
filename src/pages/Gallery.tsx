@@ -36,6 +36,8 @@ const Gallery: Component = () => {
     <main class={styles.gallery}>
       <h2>stuff i made</h2>
 
+      <p><b>WARNING:</b> this part of the site is still under construction. a lot of things aren't working yet. you have been warned!</p>
+
       <div class={styles.entryList}>
         <Show when={galleryEntries().length > 0} fallback={<h3>loading...</h3>}>
           <For each={galleryEntries()}>
