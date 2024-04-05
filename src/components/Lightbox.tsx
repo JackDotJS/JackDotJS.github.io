@@ -40,7 +40,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
 
-  const redrawViewerImage = (resetTransform: boolean) => {
+  const redrawViewerImage = (resetTransform: boolean = false) => {
     if (viewerImage.src.length === 0) return;
 
     const ctx = viewport.getContext(`2d`);
@@ -170,6 +170,16 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     setUiVisible(true);
   }
 
+  const scrollHandler = (e: WheelEvent) => {
+    const sensitivity = 0.1;
+    const minZoom = 0.2;
+    const maxZoom = 5;
+    viewerTransform.default = false;
+    viewerTransform.scale -= (Math.sign(e.deltaY) * sensitivity * viewerTransform.scale);
+    viewerTransform.scale = Math.max(minZoom, Math.min(maxZoom, viewerTransform.scale));
+    redrawViewerImage();
+  }
+
   onMount(() => {
     createEffect(() => {
       loadViewerImage(selectedImage());
@@ -184,6 +194,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   
         window.addEventListener(`resize`, resizeHandler);
         resizeHandler();
+
+        viewport.addEventListener(`wheel`, scrollHandler);
   
         //window.addEventListener(`pointermove`, showUiHandler);
         window.addEventListener(`keydown`, showUiHandler);
@@ -200,6 +212,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       if (gdata === null) {
         //console.debug(`lightbox closed`);
         window.removeEventListener(`resize`, resizeHandler);
+
+        viewport?.removeEventListener(`wheel`, scrollHandler);
   
         //window.removeEventListener(`pointermove`, showUiHandler);
         window.removeEventListener(`keydown`, showUiHandler);
@@ -250,7 +264,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
             <div class={styles.controls}>
               <button>Zoom Out</button>
-              <button>Reset View</button>
+              <button onClick={() => redrawViewerImage(true)}>Reset View</button>
               <button>Zoom In</button>
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
