@@ -161,8 +161,11 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   const resizeHandler = () => {
-    setCanvasWidth(document.documentElement.clientWidth);
-    setCanvasHeight(document.documentElement.clientHeight);
+    // fixes canvas size on mobile or when using browser zoom
+    const multiplier = window.devicePixelRatio;
+
+    setCanvasWidth(document.documentElement.clientWidth * multiplier);
+    setCanvasHeight(document.documentElement.clientHeight * multiplier);
     redrawViewerImage();
   }
 
