@@ -1,4 +1,4 @@
-import { For, type Component, createSignal, createEffect, createContext, JSXElement, Show } from 'solid-js';
+import { For, type Component, createSignal, createEffect, createContext, JSXElement, Show, onMount } from 'solid-js';
 
 import styles from './Lightbox.module.css';
 
@@ -98,9 +98,23 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     );
   }
 
-  const loadViewerImage = (src: string) => {
+  const clearViewerImage = () => {
+    const ctx = viewport.getContext(`2d`);
+
+    if (!(ctx instanceof CanvasRenderingContext2D)) {
+      return console.error(`incorrect canvas context, something is broken!`, ctx);
+    }
+
+    ctx.clearRect(0, 0, viewport.width, viewport.height);
+  }
+
+  const loadViewerImage = (index: number) => {
+    const gdata = LBData();
+    if (gdata == null) return;
+
     setLoadingState(true);
-    viewerImage.src = src;
+    clearViewerImage();
+    viewerImage.src = LBData()!.images[selectedImage()].filename;
     viewerImage.onload = () => {
       setLoadingState(false);
       redrawViewerImage();
@@ -139,55 +153,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     redrawViewerImage();
   }
 
-  createEffect(() => {
-    const gdata = LBData();
-
-    if (gdata === null) return;
-
-    loadViewerImage(LBData()!.images[selectedImage()].filename);
-  });
-
-  createEffect(() => {
-    const gdata = LBData();
-
-    if (gdata !== null) {
-      //console.debug(`lightbox opened`);
-      setLoadingState(true);
-      
-      window.addEventListener(`resize`, resizeHandler);
-      resizeHandler();
-
-      window.addEventListener(`pointermove`, restartUIFade);
-      window.addEventListener(`keydown`, restartUIFade);
-      window.addEventListener(`pointerdown`, restartUIFade);
-
-      document.documentElement.style.overflow = `hidden`;
-      document.body.style.overflow = `hidden`;
-      setSelectedImage(0);
-
-      restartUIFade();
-    }
-    
-    if (gdata === null) {
-      // TODO: clear canvas data on close
-      //console.debug(`lightbox closed`);
-      window.removeEventListener(`resize`, resizeHandler);
-
-      window.removeEventListener(`pointermove`, restartUIFade);
-      window.removeEventListener(`keydown`, restartUIFade);
-      window.removeEventListener(`pointerdown`, restartUIFade);
-
-      document.documentElement.style.overflow = ``;
-      document.body.style.overflow = ``;
-
-      setUiVisible(true);
-
-      if (document.fullscreenElement === lightbox) {
-        document.exitFullscreen();
-      }
-    }
-  });
-
   const toggleFullscreen = () => {
     if (document.fullscreenElement === lightbox) {
       document.exitFullscreen()
@@ -195,6 +160,53 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       lightbox.requestFullscreen()
     }
   }
+
+  onMount(() => {
+    createEffect(() => {
+      loadViewerImage(selectedImage());
+    });
+  
+    createEffect(() => {
+      const gdata = LBData();
+  
+      if (gdata !== null) {
+        //console.debug(`lightbox opened`);
+        setLoadingState(true);
+  
+        window.addEventListener(`resize`, resizeHandler);
+        resizeHandler();
+  
+        window.addEventListener(`pointermove`, restartUIFade);
+        window.addEventListener(`keydown`, restartUIFade);
+        window.addEventListener(`pointerdown`, restartUIFade);
+  
+        document.documentElement.style.overflow = `hidden`;
+        document.body.style.overflow = `hidden`;
+        
+        setSelectedImage(0);
+        
+        restartUIFade();
+      }
+      
+      if (gdata === null) {
+        //console.debug(`lightbox closed`);
+        window.removeEventListener(`resize`, resizeHandler);
+  
+        window.removeEventListener(`pointermove`, restartUIFade);
+        window.removeEventListener(`keydown`, restartUIFade);
+        window.removeEventListener(`pointerdown`, restartUIFade);
+  
+        document.documentElement.style.overflow = ``;
+        document.body.style.overflow = ``;
+  
+        setUiVisible(true);
+  
+        if (document.fullscreenElement === lightbox) {
+          document.exitFullscreen();
+        }
+      }
+    });
+  });
 
   return (
     <LightBoxContext.Provider value={{LBData, setLBData}}>
