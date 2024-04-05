@@ -6,7 +6,7 @@ import styles from './Lightbox.module.css';
 
 // TODO: make sure pressing back button to close lightbox works!!!
 
-// TODO: lightbox controls: zoom in/out, pan, next/prev img, close
+// TODO: lightbox controls: zoom in/out, pan, next/prev img, fullscreen, view original, close
 
 export interface GalleryEntryImageData {
   filename: string,
@@ -135,6 +135,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     if (imageList.length > 0 && !lightbox.open) {
       // TODO: dont show modal until first image has loaded
       console.debug(`lightbox opened`);
+      document.documentElement.style.overflow = `hidden`;
+      document.body.style.overflow = `hidden`;
       setSelectedImage(images()[0]);
       restartUIFade();
       lightbox.showModal();
@@ -143,6 +145,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     if (imageList.length === 0 && lightbox.open) {
       // TODO: clear canvas data on close
       console.debug(`lightbox closed`);
+      document.documentElement.style.overflow = ``;
+      document.body.style.overflow = ``;
       lightbox.close();
     }
   });

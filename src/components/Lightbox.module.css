@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  width: 100vw;
   /* WTF??? this actually has a default max width/height??? WHY?????? */
   max-width: none;
   max-height: none;
