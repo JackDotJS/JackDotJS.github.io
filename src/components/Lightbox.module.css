@@ -43,6 +43,10 @@
 }
 
 .bottomBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   bottom: 0;
 }
 
@@ -155,4 +159,32 @@
 
 .nextButton {
   right: 0;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.control > button {
+  aspect-ratio: 1;
+}
+
+.currentImageSummary {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  width: 50%;
+}
+
+.currentImageSummary > h2 {
+  margin: 0;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+.currentImageSummary > span {
+  text-align: left;
 }

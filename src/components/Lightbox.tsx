@@ -161,6 +161,24 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     }
   }
 
+  const getImageDate = () => {
+    const gdata = LBData();
+
+    if (gdata == null) {
+      console.error(`missing LBData!`)
+      return { year: `[...]`, month: `[...]` }
+    };
+
+    const rawValue = LBData()!.images[selectedImage()].year
+    const year = Math.floor(rawValue);
+    const month = parseInt(rawValue.toString().split(`.`)[1]);
+
+    return {
+      year: year.toString(),
+      month: new Date(year, month, 0).toLocaleString(`en`, { month: `long` })
+    }
+  }
+
   onMount(() => {
     createEffect(() => {
       loadViewerImage(selectedImage());
@@ -230,13 +248,24 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
           </Show>
 
           <div class={styles.bottomBar}>
-            <Show when={ LBData()!.images[selectedImage()]?.description !== null }>
-              <span>{LBData()!.images[selectedImage()]?.description}</span>
+            <Show when={ LBData()!.images[selectedImage()] != null }>
+              <div class={styles.currentImageSummary}>
+                <h2>{getImageDate().month} {getImageDate().year}</h2>
+                <Show when={ LBData()!.images[selectedImage()].description != null }>
+                  <span>{LBData()!.images[selectedImage()].description}</span>
+                </Show>
+              </div>
             </Show>
-            <button>Zoom In</button>
-            <button>Zoom Out</button>
-            <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
-            <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
+
+            <div class={styles.controls}>
+              <button>Zoom Out</button>
+              <button>Reset Zoom</button>
+              <button>Zoom In</button>
+              <button>Hide UI</button>
+              <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
+              <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
+            </div>
+            
             <Show when={ LBData()!.images.length > 1 }>
               <div class={styles.carousel}>
                 <For each={LBData()!.images}>
