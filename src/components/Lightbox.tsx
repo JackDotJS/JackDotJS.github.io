@@ -216,8 +216,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
           </Show>
 
           <div class={styles.bottomBar}>
-            <Show when={ LBData()!.images[selectedImage()].description !== null }>
-              <span>{LBData()!.images[selectedImage()].description}</span>
+            <Show when={ LBData()!.images[selectedImage()]?.description !== null }>
+              <span>{LBData()!.images[selectedImage()]?.description}</span>
             </Show>
             <button>Zoom In</button>
             <button>Zoom Out</button>
