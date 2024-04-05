@@ -179,6 +179,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     return Math.max(minZoom, Math.min(maxZoom, newValue));
   }
 
+  // TODO: clamp image position
   const zoomIn = (curX: number, curY: number) => {
     viewerTransform.default = false;
 
@@ -202,6 +203,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     redrawViewerImage();
   }
 
+  // TODO: clamp image position
   const zoomOut = (curX: number, curY: number) => {
     viewerTransform.default = false;
 
@@ -216,8 +218,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     const newX = oldX - offsetX;
     const newY = oldY - offsetY;
-
-    console.debug(oldScale, newScale, oldX, oldY, offsetX, offsetY, newX, newY);
 
     viewerTransform.posX = newX;
     viewerTransform.posY = newY;
