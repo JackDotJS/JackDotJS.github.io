@@ -7,7 +7,7 @@ const Footer: Component = () => {
   let revHashElem!: HTMLAnchorElement;
 
   onMount(() => {
-    fetch(`gha-build.txt`).then(async (response) => {
+    fetch(`/gha-build.txt`).then(async (response) => {
       if (response.status !== 200) {
         return console.error(`couldn't fetch build date: ${response.status}`);
       }
@@ -25,7 +25,7 @@ const Footer: Component = () => {
       buildDateElem.setAttribute(`datetime`, ghbuild.toISOString());
     });
 
-    fetch(`gha-hash.txt`).then(async (response) => {
+    fetch(`/gha-hash.txt`).then(async (response) => {
       if (response.status !== 200) {
         return console.error(`couldn't fetch revision hash: ${response.status}`);
       }
