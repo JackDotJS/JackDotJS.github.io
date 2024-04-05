@@ -14,12 +14,15 @@
   cursor: none;
 }
 
-.lightboxNoUi > :is(.lbTopBar, .lbBotBar) {
+:is(.lightbox, .lightboxNoUi) > :not(.viewport) {
+  transition: opacity 400ms;
+}
+
+.lightboxNoUi > :not(.viewport) {
   opacity: 0;
 }
 
 .lbTopBar, .lbBotBar {
-  transition: opacity 400ms;
   position: fixed;
   width: 100%;
   background-color: rgba(0,0,0,0.75);
@@ -50,4 +53,14 @@
 
 .carousel :is(img, button) {
   height: 100%;
+}
+
+.prevButton, .nextButton {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nextButton {
+  right: 0;
 }

@@ -24,8 +24,8 @@ export interface GalleryEntryData {
 export const LightBoxContext = createContext();
 
 export const Lightbox: Component<{ children: string | JSXElement }> = (props) => {
-  const [images, setImages] = createSignal<GalleryEntryImageData[]>([]);
-  const [selectedImage, setSelectedImage] = createSignal<GalleryEntryImageData>();
+  const [LBData, setLBData] = createSignal<GalleryEntryData|null>(null);
+  const [selectedImage, setSelectedImage] = createSignal<number>(0);
   const [canvasWidth, setCanvasWidth] = createSignal(document.documentElement.clientWidth);
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
@@ -103,6 +103,32 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     };
   };
 
+  const gotoPrev = () => {
+    const gdata = LBData();
+    if (gdata == null) return;
+
+    const target = selectedImage() - 1;
+
+    if (target < 0) {
+      setSelectedImage(gdata.images.length - 1);
+    } else {
+      setSelectedImage(target);
+    }
+  }
+
+  const gotoNext = () => {
+    const gdata = LBData();
+    if (gdata == null) return;
+
+    const target = selectedImage() + 1;
+
+    if (target > (gdata.images.length - 1)) {
+      setSelectedImage(0);
+    } else {
+      setSelectedImage(target);
+    }
+  }
+
   onMount(() => {
     window.addEventListener(`resize`, () => {
       setCanvasWidth(document.documentElement.clientWidth);
@@ -124,25 +150,26 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   });
 
   createEffect(() => {
-    const selected = selectedImage();
+    const gdata = LBData();
 
-    if (selected != null) loadViewerImage(selectedImage()!.filename);
+    if (gdata === null) return;
+
+    loadViewerImage(LBData()!.images[selectedImage()].filename);
   });
 
   createEffect(() => {
-    const imageList = images();
+    const gdata = LBData();
 
-    if (imageList.length > 0 && !lightbox.open) {
-      // TODO: dont show modal until first image has loaded
+    if (gdata !== null && !lightbox.open) {
       console.debug(`lightbox opened`);
       document.documentElement.style.overflow = `hidden`;
       document.body.style.overflow = `hidden`;
-      setSelectedImage(images()[0]);
+      setSelectedImage(0);
       restartUIFade();
       lightbox.showModal();
     }
     
-    if (imageList.length === 0 && lightbox.open) {
+    if (gdata === null && lightbox.open) {
       // TODO: clear canvas data on close
       console.debug(`lightbox closed`);
       document.documentElement.style.overflow = ``;
@@ -152,21 +179,26 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   });
 
   return (
-    <LightBoxContext.Provider value={{images, setImages}}>
+    <LightBoxContext.Provider value={{LBData, setLBData}}>
       <dialog class={ uiVisible() ? styles.lightbox : styles.lightboxNoUi } ref={lightbox}>
         <div class={styles.lbTopBar}>
-          <button autofocus onClick={() => { setImages([]) }}>Close</button>
+          <button autofocus onClick={() => { setLBData(null) }}>Close</button>
         </div>
+
+        <Show when={ LBData() !== null && LBData()!.images.length > 1 }>
+          <button class={styles.prevButton} onClick={() => gotoPrev()}>previous</button>
+          <button class={styles.nextButton} onClick={() => gotoNext()}>next</button>
+        </Show>
 
         <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
 
         <div class={styles.lbBotBar}>
-          <Show when={ images().length > 1 }>
+          <Show when={ LBData() !== null && LBData()!.images.length > 1 }>
             <div class={styles.carousel}>
-              <For each={images()}>
-                {(image) => {
+              <For each={LBData()!.images}>
+                {(image, index) => {
                   return (
-                    <button onClick={() => { setSelectedImage(image) }}>
+                    <button onClick={() => { setSelectedImage(index) }}>
                       <img src={image.filename}></img>
                     </button>
                   )

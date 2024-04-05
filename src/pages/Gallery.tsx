@@ -9,11 +9,11 @@ import styles from './Gallery.module.css';
 let cachedGalleryData: GalleryEntryData[];
 
 const Gallery: Component = () => {
-  const [gallery, setGallery] = createSignal<GalleryEntryData[]>([]);
+  const [galleryEntries, setGalleryEntries] = createSignal<GalleryEntryData[]>([]);
 
   if (cachedGalleryData != null) {
     // load cached data
-    setGallery(cachedGalleryData);
+    setGalleryEntries(cachedGalleryData);
   } else {
     // fetch and cache gallery data
     fetch(`/gallerydata.json`).then(async (response) => {
@@ -25,20 +25,20 @@ const Gallery: Component = () => {
   
       console.debug(data);
       cachedGalleryData = data;
-      setGallery(data);
+      setGalleryEntries(data);
     });
   }
 
   // FIXME: what would be the correct type for this?
-  const { images, setImages }: any = useContext(LightBoxContext);
+  const { LBData, setLBData }: any = useContext(LightBoxContext);
 
   return (
     <main class={styles.gallery}>
       <h2>stuff i made</h2>
 
       <div class={styles.entryList}>
-        <Show when={gallery().length > 0} fallback={<h3>loading...</h3>}>
-          <For each={gallery()}>
+        <Show when={galleryEntries().length > 0} fallback={<h3>loading...</h3>}>
+          <For each={galleryEntries()}>
             {(entry) => {
               let featureImage = entry.images[0].filename
               let yearLabel;
@@ -66,7 +66,7 @@ const Gallery: Component = () => {
               }
 
               return (
-                <a class={styles.entry} href="javascript:void(0)" onClick={() => setImages(entry.images)}>
+                <a class={styles.entry} href="javascript:void(0)" onClick={() => setLBData(entry)}>
                   <img src={featureImage} />
                   <h3>{entry.title}</h3>
                   {yearLabel}

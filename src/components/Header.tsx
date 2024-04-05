@@ -22,7 +22,7 @@ const Header: Component = () => {
   });
 
   // FIXME: what would be the correct type for this?
-  const { images, setImages }: any = useContext(LightBoxContext);
+  const { LBData, setLBData }: any = useContext(LightBoxContext);
 
   const avatarImageMetaData: GalleryEntryData = {
     title: `Avatar`,
@@ -36,7 +36,7 @@ const Header: Component = () => {
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
-        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setImages(avatarImageMetaData.images)}>
+        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setLBData(avatarImageMetaData)}>
           <img src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
         </a>
         <div class={styles.summary}>
