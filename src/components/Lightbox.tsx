@@ -48,19 +48,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
 
-  // TIL timeouts are just plain numbers... for some reason...
-  let uiFadeTimeout: number;
-
-  const restartUIFade = () => {
-    window.clearTimeout(uiFadeTimeout);
-
-    setUiVisible(true);
-    uiFadeTimeout = setTimeout(() => {
-      if (LBData() === null) return;
-      setUiVisible(false);
-    }, 2000);
-  }
-
   const redrawViewerImage = () => {
     if (viewerImage.src.length === 0) return;
 
@@ -147,12 +134,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     }
   }
 
-  const resizeHandler = () => {
-    setCanvasWidth(document.documentElement.clientWidth);
-    setCanvasHeight(document.documentElement.clientHeight);
-    redrawViewerImage();
-  }
-
   const toggleFullscreen = () => {
     if (document.fullscreenElement === lightbox) {
       document.exitFullscreen()
@@ -179,6 +160,16 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     }
   }
 
+  const resizeHandler = () => {
+    setCanvasWidth(document.documentElement.clientWidth);
+    setCanvasHeight(document.documentElement.clientHeight);
+    redrawViewerImage();
+  }
+
+  const showUiHandler = () => {
+    setUiVisible(true);
+  }
+
   onMount(() => {
     createEffect(() => {
       loadViewerImage(selectedImage());
@@ -194,25 +185,25 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
         window.addEventListener(`resize`, resizeHandler);
         resizeHandler();
   
-        window.addEventListener(`pointermove`, restartUIFade);
-        window.addEventListener(`keydown`, restartUIFade);
-        window.addEventListener(`pointerdown`, restartUIFade);
+        //window.addEventListener(`pointermove`, showUiHandler);
+        window.addEventListener(`keydown`, showUiHandler);
+        window.addEventListener(`pointerdown`, showUiHandler);
   
         document.documentElement.style.overflow = `hidden`;
         document.body.style.overflow = `hidden`;
         
         setSelectedImage(0);
-        
-        restartUIFade();
+
+        showUiHandler();
       }
       
       if (gdata === null) {
         //console.debug(`lightbox closed`);
         window.removeEventListener(`resize`, resizeHandler);
   
-        window.removeEventListener(`pointermove`, restartUIFade);
-        window.removeEventListener(`keydown`, restartUIFade);
-        window.removeEventListener(`pointerdown`, restartUIFade);
+        //window.removeEventListener(`pointermove`, showUiHandler);
+        window.removeEventListener(`keydown`, showUiHandler);
+        window.removeEventListener(`pointerdown`, showUiHandler);
   
         document.documentElement.style.overflow = ``;
         document.body.style.overflow = ``;
@@ -261,7 +252,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               <button>Zoom Out</button>
               <button>Reset Zoom</button>
               <button>Zoom In</button>
-              <button>Hide UI</button>
+              <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
               <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
             </div>

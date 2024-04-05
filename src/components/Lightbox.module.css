@@ -18,12 +18,9 @@
   transition: opacity 400ms;
 }
 
-.hideUI * {
-  cursor: none;
-}
-
 .hideUI > :not(:is(.viewport, .loadingOverlay)) {
   opacity: 0;
+  pointer-events: none;
 }
 
 .topBar, .bottomBar {
