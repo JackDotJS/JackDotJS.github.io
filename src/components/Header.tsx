@@ -24,6 +24,8 @@ const Header: Component = () => {
   // FIXME: what would be the correct type for this?
   const { LBData, setLBData }: any = useContext(LightBoxContext);
 
+  // TODO: might be cool to have all my old avatars here? a lil easter egg sorta
+  // but if i do go through with that, this should probably go in its own file like the gallerydata
   const avatarImageMetaData: GalleryEntryData = {
     title: `Avatar`,
     description: ``, 

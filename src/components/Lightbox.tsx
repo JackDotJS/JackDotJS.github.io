@@ -2,11 +2,11 @@ import { For, type Component, createSignal, createEffect, createContext, JSXElem
 
 import styles from './Lightbox.module.css';
 
-// TODO: detailed descriptions for every gallery entry?
+// TODO: back button to close lightbox
 
-// TODO: make sure pressing back button to close lightbox works!!!
+// TODO: pan image controls
 
-// TODO: lightbox controls: zoom in/out, pan, next/prev img, fullscreen, view original, close
+// TODO: pinch zoom on touch screens/mobile devices
 
 export interface GalleryEntryImageData {
   filename: string,
@@ -188,6 +188,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     const oldX = viewerTransform.posX;
     const oldY = viewerTransform.posY;
 
+    // tysm amy for figuring out the horrific math to make this work :sob:
     const offsetX = ((newScale / oldScale) * (oldX - curX)) - (oldX - curX);
     const offsetY = ((newScale / oldScale) * (oldY - curY)) - (oldY - curY);
 
@@ -210,8 +211,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     const oldX = viewerTransform.posX;
     const oldY = viewerTransform.posY;
 
-    const offsetX = ((newScale / oldScale) * (oldX - curX)) - (oldX - curX);
-    const offsetY = ((newScale / oldScale) * (oldY - curY)) - (oldY - curY);
+    const offsetX = (oldX - curX) - ((newScale / oldScale) * (oldX - curX));
+    const offsetY = (oldY - curY) - ((newScale / oldScale) * (oldY - curY));
 
     const newX = oldX - offsetX;
     const newY = oldY - offsetY;
@@ -226,8 +227,10 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   const scrollHandler = (e: WheelEvent) => {
-    const rX = e.clientX / viewport.width;
-    const rY = e.clientY / viewport.height;
+    const multiplier = window.devicePixelRatio;
+
+    const rX = (e.clientX* multiplier) / viewport.width;
+    const rY = (e.clientY * multiplier) / viewport.height;
     Math.sign(e.deltaY) > 0 ? zoomOut(rX, rY) : zoomIn(rX, rY)
     redrawViewerImage();
   }
