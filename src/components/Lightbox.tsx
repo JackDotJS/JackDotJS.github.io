@@ -99,8 +99,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   const loadViewerImage = (src: string) => {
-    viewerImage.src = src;
     setLoadingState(true);
+    viewerImage.src = src;
     viewerImage.onload = () => {
       setLoadingState(false);
       redrawViewerImage();
@@ -152,6 +152,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     if (gdata !== null) {
       //console.debug(`lightbox opened`);
+      setLoadingState(true);
+      
       window.addEventListener(`resize`, resizeHandler);
       resizeHandler();
 
