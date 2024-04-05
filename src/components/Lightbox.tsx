@@ -181,32 +181,38 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   return (
     <LightBoxContext.Provider value={{LBData, setLBData}}>
       <dialog class={ uiVisible() ? styles.lightbox : styles.lightboxNoUi } ref={lightbox}>
-        <div class={styles.lbTopBar}>
-          <button autofocus onClick={() => { setLBData(null) }}>Close</button>
-        </div>
-
-        <Show when={ LBData() !== null && LBData()!.images.length > 1 }>
-          <button class={styles.prevButton} onClick={() => gotoPrev()}>previous</button>
-          <button class={styles.nextButton} onClick={() => gotoNext()}>next</button>
-        </Show>
-
-        <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
-
-        <div class={styles.lbBotBar}>
-          <Show when={ LBData() !== null && LBData()!.images.length > 1 }>
-            <div class={styles.carousel}>
-              <For each={LBData()!.images}>
-                {(image, index) => {
-                  return (
-                    <button onClick={() => { setSelectedImage(index) }}>
-                      <img src={image.filename}></img>
-                    </button>
-                  )
-                }}
-              </For>
+        <Show when={ LBData() !== null }>
+          <div class={styles.lbTopBar}>
+            <div class={styles.summary}>
+              <h1>{ LBData()!.title }</h1>
+              <span>{ LBData()!.description }</span>
             </div>
+            <button class={styles.closeLB} autofocus onClick={() => { setLBData(null) }}>&times;</button>
+          </div>
+
+          <Show when={ LBData()!.images.length > 1 }>
+            <button class={styles.prevButton} onClick={() => gotoPrev()}>&lt;</button>
+            <button class={styles.nextButton} onClick={() => gotoNext()}>&gt;</button>
           </Show>
-        </div>
+
+          <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
+
+          <div class={styles.lbBotBar}>
+            <Show when={ LBData()!.images.length > 1 }>
+              <div class={styles.carousel}>
+                <For each={LBData()!.images}>
+                  {(image, index) => {
+                    return (
+                      <button onClick={() => { setSelectedImage(index) }}>
+                        <img src={image.filename}></img>
+                      </button>
+                    )
+                  }}
+                </For>
+              </div>
+            </Show>
+          </div>
+        </Show>
       </dialog>
       {props.children}
     </LightBoxContext.Provider>
