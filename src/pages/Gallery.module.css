@@ -26,4 +26,11 @@ main.gallery {
 
 .entry > img {
   width: 100%;
+  transition: 200ms;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.66);
+}
+
+.entry:hover > img {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.66);
 }
