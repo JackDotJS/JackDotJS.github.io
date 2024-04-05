@@ -32,23 +32,15 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
   const viewerImage = new Image();
   const viewerTransform = {
-    default: {
-      posX: 0,
-      posY: 0,
-      width: 0,
-      height: 0
-    },
-    current: {
-      posX: 0,
-      posY: 0,
-      width: 0,
-      height: 0
-    }
+    posX: 0.5,
+    posY: 0.5,
+    scale: 1,
+    default: true
   }
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
 
-  const redrawViewerImage = () => {
+  const redrawViewerImage = (resetTransform: boolean) => {
     if (viewerImage.src.length === 0) return;
 
     const ctx = viewport.getContext(`2d`);
@@ -59,29 +51,34 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     ctx.clearRect(0, 0, viewport.width, viewport.height);
 
-    // TODO: make this only run once for each new image
-    const vdefault = viewerTransform.default;
+    const vt = viewerTransform;
 
-    vdefault.width = Math.min(viewport.width, viewerImage.width);
-    vdefault.height = Math.min(viewport.height, viewerImage.height);
+    if (resetTransform || vt.default) {
+      vt.default = true;
 
-    vdefault.width = Math.min(vdefault.width, viewerImage.width * (vdefault.height / viewerImage.height));
-    vdefault.height = Math.min(vdefault.height, viewerImage.height * (vdefault.width / viewerImage.width));
+      vt.posX = 0.5;
+      vt.posY = 0.5;
 
-    vdefault.posX = (viewport.width / 2) - (vdefault.width / 2);
-    vdefault.posY = (viewport.height / 2) - (vdefault.height / 2);
+      let calcX = Math.min(viewport.width, viewerImage.width);
+      let calcY = Math.min(viewport.height, viewerImage.height);
 
-    viewerTransform.current.posX = viewerTransform.default.posX;
-    viewerTransform.current.posY = viewerTransform.default.posY;
-    viewerTransform.current.width = viewerTransform.default.width;
-    viewerTransform.current.height = viewerTransform.default.height;
+      calcX = Math.min(calcX, viewerImage.width * (calcY / viewerImage.height));
+      calcY = Math.min(calcY, viewerImage.height * (calcX / viewerImage.width));
+
+      vt.scale = Math.min(calcX / viewerImage.width, calcY / viewerImage.height);
+    }
+
+    const exactW = viewerImage.width * vt.scale
+    const exactH = viewerImage.height * vt.scale
+    const exactX = viewport.width - (viewport.width * vt.posX) - ((exactW) / 2);
+    const exactY = viewport.height - (viewport.height * vt.posY)  -  ((exactH) / 2);
 
     ctx.drawImage(
       viewerImage, 
-      viewerTransform.current.posX, 
-      viewerTransform.current.posY, 
-      viewerTransform.current.width, 
-      viewerTransform.current.height
+      exactX, 
+      exactY, 
+      exactW, 
+      exactH
     );
   }
 
@@ -104,7 +101,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     viewerImage.src = LBData()!.images[selectedImage()].filename;
     viewerImage.onload = () => {
       setLoadingState(false);
-      redrawViewerImage();
+      redrawViewerImage(true);
     };
   };
 
@@ -166,7 +163,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     setCanvasWidth(document.documentElement.clientWidth * multiplier);
     setCanvasHeight(document.documentElement.clientHeight * multiplier);
-    redrawViewerImage();
+    redrawViewerImage(false);
   }
 
   const showUiHandler = () => {
@@ -253,7 +250,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
             <div class={styles.controls}>
               <button>Zoom Out</button>
-              <button>Reset Zoom</button>
+              <button>Reset View</button>
               <button>Zoom In</button>
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
