@@ -40,6 +40,10 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
 
+  const zoomSensitivity = 0.15;
+  const minZoom = 0.2;
+  const maxZoom = 5;
+
   const redrawViewerImage = (resetTransform: boolean = false) => {
     if (viewerImage.src.length === 0) return;
 
@@ -70,8 +74,9 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     const exactW = viewerImage.width * vt.scale
     const exactH = viewerImage.height * vt.scale
-    const exactX = viewport.width - (viewport.width * vt.posX) - ((exactW) / 2);
-    const exactY = viewport.height - (viewport.height * vt.posY)  -  ((exactH) / 2);
+
+    const exactX = (viewport.width * vt.posX) - ((exactW) / 2);
+    const exactY = (viewport.height * vt.posY)  -  ((exactH) / 2);
 
     ctx.drawImage(
       viewerImage, 
@@ -170,13 +175,60 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     setUiVisible(true);
   }
 
-  const scrollHandler = (e: WheelEvent) => {
-    const sensitivity = 0.1;
-    const minZoom = 0.2;
-    const maxZoom = 5;
+  const clampZoom = (newValue: number) => {
+    return Math.max(minZoom, Math.min(maxZoom, newValue));
+  }
+
+  const zoomIn = (curX: number, curY: number) => {
     viewerTransform.default = false;
-    viewerTransform.scale -= (Math.sign(e.deltaY) * sensitivity * viewerTransform.scale);
-    viewerTransform.scale = Math.max(minZoom, Math.min(maxZoom, viewerTransform.scale));
+
+    const oldScale = viewerTransform.scale;
+    const newScale = clampZoom(oldScale + (zoomSensitivity * oldScale));
+
+    const oldX = viewerTransform.posX;
+    const oldY = viewerTransform.posY;
+
+    const offsetX = ((newScale / oldScale) * (oldX - curX)) - (oldX - curX);
+    const offsetY = ((newScale / oldScale) * (oldY - curY)) - (oldY - curY);
+
+    const newX = oldX + offsetX;
+    const newY = oldY + offsetY;
+
+    viewerTransform.posX = newX;
+    viewerTransform.posY = newY;
+
+    viewerTransform.scale = newScale;
+    redrawViewerImage();
+  }
+
+  const zoomOut = (curX: number, curY: number) => {
+    viewerTransform.default = false;
+
+    const oldScale = viewerTransform.scale;
+    const newScale = clampZoom(oldScale - (zoomSensitivity * oldScale));
+
+    const oldX = viewerTransform.posX;
+    const oldY = viewerTransform.posY;
+
+    const offsetX = ((newScale / oldScale) * (oldX - curX)) - (oldX - curX);
+    const offsetY = ((newScale / oldScale) * (oldY - curY)) - (oldY - curY);
+
+    const newX = oldX - offsetX;
+    const newY = oldY - offsetY;
+
+    console.debug(oldScale, newScale, oldX, oldY, offsetX, offsetY, newX, newY);
+
+    viewerTransform.posX = newX;
+    viewerTransform.posY = newY;
+
+    viewerTransform.scale = newScale;
+    redrawViewerImage();
+  }
+
+  const scrollHandler = (e: WheelEvent) => {
+    const rX = e.clientX / viewport.width;
+    const rY = e.clientY / viewport.height;
+    Math.sign(e.deltaY) > 0 ? zoomOut(rX, rY) : zoomIn(rX, rY)
     redrawViewerImage();
   }
 
@@ -263,9 +315,9 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </Show>
 
             <div class={styles.controls}>
-              <button>Zoom Out</button>
+              <button onClick={() => zoomOut(0.5, 0.5)}>Zoom Out</button>
               <button onClick={() => redrawViewerImage(true)}>Reset View</button>
-              <button>Zoom In</button>
+              <button onClick={() => zoomIn(0.5, 0.5)}>Zoom In</button>
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
               <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
