@@ -1,4 +1,8 @@
-.lightbox, .lightboxNoUi {
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -10,15 +14,15 @@
   background-color: #000;
 }
 
-.lightboxNoUi * {
-  cursor: none;
-}
-
-:is(.lightbox, .lightboxNoUi) > :not(.viewport) {
+.lightbox > :not(.viewport) {
   transition: opacity 400ms;
 }
 
-.lightboxNoUi > :not(.viewport) {
+.hideUI * {
+  cursor: none;
+}
+
+.hideUI > :not(.viewport) {
   opacity: 0;
 }
 

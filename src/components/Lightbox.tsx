@@ -44,7 +44,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       height: 0
     }
   }
-  let lightbox!: HTMLDialogElement;
+  let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
 
   // TIL timeouts are just plain numbers... for some reason...
@@ -160,34 +160,43 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   createEffect(() => {
     const gdata = LBData();
 
-    if (gdata !== null && !lightbox.open) {
+    if (gdata !== null) {
       console.debug(`lightbox opened`);
       document.documentElement.style.overflow = `hidden`;
       document.body.style.overflow = `hidden`;
       setSelectedImage(0);
       restartUIFade();
-      lightbox.showModal();
     }
     
-    if (gdata === null && lightbox.open) {
+    if (gdata === null) {
       // TODO: clear canvas data on close
       console.debug(`lightbox closed`);
       document.documentElement.style.overflow = ``;
       document.body.style.overflow = ``;
-      lightbox.close();
+      if (document.fullscreenElement === lightbox) {
+        document.exitFullscreen();
+      }
     }
   });
 
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement === lightbox) {
+      document.exitFullscreen()
+    } else {
+      lightbox.requestFullscreen()
+    }
+  }
+
   return (
     <LightBoxContext.Provider value={{LBData, setLBData}}>
-      <dialog class={ uiVisible() ? styles.lightbox : styles.lightboxNoUi } ref={lightbox}>
+      <div classList={{ [styles.lightbox]: true, [styles.activated]: LBData() !== null, [styles.hideUI]: !(uiVisible()) }} ref={lightbox}>
         <Show when={ LBData() !== null }>
           <div class={styles.lbTopBar}>
             <div class={styles.summary}>
               <h1>{ LBData()!.title }</h1>
               <span>{ LBData()!.description }</span>
             </div>
-            <button class={styles.closeLB} autofocus onClick={() => { setLBData(null) }}>&times;</button>
+            <button class={styles.closeLB} autofocus onClick={() => { setLBData(null);  }}>&times;</button>
           </div>
 
           <Show when={ LBData()!.images.length > 1 }>
@@ -198,6 +207,13 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
           <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
 
           <div class={styles.lbBotBar}>
+            <Show when={ LBData()!.images[selectedImage()].description !== null }>
+              <span>{LBData()!.images[selectedImage()].description}</span>
+            </Show>
+            <button>Zoom In</button>
+            <button>Zoom Out</button>
+            <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
+            <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
             <Show when={ LBData()!.images.length > 1 }>
               <div class={styles.carousel}>
                 <For each={LBData()!.images}>
@@ -213,7 +229,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </Show>
           </div>
         </Show>
-      </dialog>
+      </div>
       {props.children}
     </LightBoxContext.Provider>
   )
