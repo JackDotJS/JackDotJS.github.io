@@ -4,9 +4,58 @@
   "featured": "orbit.jpg",
   "images": [
     {
+      "filename": "engine_core.webp",
+      "year": 2023,
+      "month": 9,
+      "index": 2
+    },
+    {
+      "filename": "gunshaped.webp",
+      "year": 2023,
+      "month": 4,
+      "index": 1
+    },
+    {
+      "filename": "gunshaped2.webp",
+      "year": 2023,
+      "month": 4
+    },
+    {
+      "filename": "klx2.jpg",
+      "year": 2019,
+      "month": 2
+    },
+    {
+      "filename": "longer.webp",
+      "year": 2023,
+      "month": 9
+    },
+    {
       "filename": "orbit.jpg",
       "year": 2024,
       "month": 4
+    },
+    {
+      "filename": "planet.webp",
+      "year": 2024,
+      "month": 2,
+      "index": 1
+    },
+    {
+      "filename": "render_mark_ja.jpg",
+      "year": 2019,
+      "month": 3
+    },
+    {
+      "filename": "shields_up.webp",
+      "year": 2023,
+      "month": 9,
+      "index": 1
+    },
+    {
+      "filename": "spaceship_corridor.jpg",
+      "year": 2023,
+      "month": 2
     },
     {
       "filename": "spaceship.jpg",
@@ -26,14 +75,14 @@
       "month": 6
     },
     {
-      "filename": "klx2.jpg",
-      "year": 2019,
+      "filename": "thrust.webp",
+      "year": 2024,
       "month": 2
     },
     {
-      "filename": "render_mark_ja.jpg",
-      "year": 2019,
-      "month": 3
+      "filename": "tigershark.webp",
+      "year": 2023,
+      "month": 1
     }
   ]
 }
