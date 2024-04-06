@@ -55,8 +55,12 @@
   width: 50%;
 }
 
-.summary > h1 {
+.summary :is(h1, h2) {
   text-align: left;
+}
+
+.summary h2 {
+  color: #757575;
 }
 
 .close {
@@ -65,10 +69,12 @@
   background-color: transparent;
   color: #FFF;
   border: none;
+  border-radius: 0.5rem;
   aspect-ratio: 1;
+  transition: background-color 66ms;
 }
 
-.close:hover {
+.close:hover:not(:active) {
   background-color: rgba(255,255,255,0.1);
 }
 
@@ -124,11 +130,24 @@
 }
 
 .carousel {
+  position: relative;
+  height: 6rem;
+  width: 100%;
+  overflow: visible;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #FFF 20%, #FFF 80%, #000 100%);
+  -webkit-mask-mode: luminance;
+  mask-image: linear-gradient(to right, #000 0%, #FFF 20%, #FFF 80%, #000 100%);
+  mask-mode: luminance;
+}
+
+.carouselScroller {
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 0.25rem;
-  height: 6rem;
+  height: 100%;
+  transition: left 200ms;
 }
 
 .carousel :is(img, button) {
@@ -137,18 +156,29 @@
 }
 
 .carousel img {
-  transition: transform 66ms;
   object-fit: cover;
 }
 
-.carousel > button {
+.carousel button:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: background-color 66ms;
+}
+
+.carousel button {
+  position: relative;
   padding: 0;
   background: none;
   border: none;
 }
 
-.carousel > button:hover:not(:active) > img {
-  transform: translateY(-0.25rem);
+.carousel button:hover:not(:active):after {
+  background-color: rgba(255,255,255,0.1);
 }
 
 .prevButton, .nextButton {
@@ -164,7 +194,7 @@
   font-size: 2.5rem;
 }
 
-:is(.prevButton, .nextButton):hover:before {
+:is(.prevButton, .nextButton):before {
   content: '';
   display: block;
   position: absolute;
@@ -172,6 +202,10 @@
   left: 0;
   width: 100%;
   height: 100%;
+  transition: background-color 66ms;
+}
+
+:is(.prevButton, .nextButton):hover:not(:active):before {
   background-color: rgba(255,255,255,0.1);
 }
 
@@ -179,8 +213,18 @@
   left: 0;
 }
 
+.prevButton, .prevButton:before {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
 .nextButton {
   right: 0;
+}
+
+.nextButton, .nextButton:before {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .controls {

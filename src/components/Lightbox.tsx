@@ -37,6 +37,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const maxZoom = 5;
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
+  let carouselScroller!: HTMLDivElement;
+  let carousel!: HTMLDivElement;
 
   const viewerTransform = {
     posX: 0.5,
@@ -294,31 +296,61 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     panState.moving = false;
   }
 
+  const updateCarousel = () => {
+    if (!carousel.isConnected || !carouselScroller.isConnected) return;
+
+    const buttons = carouselScroller.children;
+    const target = buttons[selectedImage()];
+
+    const wrapperRect = carousel.getBoundingClientRect();
+    const scrollerRect = carouselScroller.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+
+    const centerWrapper = wrapperRect.width / 2;
+    const targetOffset = scrollerRect.left - targetRect.right;
+
+    const pixelOffset = centerWrapper + (targetOffset + (targetRect.width / 2));
+
+    carouselScroller.style.left = `${pixelOffset}px`;
+  };
+
   onMount(() => {
     createEffect(() => {
+      const gdata = LBData();
+      if (gdata == null) return;
+
       loadViewerImage(selectedImage());
+      updateCarousel();
     });
   
     createEffect(() => {
       const gdata = LBData();
   
       if (gdata !== null) {
-        //console.debug(`lightbox opened`);
+        console.debug(`lightbox opened`);
         setLoadingState(true);
+
+        // gallery carousel
+        window.addEventListener(`resize`, updateCarousel);
   
+        // window resizing
         window.addEventListener(`resize`, resizeHandler);
         resizeHandler();
 
+        // scrollwheel zoom
         viewport.addEventListener(`wheel`, scrollHandler);
   
+        // panning controls
+        // touch zoom controls
         viewport.addEventListener(`pointerdown`, pointerDownHandler);
         window.addEventListener(`pointermove`, pointerMoveHandler);
         window.addEventListener(`pointerup`, pointerUpHandler);
         window.addEventListener(`pointercancel`, pointerUpHandler);
 
+        // unhide UI on key inputs
         window.addEventListener(`keydown`, showUiHandler);
         
-  
+        // prevent regular page scrolling
         document.documentElement.style.overflow = `hidden`;
         document.body.style.overflow = `hidden`;
         
@@ -328,15 +360,29 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       }
       
       if (gdata === null) {
-        //console.debug(`lightbox closed`);
-        window.removeEventListener(`resize`, resizeHandler);
+        console.debug(`lightbox closed`);
 
-        viewport?.removeEventListener(`wheel`, scrollHandler);
+        // gallery carousel
+        window.removeEventListener(`resize`, updateCarousel);
   
-        //window.removeEventListener(`pointermove`, showUiHandler);
+        // window resizing
+        window.removeEventListener(`resize`, resizeHandler);
+        resizeHandler();
+
+        // scrollwheel zoom
+        if (viewport != null) viewport.removeEventListener(`wheel`, scrollHandler);
+  
+        // panning controls
+        // touch zoom controls
+        if (viewport != null) viewport.removeEventListener(`pointerdown`, pointerDownHandler);
+        window.removeEventListener(`pointermove`, pointerMoveHandler);
+        window.removeEventListener(`pointerup`, pointerUpHandler);
+        window.removeEventListener(`pointercancel`, pointerUpHandler);
+
+        // unhide UI on key inputs
         window.removeEventListener(`keydown`, showUiHandler);
-        window.removeEventListener(`pointerdown`, showUiHandler);
   
+        // re-enable regular page scrolling
         document.documentElement.style.overflow = ``;
         document.body.style.overflow = ``;
   
@@ -359,7 +405,12 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
           </Show>
           <div class={styles.topBar}>
             <div class={styles.summary}>
-              <h1>{ LBData()!.title }</h1>
+              <div>
+                <h1>{ LBData()!.title }</h1>
+                <Show when={ LBData()!.images.length > 1 }>
+                  <h2>{ `${LBData()!.images.length} images` }</h2>
+                </Show>
+              </div>
               <span>{ LBData()!.description }</span>
             </div>
             <button class={styles.close} autofocus onClick={() => { setLBData(null);  }}>&times;</button>
@@ -390,16 +441,18 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </div>
             
             <Show when={ LBData()!.images.length > 1 }>
-              <div class={styles.carousel}>
-                <For each={LBData()!.images}>
-                  {(image, index) => {
-                    return (
-                      <button onClick={() => { setSelectedImage(index) }}>
-                        <img src={image.filename}></img>
-                      </button>
-                    )
-                  }}
-                </For>
+              <div class={styles.carousel} ref={carousel}>
+                <div class={styles.carouselScroller} ref={carouselScroller}>
+                  <For each={LBData()!.images}>
+                    {(image, index) => {
+                      return (
+                        <button onClick={() => { setSelectedImage(index) }}>
+                          <img src={image.filename}></img>
+                        </button>
+                      )
+                    }}
+                  </For>
+                </div>
               </div>
             </Show>
           </div>
