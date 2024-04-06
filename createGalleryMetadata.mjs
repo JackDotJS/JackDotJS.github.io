@@ -53,6 +53,14 @@ for (const item of galleryItems) {
       if (typeof entry.year !== `number`) {
         throw new TypeError(`(metadata.images[${i}].year) expected type "number", got "${typeof entry.year}"`);
       }
+
+      if (typeof entry.month !== `number`) {
+        throw new TypeError(`(metadata.images[${i}].month) expected type "number", got "${typeof entry.month}"`);
+      }
+
+      if (typeof entry.index !== `number` && entry.index != null) {
+        throw new TypeError(`(metadata.images[${i}].index) expected type "number | null | undefined", got "${typeof entry.index}"`);
+      }
     }
   }
   catch (err) {
@@ -95,14 +103,33 @@ for (const item of galleryItems) {
   // fix filepath for featured image
   metadata.featured = `/gallery/${item.name}/${metadata.featured}`;
 
-  // ensure each entry is sorted by year
-  metadata.images.sort((a, b) => b.year - a.year);
+  // ensure each entry is sorted by year, month, and index
+  metadata.images.sort((a, b) => {
+    const chkYear = b.year - a.year;
+    const chkMonth = b.month - a.month;
+    const chkIndex = (b.index ?? 0) - (a.index ?? 0)
+
+    if (chkYear !== 0) return chkYear;
+    if (chkMonth !== 0) return chkMonth;
+    if (chkIndex !== 0) return chkIndex;
+  });
 
   newData.push(metadata);
 }
 
 // sort final array to ensure latest gallery items are first
-newData.sort((a, b) => b.images[0].year - a.images[0].year);
+newData.sort((a, b) => {
+  const imgA = a.images[0];
+  const imgB = b.images[0];
+
+  const chkYear = imgB.year - imgA.year;
+  const chkMonth = imgB.month - imgA.month;
+  const chkIndex = (imgB.index ?? 0) - (imgA.index ?? 0)
+
+  if (chkYear !== 0) return chkYear;
+  if (chkMonth !== 0) return chkMonth;
+  if (chkIndex !== 0) return chkIndex;
+});
 
 //console.debug(inspect(newData, { depth: null, colors: true }));
 

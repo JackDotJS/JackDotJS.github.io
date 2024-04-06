@@ -5,28 +5,35 @@
   "images": [
     {
       "filename": "orbit.jpg",
-      "year": 2024.4
+      "year": 2024,
+      "month": 4
     },
     {
       "filename": "spaceship.jpg",
       "description": "An mid-early version of the model, which was kinda awkward-looking due to some growing pains in the design. A number of core elements were already in place by then.",
-      "year": 2022.4
+      "year": 2022,
+      "month": 4
     },
     {
       "filename": "squarehead.webp",
-      "year": 2021.61
+      "year": 2021,
+      "month": 6,
+      "index": 1
     },
     {
       "filename": "squarehead2.webp",
-      "year": 2021.6
+      "year": 2021,
+      "month": 6
     },
     {
       "filename": "klx2.jpg",
-      "year": 2019.2
+      "year": 2019,
+      "month": 2
     },
     {
       "filename": "render_mark_ja.jpg",
-      "year": 2019.3
+      "year": 2019,
+      "month": 3
     }
   ]
 }

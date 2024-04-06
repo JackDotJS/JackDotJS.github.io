@@ -6,7 +6,9 @@
     {
       "filename": "REQUIRED",
       "description": "OPTIONAL",
-      "year": 0
+      "year": 0,
+      "month": 1,
+      "index": 0
     }
   ]
 }

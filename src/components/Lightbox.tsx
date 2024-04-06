@@ -12,6 +12,8 @@ export interface GalleryEntryImageData {
   filename: string,
   description?: string,
   year: number,
+  month: number,
+  index?: number
 }
 
 export interface GalleryEntryData {
@@ -165,9 +167,9 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       return { year: `[...]`, month: `[...]` }
     };
 
-    const rawValue = LBData()!.images[selectedImage()].year
-    const year = Math.floor(rawValue);
-    const month = parseInt(rawValue.toString().split(`.`)[1]);
+    const imageData = LBData()!.images[selectedImage()]
+    const year = imageData.year;
+    const month = imageData.month
 
     return {
       year: year.toString(),

@@ -44,8 +44,8 @@ const Gallery: Component = () => {
             {(entry) => {
               let featureImage = entry.images[0].filename
               let yearLabel;
-              const yearStart = Math.floor(entry.images[entry.images.length-1].year);
-              const yearEnd = Math.floor(entry.images[0].year);
+              const yearStart = entry.images[entry.images.length-1].year;
+              const yearEnd = entry.images[0].year;
 
               // use featured image if available
               if (entry.featured != null) {
