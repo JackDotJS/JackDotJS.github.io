@@ -4,7 +4,21 @@ import { GalleryEntryData, LightBoxContext } from './Lightbox';
 
 import styles from './Header.module.css';
 
+// TODO: might be cool to have all my old avatars here? a lil easter egg sorta
+// but if i do go through with that, this should probably go in its own file like the gallerydata
+const avatarImageMetaData: GalleryEntryData = {
+  title: `Avatar`,
+  description: ``, 
+  images: [{
+    filename: `/assets/icon.png`,
+    year: 2022,
+    month: 3
+  }]
+}
+
 const Header: Component = () => {
+  let openLightbox: any;
+
   const [time, setTime] = createSignal(`0:00 PM`);
 
   const updateMyTime = () => {
@@ -17,29 +31,19 @@ const Header: Component = () => {
   }
 
   onMount(() => {
+    // FIXME: what would be the correct type for this?
+    const { LBData, setLBData }: any = useContext(LightBoxContext);
+
+    openLightbox = setLBData;
+
     updateMyTime();
     setInterval(updateMyTime, 1000);
   });
 
-  // FIXME: what would be the correct type for this?
-  const { LBData, setLBData }: any = useContext(LightBoxContext);
-
-  // TODO: might be cool to have all my old avatars here? a lil easter egg sorta
-  // but if i do go through with that, this should probably go in its own file like the gallerydata
-  const avatarImageMetaData: GalleryEntryData = {
-    title: `Avatar`,
-    description: ``, 
-    images: [{
-      filename: `/assets/icon.png`,
-      year: 2022,
-      month: 3
-    }]
-  }
-
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
-        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setLBData(avatarImageMetaData)}>
+        <a class={styles.avatar} href="javascript:void(0)" onClick={() => openLightbox(avatarImageMetaData)}>
           <img src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
         </a>
         <div class={styles.summary}>
