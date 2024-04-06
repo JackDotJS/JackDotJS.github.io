@@ -5,29 +5,25 @@ import { GalleryEntryData, LightBoxContext } from '../components/Lightbox';
 
 import styles from './Gallery.module.css';
 
-// gallerydata.json gets saved here so we only have to fetch it once per session
-let cachedGalleryData: GalleryEntryData[];
+const fetchGallery = fetch(`/gallerydata.json`);
 
 const Gallery: Component = () => {
   const [galleryEntries, setGalleryEntries] = createSignal<GalleryEntryData[]>([]);
 
-  if (cachedGalleryData != null) {
-    // load cached data
-    setGalleryEntries(cachedGalleryData);
-  } else {
-    // fetch and cache gallery data
-    fetch(`/gallerydata.json`).then(async (response) => {
+  onMount(() => {
+    fetchGallery.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+
       if (response.status !== 200) {
         return console.error(`couldn't fetch gallery data: ${response.status}`);
       }
-  
+    
       const data: GalleryEntryData[] = JSON.parse(await response.text());
-  
+    
       console.debug(data);
-      cachedGalleryData = data;
       setGalleryEntries(data);
     });
-  }
+  });
 
   // FIXME: what would be the correct type for this?
   const { LBData, setLBData }: any = useContext(LightBoxContext);
