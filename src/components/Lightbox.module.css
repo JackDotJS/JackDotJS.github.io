@@ -75,6 +75,12 @@
 .viewport {
   width: 100%;
   height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.viewport:active {
+  cursor: grabbing;
 }
 
 .loadingOverlay {
@@ -106,6 +112,8 @@
   width: 10rem;
   aspect-ratio: 1;
   background-image: conic-gradient(#FFF, rgba(255, 255, 255, 0));
+  -webkit-mask-image: radial-gradient(closest-side circle at center, #000 90%, #FFF 91%);
+  -webkit-mask-mode: luminance;
   mask-image: radial-gradient(closest-side circle at center, #000 90%, #FFF 91%);
   mask-mode: luminance;
   animation-name: loadingCircle;
