@@ -22,7 +22,9 @@ const Footer: Component = () => {
   const [revHash, setRevHash] = createSignal(`[...]`);
 
   onMount(() => {
-    fetchBuild.then(async (response) => {
+    fetchBuild.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+      
       if (response.status !== 200) {
         return console.error(`couldn't fetch build date: ${response.status}`);
       }
@@ -80,7 +82,9 @@ const Footer: Component = () => {
       }, 1000);
     });
 
-    fetchHash.then(async (response) => {
+    fetchHash.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+
       if (response.status !== 200) {
         return console.error(`couldn't fetch revision hash: ${response.status}`);
       }
