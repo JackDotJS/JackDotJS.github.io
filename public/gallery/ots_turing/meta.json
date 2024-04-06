@@ -4,42 +4,9 @@
   "featured": "orbit.jpg",
   "images": [
     {
-      "filename": "engine_core.webp",
-      "year": 2023,
-      "month": 9,
-      "index": 2
-    },
-    {
-      "filename": "gunshaped.webp",
-      "year": 2023,
-      "month": 4,
-      "index": 1
-    },
-    {
-      "filename": "gunshaped2.webp",
-      "year": 2023,
-      "month": 4
-    },
-    {
       "filename": "klx2.jpg",
       "year": 2019,
       "month": 2
-    },
-    {
-      "filename": "longer.webp",
-      "year": 2023,
-      "month": 9
-    },
-    {
-      "filename": "orbit.jpg",
-      "year": 2024,
-      "month": 4
-    },
-    {
-      "filename": "planet.webp",
-      "year": 2024,
-      "month": 2,
-      "index": 1
     },
     {
       "filename": "render_mark_ja.jpg",
@@ -47,21 +14,9 @@
       "month": 3
     },
     {
-      "filename": "shields_up.webp",
-      "year": 2023,
-      "month": 9,
-      "index": 1
-    },
-    {
-      "filename": "spaceship_corridor.jpg",
-      "year": 2023,
-      "month": 2
-    },
-    {
-      "filename": "spaceship.jpg",
-      "description": "An mid-early version of the model, which was kinda awkward-looking due to some growing pains in the design. A number of core elements were already in place by then.",
-      "year": 2022,
-      "month": 4
+      "filename": "squarehead2.webp",
+      "year": 2021,
+      "month": 6
     },
     {
       "filename": "squarehead.webp",
@@ -70,9 +25,48 @@
       "index": 1
     },
     {
-      "filename": "squarehead2.webp",
-      "year": 2021,
-      "month": 6
+      "filename": "spaceship.jpg",
+      "description": "An mid-early version of the model, which was kinda awkward-looking due to some growing pains in the design. A number of core elements were already in place by then.",
+      "year": 2022,
+      "month": 4
+    },
+    {
+      "filename": "tigershark.webp",
+      "year": 2023,
+      "month": 1
+    },
+    {
+      "filename": "spaceship_corridor.jpg",
+      "year": 2023,
+      "month": 2
+    },
+    {
+      "filename": "gunshaped2.webp",
+      "year": 2023,
+      "month": 4
+    },
+    {
+      "filename": "gunshaped.webp",
+      "year": 2023,
+      "month": 4,
+      "index": 1
+    },
+    {
+      "filename": "longer.webp",
+      "year": 2023,
+      "month": 9
+    },
+    {
+      "filename": "shields_up.webp",
+      "year": 2023,
+      "month": 9,
+      "index": 1
+    },
+    {
+      "filename": "engine_core.webp",
+      "year": 2023,
+      "month": 9,
+      "index": 2
     },
     {
       "filename": "thrust.webp",
@@ -80,9 +74,15 @@
       "month": 2
     },
     {
-      "filename": "tigershark.webp",
-      "year": 2023,
-      "month": 1
+      "filename": "planet.webp",
+      "year": 2024,
+      "month": 2,
+      "index": 1
+    },
+    {
+      "filename": "orbit.jpg",
+      "year": 2024,
+      "month": 4
     }
   ]
 }
