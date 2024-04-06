@@ -299,6 +299,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   const updateCarousel = () => {
+    if (carousel == null || carouselScroller == null) return;
     if (!carousel.isConnected || !carouselScroller.isConnected) return;
 
     const buttons = carouselScroller.children;
