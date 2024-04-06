@@ -13,39 +13,38 @@ const Commissions: Component = () => {
       <h3>0/3 slots taken</h3>
 
       <table>
-        <colgroup>
-          <col />
-          <col />
-        </colgroup>
-        <tr>
-          <th>will do</th>
-          <th>will <em>not</em> do</th>
-        </tr>
-        <tr>
-          <td>anthros and furries, including hybrid species</td>
-          <td>anything racist, sexist, queer&shy;phobic, or otherwise discriminatory</td>
-          
-        </tr>
-        <tr>
-          <td>aliens, monsters, and any other non-human creatures (depends on how they look)</td>
-          <td>nsfw/adult content, including "extremely questionable" content</td>
-        </tr>
-        <tr>
-          <td>weapons, tools, and other items</td>
-          <td>excessive gore</td>
-        </tr>
-        <tr>
-          <td>fictional vehicles, including spaceships</td>
-          <td>fetish art</td>
-        </tr>
-        <tr>
-          <td>interior environments</td>
-          <td>any excessively complex subjects</td>
-        </tr>
-        <tr>
-          <td>logos and other 2d graphics</td>
-          <td>softbody, cloth, and other complex physics simulations</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>will do</th>
+            <th>will <em>not</em> do</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>anthros and furries, including hybrid species</td>
+            <td>anything racist, sexist, queer&shy;phobic, or otherwise discriminatory</td>
+          </tr>
+          <tr>
+            <td>aliens, monsters, and any other non-human creatures (depends on how they look)</td>
+            <td>nsfw/adult content, including "extremely questionable" content</td>
+          </tr>
+          <tr>
+            <td>weapons, tools, and other items</td>
+            <td>excessive gore</td>
+          </tr>
+          <tr>
+            <td>fictional vehicles, including spaceships</td>
+            <td>fetish art</td>
+          </tr>
+          <tr>
+            <td>interior environments</td>
+            <td>any excessively complex subjects</td>
+          </tr>
+          <tr>
+            <td>logos and other 2d graphics</td>
+            <td>softbody, cloth, and other complex physics simulations</td>
+          </tr>
+        </tbody>
       </table>
 
       <p>this is meant to be a general guide. if you're unsure of something, feel free to ask!</p>
