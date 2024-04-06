@@ -112,6 +112,8 @@ for (const item of galleryItems) {
     if (chkYear !== 0) return chkYear;
     if (chkMonth !== 0) return chkMonth;
     if (chkIndex !== 0) return chkIndex;
+    console.warn(`WARNING: found identical sorting numbers in "${item.name}" between images "${a.filename}" and "${b.filename}"`);
+    return 0;
   });
 
   newData.push(metadata);
