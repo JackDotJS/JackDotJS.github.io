@@ -30,19 +30,32 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
+
   const viewerImage = new Image();
+  const zoomSensitivity = 0.15;
+  const minZoom = 0.2;
+  const maxZoom = 5;
+  let lightbox!: HTMLDivElement;
+  let viewport!: HTMLCanvasElement;
+
   const viewerTransform = {
     posX: 0.5,
     posY: 0.5,
     scale: 1,
     default: true
   }
-  let lightbox!: HTMLDivElement;
-  let viewport!: HTMLCanvasElement;
 
-  const zoomSensitivity = 0.15;
-  const minZoom = 0.2;
-  const maxZoom = 5;
+  const panState = {
+    moving: false,
+    imageOffset: {
+      x: 0,
+      y: 0
+    },
+    cursorOffset: {
+      x: 0,
+      y: 0
+    }
+  }
 
   const redrawViewerImage = (resetTransform: boolean = false) => {
     if (viewerImage.src.length === 0) return;
@@ -180,7 +193,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   // TODO: clamp image position
-  const zoomIn = (curX: number, curY: number) => {
+  const zoomIn = (curX: number, curY: number, amount = zoomSensitivity) => {
     viewerTransform.default = false;
 
     const oldScale = viewerTransform.scale;
@@ -204,11 +217,11 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   // TODO: clamp image position
-  const zoomOut = (curX: number, curY: number) => {
+  const zoomOut = (curX: number, curY: number, amount = zoomSensitivity) => {
     viewerTransform.default = false;
 
     const oldScale = viewerTransform.scale;
-    const newScale = clampZoom(oldScale - (zoomSensitivity * oldScale));
+    const newScale = clampZoom(oldScale - (amount * oldScale));
 
     const oldX = viewerTransform.posX;
     const oldY = viewerTransform.posY;
@@ -229,10 +242,56 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const scrollHandler = (e: WheelEvent) => {
     const multiplier = window.devicePixelRatio;
 
-    const rX = (e.clientX* multiplier) / viewport.width;
+    const rX = (e.clientX * multiplier) / viewport.width;
     const rY = (e.clientY * multiplier) / viewport.height;
     Math.sign(e.deltaY) > 0 ? zoomOut(rX, rY) : zoomIn(rX, rY)
     redrawViewerImage();
+  }
+
+  const panImage = (curX: number, curY: number) => {
+    const newPosX = panState.imageOffset.x + (curX - panState.cursorOffset.x);
+    const newPosY = panState.imageOffset.y + (curY - panState.cursorOffset.y);
+
+    viewerTransform.posX = newPosX;
+    viewerTransform.posY = newPosY;
+    viewerTransform.default = false;
+    redrawViewerImage();
+  }
+
+  const pointerDownHandler = (e: PointerEvent) => {
+    // TODO: need different hide/show handling for touch devices
+    setUiVisible(true);
+
+    panState.moving = true;
+
+    // TODO: get list of active pointers and average 
+    // their positions for multi-touch support
+    const multiplier = window.devicePixelRatio;
+
+    const rX = (e.clientX * multiplier) / viewport.width;
+    const rY = (e.clientY * multiplier) / viewport.height;
+
+    panState.cursorOffset.x = rX;
+    panState.cursorOffset.y = rY;
+    panState.imageOffset.x = viewerTransform.posX;
+    panState.imageOffset.y = viewerTransform.posY;
+  }
+
+  const pointerMoveHandler = (e: PointerEvent) => {
+    const multiplier = window.devicePixelRatio;
+
+    const rX = (e.clientX * multiplier) / viewport.width;
+    const rY = (e.clientY * multiplier) / viewport.height;
+
+    // TODO: get list of active pointers and average 
+    // their positions for multi-touch support
+
+    if (panState.moving) panImage(rX, rY);
+  }
+
+  const pointerUpHandler = (e: PointerEvent) => {
+    // TODO: check if ALL pointers are up first!
+    panState.moving = false;
   }
 
   onMount(() => {
@@ -252,9 +311,13 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
         viewport.addEventListener(`wheel`, scrollHandler);
   
-        //window.addEventListener(`pointermove`, showUiHandler);
+        viewport.addEventListener(`pointerdown`, pointerDownHandler);
+        window.addEventListener(`pointermove`, pointerMoveHandler);
+        window.addEventListener(`pointerup`, pointerUpHandler);
+        window.addEventListener(`pointercancel`, pointerUpHandler);
+
         window.addEventListener(`keydown`, showUiHandler);
-        window.addEventListener(`pointerdown`, showUiHandler);
+        
   
         document.documentElement.style.overflow = `hidden`;
         document.body.style.overflow = `hidden`;
