@@ -4,7 +4,9 @@ import styles from './Lightbox.module.css';
 
 // TODO: back button to close lightbox
 
-// TODO: pinch zoom on touch screens/mobile devices
+// TODO: touch screens/mobile device support
+
+// TODO: accessibility in general
 
 export interface GalleryEntryImageData {
   filename: string,
