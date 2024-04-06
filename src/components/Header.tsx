@@ -17,8 +17,6 @@ const avatarImageMetaData: GalleryEntryData = {
 }
 
 const Header: Component = () => {
-  let openLightbox: any;
-
   const [time, setTime] = createSignal(`0:00 PM`);
 
   const updateMyTime = () => {
@@ -30,12 +28,10 @@ const Header: Component = () => {
     }));
   }
 
+  // FIXME: what would be the correct type for this?
+  const { LBData, setLBData }: any = useContext(LightBoxContext);
+
   onMount(() => {
-    // FIXME: what would be the correct type for this?
-    const { LBData, setLBData }: any = useContext(LightBoxContext);
-
-    openLightbox = setLBData;
-
     updateMyTime();
     setInterval(updateMyTime, 1000);
   });
@@ -43,7 +39,7 @@ const Header: Component = () => {
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
-        <a class={styles.avatar} href="javascript:void(0)" onClick={() => openLightbox(avatarImageMetaData)}>
+        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setLBData(avatarImageMetaData)}>
           <img src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
         </a>
         <div class={styles.summary}>
