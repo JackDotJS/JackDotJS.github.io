@@ -124,6 +124,7 @@ a {
 }
 
 a[href]:hover, a:is(:focus, :focus-visible) {
+  transition-duration: 0ms;
   color: var(--text); 
   text-decoration-color: currentColor;
 }
