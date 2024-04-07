@@ -71,7 +71,7 @@
   border: none;
   border-radius: 0.5rem;
   aspect-ratio: 1;
-  transition: background-color 200ms;
+  transition: background-color 250ms;
 }
 
 .close:hover:not(:active) {
@@ -168,7 +168,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  transition: background-color 200ms;
+  transition: background-color 250ms;
 }
 
 .carousel button {
@@ -204,7 +204,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  transition: background-color 200ms;
+  transition: background-color 250ms;
 }
 
 :is(.prevButton, .nextButton):hover:not(:active):before {
