@@ -148,7 +148,7 @@
   justify-content: center;
   gap: 0.25rem;
   height: 100%;
-  transition: left 200ms;
+  transition: left 200ms cubic-bezier(0,.65,.5,1);
 }
 
 .carousel :is(img, button) {
