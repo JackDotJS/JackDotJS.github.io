@@ -23,6 +23,12 @@ export interface GalleryEntryData {
   images: GalleryEntryImageData[]
 }
 
+interface PointerCache {
+  id: number,
+  x: number,
+  y: number
+}
+
 export const LightBoxContext = createContext();
 
 export const Lightbox: Component<{ children: string | JSXElement }> = (props) => {
@@ -60,6 +66,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       y: 0
     }
   }
+
+  const activePointers: PointerCache[] = [];
 
   const redrawViewerImage = (resetTransform: boolean = false) => {
     if (viewerImage.src.length === 0) return;
@@ -304,36 +312,67 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     // TODO: need different hide/show handling for touch devices
     setUiVisible(true);
 
-    panState.moving = true;
+    activePointers.push({
+      id: e.pointerId,
+      x: e.clientX,
+      y: e.clientY
+    });
 
-    // TODO: get list of active pointers and average 
-    // their positions for multi-touch support
-    const multiplier = window.devicePixelRatio;
+    if (e.isPrimary) {
+      panState.moving = true;
 
-    const rX = (e.clientX * multiplier) / viewport.width;
-    const rY = (e.clientY * multiplier) / viewport.height;
+      const multiplier = window.devicePixelRatio;
 
-    panState.cursorOffset.x = rX;
-    panState.cursorOffset.y = rY;
-    panState.imageOffset.x = viewerTransform.posX;
-    panState.imageOffset.y = viewerTransform.posY;
+      const rX = (e.clientX * multiplier) / viewport.width;
+      const rY = (e.clientY * multiplier) / viewport.height;
+
+      panState.cursorOffset.x = rX;
+      panState.cursorOffset.y = rY;
+      panState.imageOffset.x = viewerTransform.posX;
+      panState.imageOffset.y = viewerTransform.posY;
+    }
   }
 
   const pointerMoveHandler = (e: PointerEvent) => {
+    for (const i in activePointers) {
+      const p = activePointers[i];
+      if (p.id === e.pointerId) {
+        p.x = e.clientX;
+        p.y = e.clientY;
+      }
+    }
+
+    if (!panState.moving) return;
+
+    // average position of all pointers
+    // makes touchscreen behavior less weird
+    let avgX = 0;
+    let avgY = 0;
+
+    for (const p of activePointers) {
+      avgX += p.x;
+      avgY += p.y;
+    }
+
+    avgX /= activePointers.length;
+    avgY /= activePointers.length;
+
     const multiplier = window.devicePixelRatio;
+    const rX = (avgX * multiplier) / viewport.width;
+    const rY = (avgY * multiplier) / viewport.height;
 
-    const rX = (e.clientX * multiplier) / viewport.width;
-    const rY = (e.clientY * multiplier) / viewport.height;
-
-    // TODO: get list of active pointers and average 
-    // their positions for multi-touch support
-
-    if (panState.moving) panImage(rX, rY);
+    panImage(rX, rY);
   }
 
   const pointerUpHandler = (e: PointerEvent) => {
-    // TODO: check if ALL pointers are up first!
-    panState.moving = false;
+    for (let i = 0; i < activePointers.length; i++) {
+      const p = activePointers[i];
+      if (p.id === e.pointerId) {
+        activePointers.splice(i, 1);
+      }
+    }
+
+    if (activePointers.length === 0) panState.moving = false;
   }
 
   const updateCarousel = () => {
