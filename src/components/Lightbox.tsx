@@ -213,6 +213,25 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     const newX = oldX + offsetX;
     const newY = oldY + offsetY;
 
+    // same calculations but with panState data
+    // fixes weird shifting when the user pans and zooms at the same time
+    if (panState.moving) {
+      const curXPan = panState.cursorOffset.x;
+      const curYPan = panState.cursorOffset.y;
+
+      const oldXPan = panState.imageOffset.x;
+      const oldYPan = panState.imageOffset.y;
+
+      const offsetXPan = ((newScale / oldScale) * (oldXPan - curXPan)) - (oldXPan - curXPan);
+      const offsetYPan = ((newScale / oldScale) * (oldYPan - curYPan)) - (oldYPan - curYPan);
+
+      const newXPan = oldXPan + offsetXPan;
+      const newYPan = oldYPan + offsetYPan;
+
+      panState.imageOffset.x = newXPan;
+      panState.imageOffset.y = newYPan;
+    }
+
     viewerTransform.posX = newX;
     viewerTransform.posY = newY;
 
@@ -235,6 +254,25 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     const newX = oldX - offsetX;
     const newY = oldY - offsetY;
+
+    // same calculations but with panState data
+    // fixes weird shifting when the user pans and zooms at the same time
+    if (panState.moving) {
+      const curXPan = panState.cursorOffset.x;
+      const curYPan = panState.cursorOffset.y;
+
+      const oldXPan = panState.imageOffset.x;
+      const oldYPan = panState.imageOffset.y;
+
+      const offsetXPan = (oldXPan - curXPan) - ((newScale / oldScale) * (oldXPan - curXPan));
+      const offsetYPan = (oldYPan - curYPan) - ((newScale / oldScale) * (oldYPan - curYPan));
+
+      const newXPan = oldXPan - offsetXPan;
+      const newYPan = oldYPan - offsetYPan;
+
+      panState.imageOffset.x = newXPan;
+      panState.imageOffset.y = newYPan;
+    }
 
     viewerTransform.posX = newX;
     viewerTransform.posY = newY;
