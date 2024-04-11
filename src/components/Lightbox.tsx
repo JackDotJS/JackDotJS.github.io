@@ -8,6 +8,12 @@ import styles from './Lightbox.module.css';
 
 // TODO: accessibility in general
 
+// TODO: jump to start/end buttons
+
+// TODO: button icons
+
+// TODO: 100% original image scale button
+
 export interface GalleryEntryImageData {
   filename: string,
   description?: string,
