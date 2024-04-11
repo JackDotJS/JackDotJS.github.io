@@ -204,12 +204,12 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     return Math.max(minZoom, Math.min(maxZoom, newValue));
   }
 
-  // TODO: clamp image position
-  const zoomIn = (curX: number, curY: number, amount = zoomSensitivity) => {
+  // TODO: clamp image position?
+  const zoom = (curX: number, curY: number, amount = 0) => {
     viewerTransform.default = false;
 
     const oldScale = viewerTransform.scale;
-    const newScale = clampZoom(oldScale + (zoomSensitivity * oldScale));
+    const newScale = clampZoom(oldScale - (amount * oldScale));
 
     const oldX = viewerTransform.posX;
     const oldY = viewerTransform.posY;
@@ -217,7 +217,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     // tysm amy for figuring out the horrific math to make this work :sob:
     const offsetX = ((newScale / oldScale) * (oldX - curX)) - (oldX - curX);
     const offsetY = ((newScale / oldScale) * (oldY - curY)) - (oldY - curY);
-
     const newX = oldX + offsetX;
     const newY = oldY + offsetY;
 
@@ -232,51 +231,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
       const offsetXPan = ((newScale / oldScale) * (oldXPan - curXPan)) - (oldXPan - curXPan);
       const offsetYPan = ((newScale / oldScale) * (oldYPan - curYPan)) - (oldYPan - curYPan);
-
       const newXPan = oldXPan + offsetXPan;
       const newYPan = oldYPan + offsetYPan;
-
-      panState.imageOffset.x = newXPan;
-      panState.imageOffset.y = newYPan;
-    }
-
-    viewerTransform.posX = newX;
-    viewerTransform.posY = newY;
-
-    viewerTransform.scale = newScale;
-    redrawViewerImage();
-  }
-
-  // TODO: clamp image position
-  const zoomOut = (curX: number, curY: number, amount = zoomSensitivity) => {
-    viewerTransform.default = false;
-
-    const oldScale = viewerTransform.scale;
-    const newScale = clampZoom(oldScale - (amount * oldScale));
-
-    const oldX = viewerTransform.posX;
-    const oldY = viewerTransform.posY;
-
-    const offsetX = (oldX - curX) - ((newScale / oldScale) * (oldX - curX));
-    const offsetY = (oldY - curY) - ((newScale / oldScale) * (oldY - curY));
-
-    const newX = oldX - offsetX;
-    const newY = oldY - offsetY;
-
-    // same calculations but with panState data
-    // fixes weird shifting when the user pans and zooms at the same time
-    if (panState.moving) {
-      const curXPan = panState.cursorOffset.x;
-      const curYPan = panState.cursorOffset.y;
-
-      const oldXPan = panState.imageOffset.x;
-      const oldYPan = panState.imageOffset.y;
-
-      const offsetXPan = (oldXPan - curXPan) - ((newScale / oldScale) * (oldXPan - curXPan));
-      const offsetYPan = (oldYPan - curYPan) - ((newScale / oldScale) * (oldYPan - curYPan));
-
-      const newXPan = oldXPan - offsetXPan;
-      const newYPan = oldYPan - offsetYPan;
 
       panState.imageOffset.x = newXPan;
       panState.imageOffset.y = newYPan;
@@ -294,10 +250,13 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     const rX = (e.clientX * multiplier) / viewport.width;
     const rY = (e.clientY * multiplier) / viewport.height;
-    Math.sign(e.deltaY) > 0 ? zoomOut(rX, rY) : zoomIn(rX, rY)
+
+    zoom(rX, rY, Math.sign(e.deltaY) * zoomSensitivity)
+
     redrawViewerImage();
   }
 
+  // TODO: clamp image position?
   const panImage = (curX: number, curY: number) => {
     const newPosX = panState.imageOffset.x + (curX - panState.cursorOffset.x);
     const newPosY = panState.imageOffset.y + (curY - panState.cursorOffset.y);
@@ -334,6 +293,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   const pointerMoveHandler = (e: PointerEvent) => {
+    // update pointer positions
     for (const i in activePointers) {
       const p = activePointers[i];
       if (p.id === e.pointerId) {
@@ -512,9 +472,9 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </Show>
 
             <div class={styles.controls}>
-              <button onClick={() => zoomOut(0.5, 0.5)}>Zoom Out</button>
+              <button onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>Zoom Out</button>
               <button onClick={() => redrawViewerImage(true)}>Reset View</button>
-              <button onClick={() => zoomIn(0.5, 0.5)}>Zoom In</button>
+              <button onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>Zoom In</button>
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
               <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
