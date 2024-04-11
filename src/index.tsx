@@ -15,6 +15,9 @@ const Specs = lazy(() => import(`./pages/Specs` /* @vite-ignore */));
 const Commissions = lazy(() => import(`./pages/Commissions` /* @vite-ignore */));
 const Links = lazy(() => import(`./pages/Links` /* @vite-ignore */));
 
+// TODO: make an actual 404 page?
+// https://github.com/solidjs/solid-router/blob/main/README.md#configure-your-routes
+
 render(() => (
   <Router root={App}>
     <Route path="/" />
