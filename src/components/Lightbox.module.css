@@ -4,13 +4,7 @@
   left: 0;
   z-index: 9999;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
   width: 100vw;
-  /* WTF??? this actually has a default max width/height??? WHY?????? */
-  max-width: none;
-  max-height: none;
   background-color: #000;
 }
 
@@ -18,9 +12,22 @@
   transition: opacity 400ms;
 }
 
-.hideUI > :not(:is(.viewport, .loadingOverlay)) {
+.hideUI > :not(:is(.viewport, .loadingOverlay, .showUIBUtton)) {
   opacity: 0;
   pointer-events: none;
+}
+
+.showUIButton {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.hideUI > .showUIButton {
+  opacity: 1;
+  pointer-events: initial;
 }
 
 .topBar, .bottomBar {

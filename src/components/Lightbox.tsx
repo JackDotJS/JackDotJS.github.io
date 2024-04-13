@@ -49,6 +49,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const zoomSensitivity = 0.15;
   const minZoom = 0.2;
   const maxZoom = 5;
+
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
   let carouselScroller!: HTMLDivElement;
@@ -294,9 +295,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   }
 
   const pointerDownHandler = (e: PointerEvent) => {
-    // TODO: need different hide/show handling for touch devices
-    setUiVisible(true);
-
     activePointers.push({
       id: e.pointerId,
       x: e.clientX,
@@ -412,9 +410,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
         window.addEventListener(`pointermove`, pointerMoveHandler);
         window.addEventListener(`pointerup`, pointerUpHandler);
         window.addEventListener(`pointercancel`, pointerUpHandler);
-
-        // unhide UI on key inputs
-        window.addEventListener(`keydown`, showUiHandler);
         
         // prevent regular page scrolling
         document.documentElement.style.overflow = `hidden`;
@@ -444,9 +439,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
         window.removeEventListener(`pointermove`, pointerMoveHandler);
         window.removeEventListener(`pointerup`, pointerUpHandler);
         window.removeEventListener(`pointercancel`, pointerUpHandler);
-
-        // unhide UI on key inputs
-        window.removeEventListener(`keydown`, showUiHandler);
   
         // re-enable regular page scrolling
         document.documentElement.style.overflow = ``;
@@ -466,6 +458,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       <div classList={{ [styles.lightbox]: true, [styles.activated]: LBData() !== null, [styles.hideUI]: !(uiVisible()) }} ref={lightbox}>
         <Show when={ LBData() !== null }>
           <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
+          <button class={styles.showUIButton} onClick={() => setUiVisible(true)}>Show UI</button>
           <Show when={loadingState()}>
             <div class={styles.loadingOverlay}></div>
           </Show>
