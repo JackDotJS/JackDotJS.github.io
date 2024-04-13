@@ -206,11 +206,26 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     setUiVisible(true);
   }
 
-  const clampZoom = (newValue: number) => {
-    return Math.max(minZoom, Math.min(maxZoom, newValue));
+  const clampZoom = (inputScale: number) => {
+    return Math.max(minZoom, Math.min(maxZoom, inputScale));
   }
 
-  // TODO: clamp image position?
+  const clampPosition = (inputX: number, inputY: number, inputScale: number) => {
+    const minVisiblePixels = 100;
+
+    const minX = -((((viewerImage.width * inputScale) / 2) - minVisiblePixels) / viewport.width);
+    const minY = -((((viewerImage.height * inputScale) / 2) - minVisiblePixels) / viewport.height);
+    const maxX = Math.abs(minX) + 1;
+    const maxY = Math.abs(minY) + 1;
+
+    const clampedX = Math.max(minX, Math.min(maxX, inputX));
+    const clampedY = Math.max(minY, Math.min(maxY, inputY));
+
+    //console.debug(minX, minY, maxX, maxY, clampedX, clampedY);
+
+    return [clampedX, clampedY];
+  }
+
   const zoom = (curX: number, curY: number, amount = 0) => {
     viewerTransform.default = false;
 
@@ -240,12 +255,16 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       const newXPan = oldXPan + offsetXPan;
       const newYPan = oldYPan + offsetYPan;
 
-      panState.imageOffset.x = newXPan;
-      panState.imageOffset.y = newYPan;
+      const [clampedXPan, clampedYPan] = clampPosition(newXPan, newYPan, newScale);
+
+      panState.imageOffset.x = clampedXPan;
+      panState.imageOffset.y = clampedYPan;
     }
 
-    viewerTransform.posX = newX;
-    viewerTransform.posY = newY;
+    const [clampedX, clampedY] = clampPosition(newX, newY, newScale);
+
+    viewerTransform.posX = clampedX;
+    viewerTransform.posY = clampedY;
 
     viewerTransform.scale = newScale;
     redrawViewerImage();
@@ -262,13 +281,14 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     redrawViewerImage();
   }
 
-  // TODO: clamp image position?
   const panImage = (curX: number, curY: number) => {
     const newPosX = panState.imageOffset.x + (curX - panState.cursorOffset.x);
     const newPosY = panState.imageOffset.y + (curY - panState.cursorOffset.y);
 
-    viewerTransform.posX = newPosX;
-    viewerTransform.posY = newPosY;
+    const [clampedX, clampedY] = clampPosition(newPosX, newPosY, viewerTransform.scale);
+
+    viewerTransform.posX = clampedX;
+    viewerTransform.posY = clampedY;
     viewerTransform.default = false;
     redrawViewerImage();
   }
