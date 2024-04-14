@@ -330,7 +330,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
     if (panState.moving) {
       // average position of all pointers
-      // makes touchscreen behavior less weird
+      // makes touchscreen behavior slightly less weird
+      // TODO: use position of primary cursor instead!!!
       let avgX = 0;
       let avgY = 0;
 
@@ -368,7 +369,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       }
     }
 
-    if (activePointers.length === 0) panState.moving = false;
+    panState.moving = false;
   }
 
   const updateCarousel = () => {
@@ -390,6 +391,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     carouselScroller.style.left = `${pixelOffset}px`;
   };
 
+  // TODO: get distance from primary cursor instead of average position
   const getAvgPointerDistance = () => {
     let avgDist: number = 0;
     
