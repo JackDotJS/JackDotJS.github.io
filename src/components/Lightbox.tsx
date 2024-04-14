@@ -32,7 +32,8 @@ export interface GalleryEntryData {
 interface PointerCache {
   id: number,
   x: number,
-  y: number
+  y: number,
+  primary: boolean
 }
 
 export const LightBoxContext = createContext();
@@ -300,7 +301,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     activePointers.push({
       id: e.pointerId,
       x: e.clientX,
-      y: e.clientY
+      y: e.clientY,
+      primary: e.isPrimary
     });
 
     if (e.isPrimary) {
@@ -329,23 +331,20 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     }
 
     if (panState.moving) {
-      // average position of all pointers
-      // makes touchscreen behavior slightly less weird
-      // TODO: use position of primary cursor instead!!!
-      let avgX = 0;
-      let avgY = 0;
+      // get primary pointer position
+      // makes touchscreen behavior less weird
+      let x = 0;
+      let y = 0;
 
       for (const p of activePointers) {
-        avgX += p.x;
-        avgY += p.y;
+        if (!p.primary) continue;
+        x = p.x;
+        y = p.y;
       }
 
-      avgX /= activePointers.length;
-      avgY /= activePointers.length;
-
       const multiplier = window.devicePixelRatio;
-      const rX = (avgX * multiplier) / viewport.width;
-      const rY = (avgY * multiplier) / viewport.height;
+      const rX = (x * multiplier) / viewport.width;
+      const rY = (y * multiplier) / viewport.height;
 
       panImage(rX, rY);
 
@@ -391,23 +390,20 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     carouselScroller.style.left = `${pixelOffset}px`;
   };
 
-  // TODO: get distance from primary cursor instead of average position
   const getAvgPointerDistance = () => {
     let avgDist: number = 0;
     
-    let avgX = 0;
-    let avgY = 0;
+    let primX = 0;
+    let primY = 0;
 
     for (const p of activePointers) {
-      avgX += p.x;
-      avgY += p.y;
+      if (!p.primary) continue;
+      primX = p.x;
+      primY = p.y;
     }
 
-    avgX /= activePointers.length;
-    avgY /= activePointers.length;
-
     for (const p of activePointers) {
-      const distance = Math.sqrt(((p.x - avgX)**2) + ((p.y - avgY)**2));
+      const distance = Math.sqrt(((p.x - primX)**2) + ((p.y - primY)**2));
 
       avgDist += distance;
     }
