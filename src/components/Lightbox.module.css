@@ -126,10 +126,8 @@
   width: 10rem;
   aspect-ratio: 1;
   background-image: conic-gradient(#FFF, rgba(255, 255, 255, 0));
-  -webkit-mask-image: radial-gradient(closest-side circle at center, #000 90%, #FFF 91%);
-  -webkit-mask-mode: luminance;
-  mask-image: radial-gradient(closest-side circle at center, #000 90%, #FFF 91%);
-  mask-mode: luminance;
+  -webkit-mask-image: radial-gradient(closest-side circle at center, transparent 90%, #FFF 91%);
+  mask-image: radial-gradient(closest-side circle at center, transparent 90%, #FFF 91%);
   animation-name: loadingCircle;
   animation-duration: 500ms;
   animation-play-state: running;
@@ -142,10 +140,8 @@
   height: 6rem;
   width: 100%;
   overflow: visible;
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #FFF 20%, #FFF 80%, #000 100%);
-  -webkit-mask-mode: luminance;
-  mask-image: linear-gradient(to right, #000 0%, #FFF 20%, #FFF 80%, #000 100%);
-  mask-mode: luminance;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #FFF 20%, #FFF 80%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #FFF 20%, #FFF 80%, transparent 100%);
 }
 
 .carouselScroller {
