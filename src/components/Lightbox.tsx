@@ -54,6 +54,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   let viewport!: HTMLCanvasElement;
   let carouselScroller!: HTMLDivElement;
   let carousel!: HTMLDivElement;
+  let oldPointerDistance: number = 0;
 
   const viewerTransform = {
     posX: 0.5,
@@ -326,26 +327,32 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       }
     }
 
-    if (!panState.moving) return;
+    if (panState.moving) {
+      // average position of all pointers
+      // makes touchscreen behavior less weird
+      let avgX = 0;
+      let avgY = 0;
 
-    // average position of all pointers
-    // makes touchscreen behavior less weird
-    let avgX = 0;
-    let avgY = 0;
+      for (const p of activePointers) {
+        avgX += p.x;
+        avgY += p.y;
+      }
 
-    for (const p of activePointers) {
-      avgX += p.x;
-      avgY += p.y;
+      avgX /= activePointers.length;
+      avgY /= activePointers.length;
+
+      const multiplier = window.devicePixelRatio;
+      const rX = (avgX * multiplier) / viewport.width;
+      const rY = (avgY * multiplier) / viewport.height;
+
+      panImage(rX, rY);
+
+      // WIP: handle pinch zoom on touch devices
+      const avgDist = getAvgPointerDistance();
+      if (avgDist !== oldPointerDistance) {
+        zoom(rX, rY, 0.1 * (oldPointerDistance - avgDist));
+      }
     }
-
-    avgX /= activePointers.length;
-    avgY /= activePointers.length;
-
-    const multiplier = window.devicePixelRatio;
-    const rX = (avgX * multiplier) / viewport.width;
-    const rY = (avgY * multiplier) / viewport.height;
-
-    panImage(rX, rY);
   }
 
   const pointerUpHandler = (e: PointerEvent) => {
@@ -376,6 +383,29 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     const pixelOffset = centerWrapper + (targetOffset + (targetRect.width / 2));
 
     carouselScroller.style.left = `${pixelOffset}px`;
+  };
+
+  const getAvgPointerDistance = () => {
+    let avgDist: number = 0;
+    
+    let avgX = 0;
+    let avgY = 0;
+
+    for (const p of activePointers) {
+      avgX += p.x;
+      avgY += p.y;
+    }
+
+    avgX /= activePointers.length;
+    avgY /= activePointers.length;
+
+    for (const p of activePointers) {
+      const distance = Math.sqrt(((p.x - avgX)**2) + ((p.y = avgY)**2));
+
+      avgDist += distance;
+    }
+
+    return avgDist / activePointers.length;
   };
 
   onMount(() => {
