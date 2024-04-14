@@ -349,13 +349,13 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
       // WIP: handle pinch zoom on touch devices
       const avgDist = getAvgPointerDistance();
+      //console.debug(oldPointerDistance, avgDist);
 
-      console.debug(oldPointerDistance, avgDist);
-
-      if (avgDist !== oldPointerDistance) {
-        zoom(rX, rY, 0.1 * (oldPointerDistance - avgDist));
-        oldPointerDistance = avgDist;
+      if (activePointers.length > 1 && avgDist !== oldPointerDistance) {
+        zoom(rX, rY, 0.001 * (oldPointerDistance - avgDist));
       }
+
+      oldPointerDistance = avgDist;
     }
   }
 
