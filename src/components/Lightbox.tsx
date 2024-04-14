@@ -47,8 +47,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
   const viewerImage = new Image();
   const zoomSensitivity = 0.15;
-  const minZoom = 0.2;
-  const maxZoom = 5;
+  const minZoom = 0.1;
+  const maxZoom = 16;
 
   let lightbox!: HTMLDivElement;
   let viewport!: HTMLCanvasElement;
