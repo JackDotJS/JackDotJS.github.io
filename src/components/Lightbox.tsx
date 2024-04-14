@@ -45,7 +45,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
-  const [tempNumber, setTempNumber] = createSignal<number>(0.0075);
 
   const viewerImage = new Image();
   const zoomSensitivity = 0.15;
@@ -352,12 +351,11 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
 
       panImage(rX, rY);
 
-      // WIP: handle pinch zoom on touch devices
+      // handle pinch zoom on touch devices
       const avgDist = getAvgPointerDistance();
-      //console.debug(oldPointerDistance, avgDist);
 
       if (activePointers.length > 1 && avgDist !== oldPointerDistance) {
-        zoom(rX, rY, tempNumber() * (oldPointerDistance - avgDist));
+        zoom(rX, rY, 0.0075 * (oldPointerDistance - avgDist));
       }
 
       oldPointerDistance = avgDist;
@@ -531,7 +529,6 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               <button onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>Zoom Out</button>
               <button onClick={() => redrawViewerImage(true)}>Reset View</button>
               <button onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>Zoom In</button>
-              <input type="number" style="width: 4rem" value={tempNumber()} onInput={(input) => setTempNumber(parseFloat(input.target.value))} />
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
               <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
