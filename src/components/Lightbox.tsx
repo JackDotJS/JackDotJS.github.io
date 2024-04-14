@@ -45,7 +45,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
-  const [tempNumber, setTempNumber] = createSignal<number>(0.05);
+  const [tempNumber, setTempNumber] = createSignal<number>(0.0075);
 
   const viewerImage = new Image();
   const zoomSensitivity = 0.15;
@@ -304,6 +304,10 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       y: e.clientY,
       primary: e.isPrimary
     });
+
+    if (activePointers.length > 1) {
+      oldPointerDistance = getAvgPointerDistance();
+    }
 
     if (e.isPrimary) {
       panState.moving = true;
