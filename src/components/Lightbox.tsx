@@ -531,7 +531,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               <button onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>Zoom Out</button>
               <button onClick={() => redrawViewerImage(true)}>Reset View</button>
               <button onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>Zoom In</button>
-              <input type="number" style="width: 4rem" value={tempNumber()} onInput={(input) => setTempNumber(parseInt(input.target.value))} />
+              <input type="number" style="width: 4rem" value={tempNumber()} onInput={(input) => setTempNumber(parseFloat(input.target.value))} />
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
               <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
