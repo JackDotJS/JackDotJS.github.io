@@ -8,11 +8,15 @@ import styles from './Lightbox.module.css';
 
 // TODO: accessibility in general
 
-// TODO: jump to start/end buttons
-
 // TODO: button icons
 
 // TODO: 100% original image scale button
+
+// TODO: hide fullscreen button on platforms where its not supported (e.g, iPhones)
+
+// TODO: hide zoom in/out buttons on mobile?
+
+// TODO: scrollable image carousel
 
 export interface GalleryEntryImageData {
   filename: string,
@@ -526,12 +530,14 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </Show>
 
             <div class={styles.controls}>
+              <button onClick={() => setSelectedImage(0)}>Jump to Start</button>
               <button onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>Zoom Out</button>
               <button onClick={() => redrawViewerImage(true)}>Reset View</button>
               <button onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>Zoom In</button>
               <button onClick={() => setUiVisible(false)}>Hide UI</button>
               <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
               <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
+              <button onClick={() => setSelectedImage(LBData()!.images.length - 1)}>Jump to End</button>
             </div>
             
             <Show when={ LBData()!.images.length > 1 }>

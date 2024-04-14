@@ -17,19 +17,6 @@
   pointer-events: none;
 }
 
-.showUIButton {
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-}
-
-.hideUI > .showUIButton {
-  opacity: 1;
-  pointer-events: initial;
-}
-
 .topBar, .bottomBar {
   position: fixed;
   width: 100%;
@@ -237,10 +224,34 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  width: 100%;
+  justify-content: center;
 }
 
-.control > button {
+.controls > button, .showUIButton {
+  width: 4rem;
   aspect-ratio: 1;
+}
+
+.controls > button:first-of-type {
+  margin-right: auto;
+}
+
+.controls > button:last-of-type {
+  margin-left: auto;
+}
+
+.showUIButton {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.hideUI > .showUIButton {
+  opacity: 1;
+  pointer-events: initial;
 }
 
 .currentImageSummary {
@@ -259,4 +270,34 @@
 
 .currentImageSummary > span {
   text-align: left;
+}
+
+@media screen and (max-width: calc(800px + 4rem)), screen and (max-height: 950px) {
+  .topBar, .bottomBar {
+    padding: 1rem;
+  }
+
+  .summary {
+    width: 80%;
+  }
+
+  .close {
+    height: 3rem;  
+    font-size: 1.5rem;
+  }
+
+  .prevButton, .nextButton {
+    height: 8rem;
+    width: 4rem;
+  }
+
+  .currentImageSummary {
+    width: 100%;
+    padding: 0 1rem;
+    flex-direction: column;
+  }
+
+  .carousel {
+    height: 3rem;
+  }
 }
