@@ -44,6 +44,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
+  const [tempNumber, setTempNumber] = createSignal<number>(0.05);
 
   const viewerImage = new Image();
   const zoomSensitivity = 0.15;
@@ -352,7 +353,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       //console.debug(oldPointerDistance, avgDist);
 
       if (activePointers.length > 1 && avgDist !== oldPointerDistance) {
-        zoom(rX, rY, 0.001 * (oldPointerDistance - avgDist));
+        zoom(rX, rY, tempNumber() * (oldPointerDistance - avgDist));
       }
 
       oldPointerDistance = avgDist;
@@ -525,6 +526,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </Show>
 
             <div class={styles.controls}>
+              <input type="number" value={tempNumber()} onInput={(input) => setTempNumber(parseInt(input.target.value))} />
               <button onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>Zoom Out</button>
               <button onClick={() => redrawViewerImage(true)}>Reset View</button>
               <button onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>Zoom In</button>
