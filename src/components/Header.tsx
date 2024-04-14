@@ -4,6 +4,9 @@ import { GalleryEntryData, LightBoxContext } from './Lightbox';
 
 import styles from './Header.module.css';
 
+// TODO: improve mobile styling (better navbar layout, smaller avatar)
+// maybe make this whole thing generally close to desktop layout
+
 // TODO: might be cool to have all my old avatars here? a lil easter egg sorta
 // but if i do go through with that, this should probably go in its own file like the gallerydata
 const avatarImageMetaData: GalleryEntryData = {
@@ -28,8 +31,8 @@ const Header: Component = () => {
     }));
   }
 
-  // FIXME: what would be the correct type for this?
-  const { LBData, setLBData }: any = useContext(LightBoxContext);
+  // FIXME: need a type for this
+  const { setLBData }: any = useContext(LightBoxContext);
 
   onMount(() => {
     updateMyTime();

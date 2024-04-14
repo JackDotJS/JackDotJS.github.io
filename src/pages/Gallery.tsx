@@ -5,6 +5,8 @@ import { GalleryEntryData, LightBoxContext } from '../components/Lightbox';
 
 import styles from './Gallery.module.css';
 
+// TODO: fix mobile styling
+
 const fetchGallery = fetch(`/gallerydata.json`);
 
 const Gallery: Component = () => {
@@ -25,8 +27,8 @@ const Gallery: Component = () => {
     });
   });
 
-  // FIXME: what would be the correct type for this?
-  const { LBData, setLBData }: any = useContext(LightBoxContext);
+  // FIXME: need a type for this
+  const { setLBData }: any = useContext(LightBoxContext);
 
   return (
     <main class={styles.gallery}>
