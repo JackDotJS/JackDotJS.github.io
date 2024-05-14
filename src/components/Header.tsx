@@ -13,7 +13,7 @@ const avatarImageMetaData: GalleryEntryData = {
   title: `Avatar`,
   description: ``, 
   images: [{
-    filename: `/assets/icon.png`,
+    filename: `/assets/avatars/icon.png`,
     year: 2022,
     month: 3
   }]
@@ -43,7 +43,7 @@ const Header: Component = () => {
     <header class={styles.header}>
       <div class={styles.whoami}>
         <a class={styles.avatar} href="javascript:void(0)" onClick={() => setLBData(avatarImageMetaData)}>
-          <img src="/assets/icon.png" alt="Icon of an orange bird head, with a tired expression on his face." />
+          <img src={avatarImageMetaData.images[0].filename} alt="Icon of an orange bird head, with a tired expression on his face." />
         </a>
         <div class={styles.summary}>
           <h1>i'm jack. i make stuff.</h1>
