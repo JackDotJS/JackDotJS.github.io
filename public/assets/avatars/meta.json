@@ -1,0 +1,14 @@
+{
+  "title": "REQUIRED",
+  "description": "REQUIRED",
+  "featured": "OPTIONAL",
+  "images": [
+    {
+      "filename": "REQUIRED",
+      "description": "OPTIONAL",
+      "year": 0,
+      "month": 1,
+      "index": 0
+    }
+  ]
+}
