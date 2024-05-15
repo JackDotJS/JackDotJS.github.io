@@ -4,9 +4,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1000;
   width: 100vw;
   height: 100vh;
+  background-color: var(--focus-outline);
 }
 
 .wallpaper {
@@ -14,12 +14,9 @@
   width: 100vw;
   height: 100vh;
   object-fit: cover;
+  z-index: -2;
   opacity: 0;
   transition-property: opacity;
-  transition-duration: 2.5s;
+  transition-duration: 1s;
   transition-timing-function: ease-in-out;
-}
-
-.wallpaper:first-of-type {
-  opacity: 1;
 }

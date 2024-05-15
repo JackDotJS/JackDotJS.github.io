@@ -41,9 +41,9 @@ const Wallpaper: Component = () => {
     if (!(last1 instanceof HTMLImageElement)) return;
     if (!(last2 instanceof HTMLImageElement)) return;
   
-    next.style.setProperty(`z-index`, `-1000`);
-    last1.style.setProperty(`z-index`, `-1001`);
-    last2.style.setProperty(`z-index`, `-1002`);
+    next.style.setProperty(`z-index`, `0`);
+    last1.style.setProperty(`z-index`, `-1`);
+    last2.style.setProperty(`z-index`, `-2`);
   
     next.style.setProperty(`opacity`, `1`);
     last2.style.setProperty(`opacity`, `0`);
