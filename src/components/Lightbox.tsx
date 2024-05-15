@@ -18,6 +18,8 @@ import styles from './Lightbox.module.css';
 
 // TODO: scrollable image carousel
 
+// TODO: fix styling for light theme
+
 export interface GalleryEntryImageData {
   filename: string,
   description?: string,
