@@ -1,4 +1,6 @@
-import { For, type Component, createSignal, createEffect, createContext, JSXElement, Show, onMount } from 'solid-js';
+import { For, type Component, createSignal, createEffect, createContext, JSXElement, Show, onMount, Switch } from 'solid-js';
+
+import { IconArrowBarToLeft, IconArrowBarToRight, IconArrowsMaximize, IconArrowsMinimize, IconChevronLeft, IconChevronRight, IconEye, IconEyeOff, IconPhotoShare, IconX, IconZoomIn, IconZoomOut, IconZoomReset } from '@tabler/icons-solidjs';
 
 import styles from './Lightbox.module.css';
 
@@ -51,6 +53,7 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [canvasHeight, setCanvasHeight] = createSignal(document.documentElement.clientHeight);
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
+  const [isFullscreen, setIsFullscreen] = createSignal<boolean>(false);
 
   const viewerImage = new Image();
   const zoomSensitivity = 0.15;
@@ -419,6 +422,10 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     return avgDist / activePointers.length;
   };
 
+  const fullscreenUpdate = () => {
+    setIsFullscreen(document.fullscreenElement === lightbox);
+  };
+
   onMount(() => {
     createEffect(() => {
       const gdata = LBData();
@@ -451,6 +458,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
         window.addEventListener(`pointermove`, pointerMoveHandler);
         window.addEventListener(`pointerup`, pointerUpHandler);
         window.addEventListener(`pointercancel`, pointerUpHandler);
+
+        document.addEventListener(`fullscreenchange`, fullscreenUpdate)
         
         // prevent regular page scrolling
         document.documentElement.style.overflow = `hidden`;
@@ -499,7 +508,12 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
       <div classList={{ [styles.lightbox]: true, [styles.activated]: LBData() !== null, [styles.hideUI]: !(uiVisible()) }} ref={lightbox}>
         <Show when={ LBData() !== null }>
           <canvas class={styles.viewport} width={canvasWidth()} height={canvasHeight()} ref={viewport}></canvas>
-          <button class={styles.showUIButton} onClick={() => setUiVisible(true)}>Show UI</button>
+          <button 
+            title="Show UI"
+            class={styles.showUIButton} 
+            onClick={() => setUiVisible(true)}>
+            <IconEye/>
+          </button>
           <Show when={loadingState()}>
             <div class={styles.loadingOverlay}></div>
           </Show>
@@ -513,12 +527,18 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               </div>
               <span>{ LBData()!.description }</span>
             </div>
-            <button class={styles.close} autofocus onClick={() => { setLBData(null);  }}>&times;</button>
+            <button class={styles.close} autofocus onClick={() => { setLBData(null);  }}>
+              <IconX size="50%"/>
+            </button>
           </div>
 
           <Show when={ LBData()!.images.length > 1 }>
-            <button class={styles.prevButton} onClick={() => gotoPrev()}>&lt;</button>
-            <button class={styles.nextButton} onClick={() => gotoNext()}>&gt;</button>
+            <button class={styles.prevButton} onClick={() => gotoPrev()}>
+              <IconChevronLeft size="100%"/>
+            </button>
+            <button class={styles.nextButton} onClick={() => gotoNext()}>
+              <IconChevronRight size="100%"/>
+            </button>
           </Show>
 
           <div class={styles.bottomBar}>
@@ -532,14 +552,50 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             </Show>
 
             <div class={styles.controls}>
-              <button onClick={() => setSelectedImage(0)}>Jump to Start</button>
-              <button onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>Zoom Out</button>
-              <button onClick={() => redrawViewerImage(true)}>Reset View</button>
-              <button onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>Zoom In</button>
-              <button onClick={() => setUiVisible(false)}>Hide UI</button>
-              <button onClick={() => toggleFullscreen()}>Toggle Fullscreen</button>
-              <button onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>View Original</button>
-              <button onClick={() => setSelectedImage(LBData()!.images.length - 1)}>Jump to End</button>
+              <button
+                title="Jump to Start" 
+                onClick={() => setSelectedImage(0)}>
+                <IconArrowBarToLeft/>
+              </button>
+              <button 
+                title="Zoom Out"
+                onClick={() => zoom(0.5, 0.5, zoomSensitivity)}>
+                <IconZoomOut/>
+              </button>
+              <button
+                title="Reset View" 
+                onClick={() => redrawViewerImage(true)}>
+                <IconZoomReset/>
+              </button>
+              <button
+                title="Zoom In" 
+                onClick={() => zoom(0.5, 0.5, -zoomSensitivity)}>
+                <IconZoomIn/>
+              </button>
+              <button
+                title="Hide UI" 
+                onClick={() => setUiVisible(false)}>
+                <IconEyeOff/>
+              </button>
+              <button
+                title="Toggle Fullscreen" 
+                onClick={() => toggleFullscreen()}>
+                  <Show 
+                    when={isFullscreen()}
+                    fallback={<IconArrowsMaximize/>}>
+                    <IconArrowsMinimize/>
+                  </Show>
+                </button>
+              <button
+                title="View Original"
+                onClick={() => window.location.replace(LBData()!.images[selectedImage()].filename)}>
+                <IconPhotoShare/>
+              </button>
+              <button 
+                title="Jump to End"
+                onClick={() => setSelectedImage(LBData()!.images.length - 1)}>
+                <IconArrowBarToRight/>
+              </button>
             </div>
             
             <Show when={ LBData()!.images.length > 1 }>
