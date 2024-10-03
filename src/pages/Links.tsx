@@ -17,11 +17,6 @@ const Links: Component = () => {
         <div aria-hidden="true"></div>
       </a>
 
-      <a class={styles.cohost} rel="external" href="https://cohost.org/JackDotJS" title="Cohost">
-        <span>cohost</span>
-        <div aria-hidden="true"></div>
-      </a>
-
       <a class={styles.github} rel="external" href="https://github.com/JackDotJS" title="GitHub">
         <span>git&shy;hub</span>
         <div aria-hidden="true"></div>

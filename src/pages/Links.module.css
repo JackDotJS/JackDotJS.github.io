@@ -60,7 +60,6 @@
 :is(
   .discord, 
   .revolt, 
-  .cohost, 
   .github, 
   .steam, 
   .youtube, 
@@ -120,27 +119,6 @@
 .revolt:is(:hover, :focus, :focus-visible) > div {
   -webkit-mask-position: var(--R-offset-hover) 55%;
   mask-position: var(--R-offset-hover) 55%;
-}
-
-/* cohost */
-
-.cohost {
-  --social-icon-url: url("/assets/social_icons/cohost.svg");
-}
-
-.cohost > div {
-  -webkit-mask-position: var(--L-offset) 60%;
-  mask-position: var(--L-offset) 60%;
-}
-
-.cohost:is(:hover, :focus, :focus-visible) {
-  background-color: #83254f;
-  --social-icon-color: #FFF9F2;
-}
-
-.cohost:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--L-offset-hover) 60%;
-  mask-position: var(--L-offset-hover) 60%;
 }
 
 /* github */
