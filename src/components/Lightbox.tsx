@@ -10,17 +10,11 @@ import styles from './Lightbox.module.css';
 
 // TODO: accessibility in general
 
-// TODO: button icons
-
 // TODO: 100% original image scale button
 
 // TODO: hide fullscreen button on platforms where its not supported (e.g, iPhones)
 
 // TODO: hide zoom in/out buttons on mobile?
-
-// TODO: scrollable image carousel
-
-// TODO: fix styling for light theme
 
 export interface GalleryEntryImageData {
   filename: string,
@@ -387,18 +381,20 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
     if (!carousel.isConnected || !carouselScroller.isConnected) return;
 
     const buttons = carouselScroller.children;
-    const target = buttons[selectedImage()];
+    const firstItem = buttons[0];
 
     const wrapperRect = carousel.getBoundingClientRect();
-    const scrollerRect = carouselScroller.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
+    const firstItemRect = firstItem.getBoundingClientRect();
 
     const centerWrapper = wrapperRect.width / 2;
-    const targetOffset = scrollerRect.left - targetRect.right;
+    const firstItemOffset = centerWrapper - (firstItemRect.width / 2);
 
-    const pixelOffset = centerWrapper + (targetOffset + (targetRect.width / 2));
+    carouselScroller.style.padding = `0px ${firstItemOffset}px`;
 
-    carouselScroller.style.left = `${pixelOffset}px`;
+    carousel.scrollTo({
+      left: ((carousel.scrollWidth - carousel.clientWidth) / (LBData()!.images.length - 1)) * selectedImage(),
+      behavior: 'smooth'
+    });
   };
 
   const getAvgPointerDistance = () => {
