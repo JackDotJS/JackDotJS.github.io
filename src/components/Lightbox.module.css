@@ -267,6 +267,7 @@
   justify-content: center;
   gap: 1rem;
   width: 50%;
+  color: #FFF;
 }
 
 .currentImageSummary > h2 {
