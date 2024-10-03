@@ -16,6 +16,8 @@ import styles from './Lightbox.module.css';
 
 // TODO: hide zoom in/out buttons on mobile?
 
+// TODO: support light theme
+
 export interface GalleryEntryImageData {
   filename: string,
   description?: string,

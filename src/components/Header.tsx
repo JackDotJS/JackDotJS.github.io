@@ -7,19 +7,10 @@ import styles from './Header.module.css';
 // TODO: improve mobile styling (better navbar layout, smaller avatar)
 // maybe make this whole thing generally close to desktop layout
 
-// TODO: might be cool to have all my old avatars here? a lil easter egg sorta
-// but if i do go through with that, this should probably go in its own file like the gallerydata
-const avatarImageMetaData: GalleryEntryData = {
-  title: `Avatar`,
-  description: ``, 
-  images: [{
-    filename: `/assets/avatars/icon.png`,
-    year: 2022,
-    month: 3
-  }]
-}
+const fetchAvatars = fetch(`/metadata/avatar.json`);
 
 const Header: Component = () => {
+  const [avatarGallery, setAvatarGallery] = createSignal<GalleryEntryData>();
   const [time, setTime] = createSignal(`0:00 PM`);
 
   const updateMyTime = () => {
@@ -37,13 +28,26 @@ const Header: Component = () => {
   onMount(() => {
     updateMyTime();
     setInterval(updateMyTime, 1000);
+
+    fetchAvatars.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+
+      if (response.status !== 200) {
+        return console.error(`couldn't fetch avatar gallery data: ${response.status}`);
+      }
+    
+      const data: GalleryEntryData = JSON.parse(await response.text());
+    
+      console.debug(data);
+      setAvatarGallery(data);
+    });
   });
 
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
-        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setLBData(avatarImageMetaData)}>
-          <img src={avatarImageMetaData.images[0].filename} alt="Icon of an orange bird head, with a tired expression on his face." />
+        <a class={styles.avatar} href="javascript:void(0)" onClick={() => setLBData(avatarGallery)}>
+          <img src="/assets/avatars/icon.png" alt="Avatar" />
         </a>
         <div class={styles.summary}>
           <h1>i'm jack. i make stuff.</h1>

@@ -7,7 +7,7 @@ import styles from './Gallery.module.css';
 
 // TODO: fix mobile styling
 
-const fetchGallery = fetch(`/gallerydata.json`);
+const fetchGallery = fetch(`/metadata/gallery.json`);
 
 const Gallery: Component = () => {
   const [galleryEntries, setGalleryEntries] = createSignal<GalleryEntryData[]>([]);

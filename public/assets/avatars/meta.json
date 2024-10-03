@@ -1,14 +1,55 @@
 {
-  "title": "REQUIRED",
-  "description": "REQUIRED",
-  "featured": "OPTIONAL",
+  "title": "Avatar",
+  "description": "",
   "images": [
     {
-      "filename": "REQUIRED",
-      "description": "OPTIONAL",
-      "year": 0,
-      "month": 1,
-      "index": 0
+      "filename": "icon.png",
+      "description": "There he is!",
+      "year": 2024,
+      "month": 5,
+      "index": 9999
+    },
+    {
+      "filename": "icon_outline.png",
+      "description": "This was among my first attempts at making a new icon to go with my new goat fursona. While I was here, I wanted to experiment with a slight artstyle change, since I wasn't too enamored by the whole gradient idea from many past avatars. I was initially experimenting with an really basic outline as a way to make this show up a bit easier on grey backgrounds (i.e, Discord), but I ended up ditching the whole transparent icon idea altogether and just went with a solid, bright background. Not only did it compliment the new artstyle, it also generally works way better across different contexts, like jpegs.",
+      "year": 2024,
+      "month": 5
+    },
+    {
+      "filename": "2022.png",
+      "description": "The final version of my birdsona avatar. After removing the odd \"rotated\" effect, and removing a bit of hair down by the neck, this avatar finally felt complete. Really, I can't think of anything I'd change, even to this day... apart from, y'know. The completely different 'sona.",
+      "year": 2022,
+      "month": 3
+    },
+    {
+      "filename": "2021.png",
+      "description": "The biggest change here from the previous was the improved colors, leaning more into the warm temperatures. Strangely appropriate.",
+      "year": 2021,
+      "month": 6
+    },
+    {
+      "filename": "2019-2.png",
+      "description": "At this point, I'd been using the birdsona avatar for roughly half a year. I eventually realized I was unhappy with how the original one looked, especially considering how many people seemed to get confused as to what it was actually supposed to be. So, I remade it largely from scratch, and after many, MANY revisions, this was the first version of the new avatar that I felt was good enough to use more permanently... despite the many, many problems I now see in it all these years later.",
+      "year": 2019,
+      "month": 9
+    },
+    {
+      "filename": "2019-1.png",
+      "description": "The very first (public) version of my birdsona avatar, which came about after I'd been using a cropped version of an old drawing of Piemations' Pretzel as an avatar for a while. I was obsessed with that bird character, it was cute as hell. So I finally decided to try making my own birdsona, which lead to the creation of this. That said, I hadn't actually came up with much of a design beyond what was seen in this icon. I guess I figured I'd sort that out later.",
+      "year": 2019,
+      "month": 3
+    },
+    {
+      "filename": "2018.png",
+      "description": "An updated version of my asterisk icon, in which I began implementing these abstract/geometric design ideas that I was a bit obsessed with at the time. This is also the first time I started used this strong orange colorscheme.",
+      "year": 2018,
+      "month": 6
+    },
+    {
+      "filename": "2017.png",
+      "description": "Welcome, curious traveler, to the very first icon I ever used! ...Under this name, anyway. This one was incredibly simple. For context, my username at this time was \"jackasterisk\", which came about as an amalgamation of several previous pseudonyms I had during my younger years. I thought it was pretty clever since the first part of it kinda sounds like \"jackass\". I'm not sure how many people actually got the joke, but I still thought it was funny lol.",
+      "year": 2017,
+      "month": 9
     }
   ]
 }
