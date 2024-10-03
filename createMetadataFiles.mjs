@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, existsSync, writeFileSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { parseAndValidate } from './parseMetadata.mjs';
 
 // get list of gallery item directories, ignoring files
@@ -45,6 +45,8 @@ newGalleryData.sort((a, b) => {
 });
 
 //console.debug(inspect(newGalleryData, { depth: null, colors: true }));
+
+mkdirSync(`./public/metadata`);
 
 writeFileSync(`./public/metadata/gallery.json`, JSON.stringify(newGalleryData));
 
