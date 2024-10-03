@@ -14,7 +14,7 @@ dist-ssr
 /.local
 gha-build.txt
 gha-hash.txt
-public/gallerydata.json
+public/metadata/*
 
 # Editor directories and files
 .vscode/*

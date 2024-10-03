@@ -58,7 +58,7 @@ jobs:
         run: pnpm i
 
       - name: Generate Gallery Metadata
-        run: node createGalleryMetadata.mjs
+        run: node createMetadataFiles.mjs
 
       - name: Compile Application
         run: pnpm build
