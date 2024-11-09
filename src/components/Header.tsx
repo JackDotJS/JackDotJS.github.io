@@ -1,4 +1,5 @@
-import { createSignal, type Component, onMount, useContext } from 'solid-js';
+import { useLocation } from '@solidjs/router';
+import { createSignal, type Component, onMount, useContext, createEffect } from 'solid-js';
 
 import { GalleryEntryData, LightBoxContext } from './Lightbox';
 
@@ -12,6 +13,8 @@ const fetchAvatars = fetch(`/metadata/avatar.json`);
 const Header: Component = () => {
   const [avatarGallery, setAvatarGallery] = createSignal<GalleryEntryData>();
   const [time, setTime] = createSignal(`0:00 PM`);
+
+  let navContainer!: HTMLElement;
 
   const updateMyTime = () => {
     setTime(new Date().toLocaleString('en-US', {
@@ -43,6 +46,23 @@ const Header: Component = () => {
     });
   });
 
+  createEffect(() => {
+    const location = useLocation();
+    // console.debug(`new location: ${location.pathname}`);
+
+    const navLinks = navContainer.querySelectorAll(`a`);
+
+    for (const a of navLinks) {
+      if (!(a instanceof HTMLAnchorElement)) continue;
+
+      if (a.getAttribute(`href`) == location.pathname) {
+        a.classList.add(styles.currentPage);
+      } else {
+        a.className = ``;
+      }
+    }
+  });
+
   return (
     <header class={styles.header}>
       <div class={styles.whoami}>
@@ -58,11 +78,11 @@ const Header: Component = () => {
           </p>
         </div>
       </div>
-      <nav class={styles.navigation}>
+      <nav class={styles.navigation} ref={navContainer}>
         <a href="/">home</a>
         <a href="/gallery">stuff i made</a>
         <a href="/specs">things i use</a>
-        <a href="/commissions">commission info</a>
+        <a href="/commissions">commissions</a>
         <a href="/links">social links</a>
       </nav>
     </header>

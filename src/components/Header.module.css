@@ -52,12 +52,22 @@
   justify-content: stretch;
   justify-items: stretch;
   align-items: stretch;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .navigation > a {
   text-align: center;
   padding: 0.5rem 0;
+}
+
+.navigation > a.currentPage {
+  background-color: var(--focus-outline);
+  color: var(--section-background);
+  border-radius: 0.25rem;
+}
+
+.navigation > a.currentPage:is(:hover, :focus, :focus-visible) {
+  color: var(--text);
 }
 
 @media screen and (max-width: calc(800px + 4rem)) {
