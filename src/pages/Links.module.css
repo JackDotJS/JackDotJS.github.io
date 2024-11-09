@@ -5,6 +5,9 @@
 
 .linklist > a {
   --social-icon-color: var(--text);
+  --icon-h-offset: 50%;
+  --icon-v-offset: 80%;
+  --icon-v-offset-hover: 90%;
 
   position: relative;
   display: flex;
@@ -18,12 +21,15 @@
   box-sizing: border-box;
 }
 
-.linklist > a > div {
-  --L-offset: 20%;
-  --L-offset-hover: 10%;
-  --R-offset: 80%;
-  --R-offset-hover: 90%;
+/* makes every other background icon show up on the left side */
+.linklist > a:nth-child(even) {
+  --icon-v-offset: 20%;
+  --icon-v-offset-hover: 10%;
+}
 
+.linklist > a:before {
+  content: "";
+  display: block;
   position: absolute;
   transition: all 250ms cubic-bezier(0,.65,.5,1);
   box-sizing: border-box;
@@ -35,6 +41,8 @@
   mask-size: auto 300%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+  -webkit-mask-position: var(--icon-v-offset) var(--icon-h-offset);
+  mask-position: var(--icon-v-offset) var(--icon-h-offset);
   background-color: transparent;
   border-radius: 1.5rem;
   opacity: 0.5;
@@ -45,11 +53,13 @@
   color: var(--social-icon-color);
 }
 
-.linklist > a:is(:hover, :focus, :focus-visible) > div {
+.linklist > a:is(:hover, :focus, :focus-visible):before {
   background-color: var(--social-icon-color);
+  -webkit-mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
+  mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
 }
 
-.linklist > a span {
+.linklist > a > span {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -57,16 +67,7 @@
   justify-content: center;
 }
 
-:is(
-  .discord, 
-  .revolt, 
-  .bluesky,
-  .github, 
-  .steam, 
-  .youtube, 
-  .kofi, 
-  .email
-) > span:before {
+.linklist > a > span:before {
   content: '';
   display: block;
   background-color: currentColor;
@@ -74,21 +75,13 @@
   aspect-ratio: 1;
   -webkit-mask-image: var(--social-icon-url);
   mask-image: var(--social-icon-url);
-  -webkit-mask-position: var(--L-offset) 50%;
-  mask-position: var(--L-offset) 50%;
 }
 
 /* discord */
 
-.discord {
+.linklist > .discord {
   --social-icon-url: url("/assets/social_icons/discord.svg");
-}
-
-.discord > div {
-  -webkit-mask-image: var(--social-icon-url);
-  mask-image: var(--social-icon-url);
-  -webkit-mask-position: var(--L-offset) 50%;
-  mask-position: var(--L-offset) 50%;
+  --icon-h-offset: 50%;
 }
 
 .discord:is(:hover, :focus, :focus-visible) {
@@ -96,20 +89,11 @@
   --social-icon-color: #FFF;
 }
 
-.discord:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--L-offset-hover) 50%;
-  mask-position: var(--L-offset-hover) 50%;
-}
-
 /* revolt */
 
-.revolt {
+.linklist > .revolt {
   --social-icon-url: url("/assets/social_icons/revolt.svg");
-}
-
-.revolt > div {
-  -webkit-mask-position: var(--R-offset) 55%;
-  mask-position: var(--R-offset) 55%;
+  --icon-h-offset: 55%;
 }
 
 .revolt:is(:hover, :focus, :focus-visible) {
@@ -117,20 +101,11 @@
   --social-icon-color: #FF005C;
 }
 
-.revolt:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--R-offset-hover) 55%;
-  mask-position: var(--R-offset-hover) 55%;
-}
-
 /* bluesky */
 
-.bluesky {
+.linklist > .bluesky {
   --social-icon-url: url("/assets/social_icons/bluesky.svg");
-}
-
-.bluesky > div {
-  -webkit-mask-position: var(--L-offset) 55%;
-  mask-position: var(--L-offset) 55%;
+  --icon-h-offset: 55%;
 }
 
 .bluesky:is(:hover, :focus, :focus-visible) {
@@ -138,20 +113,11 @@
   --social-icon-color: #208bfe;
 }
 
-.bluesky:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--L-offset-hover) 55%;
-  mask-position: var(--L-offset-hover) 55%;
-}
-
 /* github */
 
-.github {
+.linklist > .github {
   --social-icon-url: url("/assets/social_icons/github.svg");
-}
-
-.github > div {
-  -webkit-mask-position: var(--R-offset) 20%;
-  mask-position: var(--R-offset) 20%;
+  --icon-h-offset: 20%;
 }
 
 .github:is(:hover, :focus, :focus-visible) {
@@ -159,20 +125,10 @@
   --social-icon-color: #E6EDF3;
 }
 
-.github:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--R-offset-hover) 20%;
-  mask-position: var(--R-offset-hover) 20%;
-}
-
 /* steam */
 
-.steam {
+.linklist > .steam {
   --social-icon-url: url("/assets/social_icons/steam.svg");
-}
-
-.steam > div {
-  -webkit-mask-position: var(--L-offset) 50%;
-  mask-position: var(--L-offset) 50%;
 }
 
 .steam:is(:hover, :focus, :focus-visible) {
@@ -180,20 +136,10 @@
   --social-icon-color: #C5C3C0;
 }
 
-.steam:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--L-offset-hover) 50%;
-  mask-position: var(--L-offset-hover) 50%;
-}
-
 /* youtube */
 
-.youtube {
+.linklist > .youtube {
   --social-icon-url: url("/assets/social_icons/youtube.svg");
-}
-
-.youtube > div {
-  -webkit-mask-position: var(--R-offset) 50%;
-  mask-position: var(--R-offset) 50%;
 }
 
 .youtube:is(:hover, :focus, :focus-visible) {
@@ -201,20 +147,10 @@
   --social-icon-color: #FFF;
 }
 
-.youtube:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--R-offset-hover) 50%;
-  mask-position: var(--R-offset-hover) 50%;
-}
-
 /* kofi */
 
-.kofi {
+.linklist > .kofi {
   --social-icon-url: url("/assets/social_icons/kofi.svg");
-}
-
-.kofi > div {
-  -webkit-mask-position: var(--L-offset) 50%;
-  mask-position: var(--L-offset) 50%;
 }
 
 .kofi:is(:hover, :focus, :focus-visible) {
@@ -222,28 +158,13 @@
   --social-icon-color: #FFF;
 }
 
-.kofi:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--L-offset-hover) 50%;
-  mask-position: var(--L-offset-hover) 50%;
-}
-
 /* email */
 
-.email {
+.linklist > .email {
   --social-icon-url: url("/assets/social_icons/email.svg");
-}
-
-.email > div {
-  -webkit-mask-position: var(--R-offset) 50%;
-  mask-position: var(--R-offset) 50%;
 }
 
 .email:is(:hover, :focus, :focus-visible) {
   background-color: #6D4AFF;
   --social-icon-color: #FFF;
-}
-
-.email:is(:hover, :focus, :focus-visible) > div {
-  -webkit-mask-position: var(--R-offset-hover) 50%;
-  mask-position: var(--R-offset-hover) 50%;
 }
