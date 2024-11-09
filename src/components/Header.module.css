@@ -38,36 +38,68 @@
   margin-right: 1rem;
 }
 
+.summary > h1 {
+  text-align: right;
+}
+
 .summary > p {
   margin: 0;
 }
 
 .navigation {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  justify-content: stretch;
+  justify-items: stretch;
+  align-items: stretch;
+  gap: 1rem;
 }
 
 .navigation > a {
-  padding: 0.5rem 1rem;
-  margin: 0 auto;
+  text-align: center;
+  padding: 0.5rem 0;
 }
 
 @media screen and (max-width: calc(800px + 4rem)) {
+  .avatar {
+    height: 7rem;
+  }
+
+  .summary {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .navigation {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .navigation > a {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media screen and (max-width: calc(500px + 4rem)) {
   .whoami {
     flex-direction: column;
     align-items: center;
   }
 
   .avatar {
-    height: 14rem;
+    height: 6rem;
   }
 
   .summary {
     text-align: center;
     margin-right: 0;
     margin-bottom: 1rem;
+  }
+
+  .summary > h1 {
+    text-align: center;
+  }
+
+  .navigation {
+    grid-template-columns: 1fr 1fr;
   }
 }
