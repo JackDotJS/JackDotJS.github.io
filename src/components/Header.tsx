@@ -55,10 +55,17 @@ const Header: Component = () => {
     for (const a of navLinks) {
       if (!(a instanceof HTMLAnchorElement)) continue;
 
-      if (a.getAttribute(`href`) == location.pathname) {
+      const href = a.getAttribute(`href`);
+      if (href == null) continue;
+
+      a.className = ``;
+
+      if (href == `/`) {
+        if (location.pathname == href) {
+          a.classList.add(styles.currentPage);
+        }
+      } else if (location.pathname.startsWith(href)) {
         a.classList.add(styles.currentPage);
-      } else {
-        a.className = ``;
       }
     }
   });
@@ -82,6 +89,7 @@ const Header: Component = () => {
         <a href="/">home</a>
         <a href="/gallery">stuff i made</a>
         <a href="/specs">things i use</a>
+        <a href="/tools">cool tools</a>
         <a href="/commissions">commissions</a>
         <a href="/links">social links</a>
       </nav>

@@ -1,0 +1,11 @@
+.title {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title .backButton {
+  position: absolute;
+  left: 0;
+}
