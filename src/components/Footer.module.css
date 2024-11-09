@@ -9,3 +9,11 @@
   justify-content: center;
   gap: 6rem;
 }
+
+@media screen and (max-width: calc(500px + 4rem)) {
+  .buildInfo {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

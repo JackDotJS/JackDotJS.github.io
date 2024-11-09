@@ -5,7 +5,18 @@
   align-items: center;
 }
 
-.title .backButton {
+.title > .backButton {
   position: absolute;
+  top: 0;
   left: 0;
+}
+
+@media screen and (max-width: calc(600px + 4rem)) {
+  .title {
+    padding-top: 1.5em;
+  }
+
+  .title > .backButton {
+    left: unset;
+  }
 }
