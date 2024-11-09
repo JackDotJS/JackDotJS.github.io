@@ -60,6 +60,7 @@
 :is(
   .discord, 
   .revolt, 
+  .bluesky,
   .github, 
   .steam, 
   .youtube, 
@@ -112,13 +113,34 @@
 }
 
 .revolt:is(:hover, :focus, :focus-visible) {
-  background-color: #172333;
-  --social-icon-color: #FF4654;
+  background-color: #0b0c1e;
+  --social-icon-color: #FF005C;
 }
 
 .revolt:is(:hover, :focus, :focus-visible) > div {
   -webkit-mask-position: var(--R-offset-hover) 55%;
   mask-position: var(--R-offset-hover) 55%;
+}
+
+/* bluesky */
+
+.bluesky {
+  --social-icon-url: url("/assets/social_icons/bluesky.svg");
+}
+
+.bluesky > div {
+  -webkit-mask-position: var(--L-offset) 55%;
+  mask-position: var(--L-offset) 55%;
+}
+
+.bluesky:is(:hover, :focus, :focus-visible) {
+  background-color: #161e27;
+  --social-icon-color: #208bfe;
+}
+
+.bluesky:is(:hover, :focus, :focus-visible) > div {
+  -webkit-mask-position: var(--L-offset-hover) 55%;
+  mask-position: var(--L-offset-hover) 55%;
 }
 
 /* github */

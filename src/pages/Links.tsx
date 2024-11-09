@@ -17,8 +17,13 @@ const Links: Component = () => {
         <div aria-hidden="true"></div>
       </a>
 
+      <a class={styles.bluesky} rel="external" href="https://bsky.app/profile/jackdotjs.bsky.social" title="Bluesky">
+        <span>bluesky</span>
+        <div aria-hidden="true"></div>
+      </a>
+
       <a class={styles.github} rel="external" href="https://github.com/JackDotJS" title="GitHub">
-        <span>git&shy;hub</span>
+        <span>github</span>
         <div aria-hidden="true"></div>
       </a>
 
