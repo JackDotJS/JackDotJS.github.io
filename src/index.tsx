@@ -8,6 +8,7 @@ import App from './App';
 
 // TODO: figure out how to do routing transitions
 // cus instant transitions are lame
+// https://github.com/solidjs-community/solid-transition-group ??
 
 // Routes
 const Gallery = lazy(() => import(`./pages/Gallery` /* @vite-ignore */));
@@ -21,6 +22,9 @@ console.debug(ULIDTool);
 
 // TODO: make an actual 404 page?
 // https://github.com/solidjs/solid-router/blob/main/README.md#configure-your-routes
+
+// TODO: dynamic routing for tools page and gallery?
+// https://github.com/solidjs/solid-router?tab=readme-ov-file#dynamic-routes
 
 render(() => (
   <Router root={App}>

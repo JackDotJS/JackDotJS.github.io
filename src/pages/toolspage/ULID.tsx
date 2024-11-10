@@ -4,6 +4,7 @@ import { createSignal, type Component } from 'solid-js';
 import globalstyles from './ToolsGeneric.module.css';
 import styles from './ULID.module.css';
 import { decodeTime, isValid, ulid } from 'ulidx';
+import { A } from '@solidjs/router';
 
 // TODO: better styling
 
@@ -83,7 +84,9 @@ const ULIDTool: Component = () => {
   return (
     <main class={styles.ulidtool}>
       <h2 class={globalstyles.title}>
-        <a class={globalstyles.backButton} href="/tools">&lt; back</a>
+        <A class={globalstyles.backButton} href="/tools" noScroll>
+          &lt; back
+        </A>
         ULID Timestamp Tool
       </h2>
       <div class={styles.inputWrapper}>

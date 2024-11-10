@@ -2,6 +2,7 @@
 import type { Component } from 'solid-js';
 
 import styles from './Tools.module.css';
+import { A } from '@solidjs/router';
 
 /**
  * TODO: lots of more tools i wanna work on.
@@ -12,9 +13,10 @@ const Tools: Component = () => {
   return (
     <main class={styles.tools}>
       <h2>tools that may or may not be useful</h2>
-      <a href="/tools/ulid">
+
+      <A href="/tools/ulid" noScroll>
         <span>ULID Timestamp Tool</span>
-      </a>
+      </A>
 
       {/* <a href="/tools/snowflake">
         <span>snowflake ID tool</span>
