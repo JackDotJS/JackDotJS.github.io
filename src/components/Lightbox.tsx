@@ -1,6 +1,6 @@
 import { For, type Component, createSignal, createEffect, createContext, JSXElement, Show, onMount, Switch } from 'solid-js';
 
-import { IconArrowBarToLeft, IconArrowBarToRight, IconArrowsMaximize, IconArrowsMinimize, IconChevronLeft, IconChevronRight, IconEye, IconEyeOff, IconPhotoShare, IconX, IconZoomIn, IconZoomOut, IconZoomReset } from '@tabler/icons-solidjs';
+import { IconArrowBarToLeft, IconArrowBarToRight, IconArrowsMaximize, IconArrowsMinimize, IconChevronLeft, IconChevronRight, IconEye, IconEyeOff, IconPhotoShare, IconX, IconZoomIn, IconZoomOut, IconZoomReset, IconInfoCircle } from '@tabler/icons-solidjs';
 
 import styles from './Lightbox.module.css';
 
@@ -50,6 +50,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
   const [uiVisible, setUiVisible] = createSignal<boolean>(true);
   const [loadingState, setLoadingState] = createSignal<boolean>(true);
   const [isFullscreen, setIsFullscreen] = createSignal<boolean>(false);
+  const [modalTitle, setModalTitle] = createSignal<string>(``);
+  const [modalText, setModalText] = createSignal<string>(``);
 
   const viewerImage = new Image();
   const zoomSensitivity = 0.15;
@@ -519,13 +521,20 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
             <div class={styles.summary}>
               <div>
                 <h1>{ LBData()!.title }</h1>
-                <Show when={ LBData()!.images.length > 1 }>
-                  <h2>{ `${LBData()!.images.length} images` }</h2>
+                <Show when={ LBData()!.description.length > 0 }>
+                  <button onClick={() => { 
+                    setModalTitle(LBData()!.title);
+                    setModalText(LBData()!.description);
+                  }}>
+                    <IconInfoCircle size="66%"/>
+                  </button>
                 </Show>
               </div>
-              <span>{ LBData()!.description }</span>
+              <Show when={ LBData()!.images.length > 1 }>
+                <h2>{ `${LBData()!.images.length} images` }</h2>
+              </Show>
             </div>
-            <button class={styles.close} autofocus onClick={() => { setLBData(null);  }}>
+            <button class={styles.close} autofocus onClick={() => { setLBData(null); }}>
               <IconX size="50%"/>
             </button>
           </div>
@@ -544,7 +553,13 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               <div class={styles.currentImageSummary}>
                 <h2>{getImageDate().month} {getImageDate().year}</h2>
                 <Show when={ LBData()!.images[selectedImage()].description != null }>
-                  <span>{LBData()!.images[selectedImage()].description}</span>
+                  <button 
+                    onClick={() => { 
+                      setModalTitle(`${getImageDate().month} ${getImageDate().year}`);
+                      setModalText(LBData()!.images[selectedImage()].description!); 
+                    }}>
+                    <IconInfoCircle size="66%"/>
+                  </button>
                 </Show>
               </div>
             </Show>
@@ -612,6 +627,21 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               </div>
             </Show>
           </div>
+
+          <Show when={ modalText().length > 0 }>
+            <div class={styles.modalWrapper} >
+              <div class={styles.modalCloseTarget} onClick={() => { setModalText(``); }}></div>
+              <div class={styles.descriptionModal}>
+                <div>
+                  <h1>{ modalTitle() }</h1>
+                  <button autofocus onClick={() => { setModalText(``); }}>
+                    <IconX size="50%"/>
+                  </button>
+                </div>
+                <p>{ modalText() }</p>
+              </div>
+            </div>
+          </Show>
         </Show>
       </div>
       {props.children}

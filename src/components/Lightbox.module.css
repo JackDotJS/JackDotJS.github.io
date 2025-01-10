@@ -48,7 +48,6 @@
 .summary {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   color: #FFF;
   width: 50%;
 }
@@ -57,15 +56,30 @@
   text-align: left;
 }
 
+.summary h1 {
+  font-size: clamp(1.5rem, 2vw, 3rem);
+}
+
 .summary h2 {
   color: #757575;
+}
+
+.summary > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.summary button {
+  width: 3rem;
+  min-width: 3rem;
 }
 
 .close {
   height: 5rem;
 }
 
-.close, .controls > button, .showUIButton {
+.close, .controls > button, .showUIButton, .summary button, .currentImageSummary > button, .descriptionModal button {
   position: relative;
   background-color: transparent;
   color: #FFF;
@@ -247,20 +261,72 @@
 .currentImageSummary {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  width: 50%;
+  gap: 0.5rem;
   color: #FFF;
 }
 
 .currentImageSummary > h2 {
   margin: 0;
-  text-align: center;
   text-wrap: nowrap;
 }
 
-.currentImageSummary > span {
+.currentImageSummary > button {
+  width: 3rem;
+}
+
+.modalWrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.75);
+}
+
+.modalCloseTarget {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.descriptionModal {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  max-height: 75%;
+  color: #FFF;
+  background-color: rgba(0,0,0,0.75);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.descriptionModal > div {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.descriptionModal h1 {
+  flex: 1;
   text-align: left;
+}
+
+.descriptionModal button {
+  width: 4rem;
+}
+
+.descriptionModal > p {
+  overflow: scroll;
+  scrollbar-color: white transparent;
+  scrollbar-width: thin;
+  text-align: justify;
 }
 
 @media screen and (max-width: calc(800px + 4rem)), screen and (max-height: 950px) {
@@ -281,13 +347,12 @@
     width: 4rem;
   }
 
-  .currentImageSummary {
-    width: 100%;
-    padding: 0 1rem;
-    flex-direction: column;
-  }
-
   .carousel {
     height: 3rem;
+  }
+
+  .descriptionModal {
+    width: 90%;
+    max-height: 90%;
   }
 }
