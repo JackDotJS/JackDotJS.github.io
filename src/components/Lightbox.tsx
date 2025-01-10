@@ -511,7 +511,8 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
           <button 
             title="Show UI"
             class={styles.showUIButton} 
-            onClick={() => setUiVisible(true)}>
+            onClick={() => setUiVisible(true)}
+          >
             <IconEye/>
           </button>
           <Show when={loadingState()}>
@@ -522,10 +523,13 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               <div>
                 <h1>{ LBData()!.title }</h1>
                 <Show when={ LBData()!.description.length > 0 }>
-                  <button onClick={() => { 
-                    setModalTitle(LBData()!.title);
-                    setModalText(LBData()!.description);
-                  }}>
+                  <button
+                    title="Show Description" 
+                    onClick={() => { 
+                      setModalTitle(LBData()!.title);
+                      setModalText(LBData()!.description);
+                    }}
+                  >
                     <IconInfoCircle size="66%"/>
                   </button>
                 </Show>
@@ -534,7 +538,12 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
                 <h2>{ `${LBData()!.images.length} images` }</h2>
               </Show>
             </div>
-            <button class={styles.close} autofocus onClick={() => { setLBData(null); }}>
+            <button
+              title="Close"  
+              class={styles.close} 
+              autofocus 
+              onClick={() => { setLBData(null); }}
+            >
               <IconX size="50%"/>
             </button>
           </div>
@@ -554,10 +563,12 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
                 <h2>{getImageDate().month} {getImageDate().year}</h2>
                 <Show when={ LBData()!.images[selectedImage()].description != null }>
                   <button 
+                    title="Show Description" 
                     onClick={() => { 
                       setModalTitle(`${getImageDate().month} ${getImageDate().year}`);
                       setModalText(LBData()!.images[selectedImage()].description!); 
-                    }}>
+                    }}
+                  >
                     <IconInfoCircle size="66%"/>
                   </button>
                 </Show>
@@ -634,7 +645,11 @@ export const Lightbox: Component<{ children: string | JSXElement }> = (props) =>
               <div class={styles.descriptionModal}>
                 <div>
                   <h1>{ modalTitle() }</h1>
-                  <button autofocus onClick={() => { setModalText(``); }}>
+                  <button 
+                    title="Close" 
+                    autofocus 
+                    onClick={() => { setModalText(``); }}
+                  >
                     <IconX size="50%"/>
                   </button>
                 </div>
