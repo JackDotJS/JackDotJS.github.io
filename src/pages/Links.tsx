@@ -15,10 +15,6 @@ const Links: Component = () => {
         <span>revolt</span>
       </a>
 
-      <a class={styles.bluesky} rel="external" href="https://bsky.app/profile/jackdotjs.bsky.social" title="Bluesky">
-        <span>bluesky</span>
-      </a>
-
       <a class={styles.github} rel="external" href="https://github.com/JackDotJS" title="GitHub">
         <span>github</span>
       </a>

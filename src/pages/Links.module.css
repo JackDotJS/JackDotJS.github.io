@@ -101,18 +101,6 @@
   --social-icon-color: #FF005C;
 }
 
-/* bluesky */
-
-.linklist > .bluesky {
-  --social-icon-url: url("/assets/social_icons/bluesky.svg");
-  --icon-h-offset: 55%;
-}
-
-.bluesky:is(:hover, :focus, :focus-visible) {
-  background-color: #161e27;
-  --social-icon-color: #208bfe;
-}
-
 /* github */
 
 .linklist > .github {
