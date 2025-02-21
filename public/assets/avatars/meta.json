@@ -5,9 +5,15 @@
     {
       "filename": "icon.png",
       "description": "There he is!",
-      "year": 2024,
-      "month": 5,
+      "year": 2025,
+      "month": 2,
       "index": 9999
+    },
+    {
+      "filename": "jack-2024-bg.png",
+      "description": "My last avatar for 2024.",
+      "year": 2024,
+      "month": 5
     },
     {
       "filename": "icon_outline.png",
