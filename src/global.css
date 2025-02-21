@@ -2,11 +2,11 @@
   --void-gap: 2rem;
   --default-content-width: 800px;
   
-  --section-background: #F8FBFF;
+  --section-background: #FFE9DA;
   --text: #21212E;
   --text-2: #57576b;
   --text-2-em: #303042;
-  --button-bg: #dde5f0;
+  --button-bg: #EDDAD1;
   --button-text: var(--section-background);
   --button-bg-hover: #F34848;
   --button-text-hover: var(--section-background);
@@ -20,9 +20,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --section-background: #21212E;
-    --text: #F8FBFF;
-    --text-2: #8188a7;
-    --text-2-em: #b4bfcf;
+    --text: #FFE9DA;
+    --text-2: #C1B7BE;
+    --text-2-em: #D8CAC8;
     --button-bg: #11121d;
     --button-text: #292929;
     --button-bg-hover: #F34848;
