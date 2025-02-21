@@ -10,7 +10,7 @@ const Specs: Component = () => {
       <h3>pc specs</h3>
       <a href="https://pcpartpicker.com/user/JackDotJS/saved/pGjqbv">full build on pcpartpicker.com</a>
       <ul class={styles.specList}>
-        <li><em>os:</em> Fedora Linux 40 (KDE Plasma 6)</li>
+        <li><em>os:</em> Fedora Linux 41 (KDE Plasma 6)</li>
         <li><em>cpu:</em> AMD Ryzen 7 7700X @ 4.5 GHz</li>
         <li><em>gpu:</em> NVIDIA GeForce RTX 4070 Ti @ 2310 MHz</li>
         <li><em>ram:</em> G.Skill Trident Z, 2x16GB DDR5 CL30 @ 6000 MHz</li>
