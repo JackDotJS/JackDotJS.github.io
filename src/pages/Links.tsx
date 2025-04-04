@@ -23,7 +23,7 @@ const Links: Component = () => {
         <span>steam</span>
       </a>
 
-      <a class={styles.youtube} rel="external" href="https://www.youtube.com/channel/UCiY8MRmlDVjVva6N-2zy36A" title="YouTube">
+      <a class={styles.youtube} rel="external" href="https://www.youtube.com/@JackDotJS" title="YouTube">
         <span>youtube</span>
       </a>
 
