@@ -79,7 +79,7 @@ const Header: Component = () => {
         <div class={styles.summary}>
           <h1>i'm jack. i make stuff.</h1>
           <p>
-            3d artist, designer, programmer, writer. <em>(he/him)</em><br/>
+            3d artist, designer, programmer, writer. <em>(he/they)</em><br/>
             <br/>
             it's about <em>{time()}</em> my time.
           </p>
