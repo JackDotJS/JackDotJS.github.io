@@ -31,10 +31,6 @@ const Links: Component = () => {
         <span>ko-fi</span>
       </a>
 
-      <a class={styles.email} rel="external" href="mailto:JackDotBusiness@proton.me" title="E-mail">
-        <span>e-mail</span>
-      </a>
-
       <span>if it's not linked here, chances are it's not me. <em>you have been warned!</em></span>
     </main>
   );

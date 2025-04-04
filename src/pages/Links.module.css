@@ -145,14 +145,3 @@
   background-color: #ff4646;
   --social-icon-color: #FFF;
 }
-
-/* email */
-
-.linklist > .email {
-  --social-icon-url: url("/assets/social_icons/email.svg");
-}
-
-.email:is(:hover, :focus, :focus-visible) {
-  background-color: #6D4AFF;
-  --social-icon-color: #FFF;
-}
