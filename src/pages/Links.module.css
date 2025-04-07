@@ -77,6 +77,18 @@
   mask-image: var(--social-icon-url);
 }
 
+/* bluesky */
+
+.linklist > .bluesky {
+  --social-icon-url: url("/assets/social_icons/bluesky.svg");
+  --icon-h-offset: 55%;
+}
+
+.bluesky:is(:hover, :focus, :focus-visible) {
+  background-color: #161e27;
+  --social-icon-color: #208bfe;
+}
+
 /* discord */
 
 .linklist > .discord {

@@ -7,6 +7,10 @@ const Links: Component = () => {
   return (
     <main class={styles.linklist}>
       <h2>some places you can find me at</h2>
+      <a class={styles.bluesky} rel="external" href="https://bsky.app/profile/jackdotjs.bsky.social" title="Bluesky">
+        <span>bluesky</span>
+      </a>
+      
       <a class={styles.discord} rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
         <span>discord</span>
       </a>
