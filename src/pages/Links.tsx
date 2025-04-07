@@ -11,12 +11,12 @@ const Links: Component = () => {
         <span>bluesky</span>
       </a>
 
-      <a class={styles.discord} rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
-        <span>discord</span>
-      </a>
-
       <a class={styles.github} rel="external" href="https://github.com/JackDotJS" title="GitHub">
         <span>github</span>
+      </a>
+
+      <a class={styles.discord} rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
+        <span>discord</span>
       </a>
 
       <a class={styles.steam} rel="external" href="https://steamcommunity.com/id/JackDotJS/" title="Steam">
