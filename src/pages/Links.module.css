@@ -101,18 +101,6 @@
   --social-icon-color: #FFF;
 }
 
-/* revolt */
-
-.linklist > .revolt {
-  --social-icon-url: url("/assets/social_icons/revolt.svg");
-  --icon-h-offset: 55%;
-}
-
-.revolt:is(:hover, :focus, :focus-visible) {
-  background-color: #0b0c1e;
-  --social-icon-color: #FF005C;
-}
-
 /* github */
 
 .linklist > .github {
