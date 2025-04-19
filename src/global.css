@@ -152,7 +152,7 @@ li:not(:first-of-type) {
 em {
   color: var(--text-2-em);
   font-weight: bold;
-  font-style: oblique 10deg;
+  font-style: normal;
 }
 
 table {
