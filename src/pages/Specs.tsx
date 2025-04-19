@@ -29,23 +29,33 @@ const Specs: Component = () => {
       <h3>software</h3>
       <div class={styles.icongrid}>
         <a href="https://www.blender.org/" rel="external">
-          <img src="/assets/software_icons/blender.svg" />
+          <div>
+            <img src="/assets/software_icons/blender.svg" />
+          </div>
           Blender
         </a>
         <a href="https://vscodium.com/" rel="external">
-          <img src="/assets/software_icons/vscodium.svg" />
+          <div>
+            <img src="/assets/software_icons/vscodium.svg" />
+          </div>
           VSCodium
         </a>
         <a href="https://www.gimp.org/" rel="external">
-          <img src="/assets/software_icons/gimp.svg" />
+          <div>
+            <img src="/assets/software_icons/gimp.svg" />
+          </div>
           GIMP
         </a>
         <a href="https://obsproject.com/" rel="external">
-          <img src="/assets/software_icons/obs.svg" />
+          <div>
+            <img src="/assets/software_icons/obs.svg" />
+          </div>
           OBS Studio
         </a>
         <a href="https://kdenlive.org/" rel="external">
-          <img src="/assets/software_icons/kdenlive.svg" />
+          <div>
+            <img src="/assets/software_icons/kdenlive.svg" />
+          </div>
           Kdenlive
         </a>
       </div>

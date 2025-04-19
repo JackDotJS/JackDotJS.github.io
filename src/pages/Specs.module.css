@@ -39,12 +39,21 @@
   align-items: center;
 }
 
-.icongrid img {
-  width: 4rem;
+.icongrid > a > div {
+  height: 4rem;
   aspect-ratio: 1;
-  transition: 75ms;
+  background-color: var(--button-bg);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: 200ms;
 }
 
-.icongrid > a:hover > img {
-  transform: translateY(-4px);
+.icongrid img {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.icongrid > a:hover > div {
+  transition: 0ms;
+  transform: scale(1.1);
 }
