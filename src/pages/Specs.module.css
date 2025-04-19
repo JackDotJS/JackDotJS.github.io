@@ -11,9 +11,15 @@
 .specList > li {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  margin: 0;
+  padding: 0.5rem;
   justify-content: space-between;
   text-align: right;
+  border-radius: 0.25rem;
+}
+
+.specList > li:nth-child(odd) {
+  background-color: var(--button-bg);
 }
 
 .icongrid {
