@@ -123,13 +123,13 @@ a {
   border-radius: 0.1em;
 }
 
-a[href]:hover, a:is(:focus, :focus-visible) {
+a[href]:hover, a:focus-visible {
   transition-duration: 0ms;
   color: var(--text); 
   text-decoration-color: currentColor;
 }
 
-a:is(:focus, :focus-visible) {
+a:focus-visible {
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }

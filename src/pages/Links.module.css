@@ -29,7 +29,7 @@
   transition: all 250ms cubic-bezier(0,.65,.5,1);
 }
 
-.linklist > label:has(input:is(:focus, :focus-visible)) {
+.linklist > label:has(input:focus-visible) {
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }
@@ -69,7 +69,7 @@
   color: var(--active-color);
 }
 
-.linklist > label > div > a:is(:focus, :focus-visible) {
+.linklist > label > div > a:focus-visible {
   outline-color: var(--active-color);
 }
 
@@ -111,14 +111,14 @@
   opacity: 0;
 }
 
-.linklist > label:is(:hover, :focus, :focus-visible, :has(input:checked), :has(input:is(:focus, :focus-visible))) {
+.linklist > label:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)) {
   transition-duration: 0ms, 250ms;
   border-color: var(--active-color);
   background-color: var(--active-bg);
   color: var(--active-color);
 }
 
-.linklist > label:is(:hover, :focus, :focus-visible, :has(input:checked), :has(input:is(:focus, :focus-visible))):before {
+.linklist > label:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)):before {
   background-color: var(--active-color);
   -webkit-mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
   mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
