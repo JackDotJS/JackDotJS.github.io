@@ -43,15 +43,29 @@ const Links: Component = () => {
 
       <For each={items}>
         {(item) => {
-          if (item.url) return (
-            <label class={item.style}>
-              <input type="checkbox" autocomplete="off" />
-              <span>{item.title}</span>
-              <div>
-                <a href={item.url} rel="external">{item.url}</a>
-              </div>
-            </label>
-          )
+          if (item.url) {
+            let anchor!: HTMLAnchorElement;
+
+            let toggleTabNav = (e: Event) => {
+              if (!(e.target instanceof HTMLInputElement)) return;
+
+              if (e.target.checked) {
+                anchor.removeAttribute(`tabindex`);
+              } else {
+                anchor.setAttribute(`tabindex`, `-1`);
+              }
+            }
+
+            return (
+              <label class={item.style}>
+                <input onchange={toggleTabNav} type="checkbox" autocomplete="off" />
+                <span>{item.title}</span>
+                <div>
+                  <a ref={anchor} tabindex="-1" href={item.url} rel="external">{item.url}</a>
+                </div>
+              </label>
+            )
+          }
 
           return (
             <label class={item.style}>
