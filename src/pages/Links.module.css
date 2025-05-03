@@ -3,38 +3,96 @@
   align-items: center;
 }
 
-.linklist > a {
+.linklist > label {
+  --social-icon-url: none;
   --social-icon-color: var(--text);
+  --active-bg: #FFF;
+  --active-color: #000;
   --icon-h-offset: 50%;
   --icon-v-offset: 80%;
   --icon-v-offset-hover: 90%;
 
+  --button-height: 3rem;
+
   position: relative;
+  display: grid;
+  grid-template-rows: min-content 0fr;
+  align-items: center;
+  width: 100%;
+  color: var(--focus-outline);
+  background-color: var(--button-bg);
+  border: 4px solid transparent;
+  border-radius: 1rem;
+  font-weight: bold;
+  outline: 10px solid transparent;
+  outline-offset: 10px;
+  transition: all 250ms cubic-bezier(0,.65,.5,1);
+}
+
+.linklist > label:has(input:is(:focus, :focus-visible)) {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 3px;
+}
+
+.linklist > label > input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  margin: 0;
+}
+
+.linklist > label:has(input:checked) {
+  grid-template-rows: min-content 1fr;
+}
+
+.linklist > label > input:not(:checked) ~ div {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  min-height: 0;
+  height: 0;
+}
+
+.linklist > label > div {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  background-color: var(--button-bg);
-  height: 4rem;
-  border: 4px solid var(--section-background);
-  border-radius: 1rem;
-  box-sizing: border-box;
+  min-height: var(--button-height);
+  z-index: 1;
+  color: var(--active-color);
+  transition: all 250ms cubic-bezier(0,.65,.5,1);
+}
+
+.linklist > label > div > a {
+  text-align: center;
+  line-break: anywhere;
+  color: var(--active-color);
+}
+
+.linklist > label > div > a:is(:focus, :focus-visible) {
+  outline-color: var(--active-color);
+}
+
+.linklist > label > div > a:hover {
+  color: var(--active-color);
 }
 
 /* makes every other background icon show up on the left side */
-.linklist > a:nth-child(even) {
+.linklist > label:nth-child(even) {
   --icon-v-offset: 20%;
   --icon-v-offset-hover: 10%;
 }
 
-.linklist > a:before {
+.linklist > label:before {
   content: "";
   display: block;
   position: absolute;
   transition: all 250ms cubic-bezier(0,.65,.5,1);
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
   -webkit-mask-image: var(--social-icon-url);
   mask-image: var(--social-icon-url);
   -webkit-mask-size: auto 300%;
@@ -44,30 +102,39 @@
   -webkit-mask-position: var(--icon-v-offset) var(--icon-h-offset);
   mask-position: var(--icon-v-offset) var(--icon-h-offset);
   background-color: transparent;
-  border-radius: 1.5rem;
+  border-radius: calc(1rem - 4px);
   opacity: 0.5;
+  pointer-events: none;
 }
 
-.linklist > a:is(:hover, :focus, :focus-visible) {
-  border-color: var(--social-icon-color);
-  color: var(--social-icon-color);
+.linklist > label:has(input:checked):before {
+  opacity: 0;
 }
 
-.linklist > a:is(:hover, :focus, :focus-visible):before {
-  background-color: var(--social-icon-color);
+.linklist > label:is(:hover, :focus, :focus-visible, :has(input:checked), :has(input:is(:focus, :focus-visible))) {
+  transition-duration: 0ms, 250ms;
+  border-color: var(--active-color);
+  background-color: var(--active-bg);
+  color: var(--active-color);
+}
+
+.linklist > label:is(:hover, :focus, :focus-visible, :has(input:checked), :has(input:is(:focus, :focus-visible))):before {
+  background-color: var(--active-color);
   -webkit-mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
   mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
 }
 
-.linklist > a > span {
+.linklist > label > span {
   display: flex;
+  min-height: 3rem;
   flex-direction: row;
   gap: 0.5rem;
   align-items: center;
   justify-content: center;
+  user-select: none;
 }
 
-.linklist > a > span:before {
+.linklist > label > span:before {
   content: '';
   display: block;
   background-color: currentColor;
@@ -82,11 +149,8 @@
 .linklist > .bluesky {
   --social-icon-url: url("/assets/social_icons/bluesky.svg");
   --icon-h-offset: 55%;
-}
-
-.bluesky:is(:hover, :focus, :focus-visible) {
-  background-color: #161e27;
-  --social-icon-color: #208bfe;
+  --active-bg: #161e27;
+  --active-color: #208bfe;
 }
 
 /* discord */
@@ -94,11 +158,8 @@
 .linklist > .discord {
   --social-icon-url: url("/assets/social_icons/discord.svg");
   --icon-h-offset: 50%;
-}
-
-.discord:is(:hover, :focus, :focus-visible) {
-  background-color: #5865F2;
-  --social-icon-color: #FFF;
+  --active-bg: #5865F2;
+  --active-color: #FFF;
 }
 
 /* github */
@@ -106,42 +167,30 @@
 .linklist > .github {
   --social-icon-url: url("/assets/social_icons/github.svg");
   --icon-h-offset: 20%;
-}
-
-.github:is(:hover, :focus, :focus-visible) {
-  background-color: #161B22;
-  --social-icon-color: #E6EDF3;
+  --active-bg: #161B22;
+  --active-color: #E6EDF3;
 }
 
 /* steam */
 
 .linklist > .steam {
   --social-icon-url: url("/assets/social_icons/steam.svg");
-}
-
-.steam:is(:hover, :focus, :focus-visible) {
-  background-color: #171D25;
-  --social-icon-color: #C5C3C0;
+  --active-bg: #171D25;
+  --active-color: #C5C3C0;
 }
 
 /* youtube */
 
 .linklist > .youtube {
   --social-icon-url: url("/assets/social_icons/youtube.svg");
-}
-
-.youtube:is(:hover, :focus, :focus-visible) {
-  background-color: #FF1111;
-  --social-icon-color: #FFF;
+  --active-bg: #FF1111;
+  --active-color: #FFF;
 }
 
 /* kofi */
 
 .linklist > .kofi {
   --social-icon-url: url("/assets/social_icons/kofi.svg");
-}
-
-.kofi:is(:hover, :focus, :focus-visible) {
-  background-color: #ff4646;
-  --social-icon-color: #FFF;
+  --active-bg: #ff4646;
+  --active-color: #FFF;
 }

@@ -1,35 +1,67 @@
  
-import type { Component } from 'solid-js';
+import { For, type Component } from 'solid-js';
 
 import styles from './Links.module.css';
 
 const Links: Component = () => {
+  const items = [
+    {
+      title: `bluesky`,
+      url: `https://bsky.app/profile/jackdotjs.bsky.social`,
+      style: styles.bluesky
+    },
+    {
+      title: `github`,
+      url: `https://github.com/JackDotJS`,
+      style: styles.github
+    },
+    {
+      title: `discord`,
+      text: `@jackdotjs`,
+      style: styles.discord
+    },
+    {
+      title: `steam`,
+      url: `https://steamcommunity.com/id/JackDotJS/`,
+      style: styles.steam
+    },
+    {
+      title: `youtube`,
+      url: `https://www.youtube.com/@JackDotJS`,
+      style: styles.youtube
+    },
+    {
+      title: `ko-fi`,
+      url: `https://ko-fi.com/jackdotjs`,
+      style: styles.kofi
+    },
+  ]
+
   return (
     <main class={styles.linklist}>
       <h2>some places you can find me at</h2>
-      <a class={styles.bluesky} rel="external" href="https://bsky.app/profile/jackdotjs.bsky.social" title="Bluesky">
-        <span>bluesky</span>
-      </a>
 
-      <a class={styles.github} rel="external" href="https://github.com/JackDotJS" title="GitHub">
-        <span>github</span>
-      </a>
+      <For each={items}>
+        {(item) => {
+          if (item.url) return (
+            <label class={item.style}>
+              <input type="checkbox" autocomplete="off" />
+              <span>{item.title}</span>
+              <div>
+                <a href={item.url} rel="external">{item.url}</a>
+              </div>
+            </label>
+          )
 
-      <a class={styles.discord} rel="external" href="https://discord.gg/s5nQBxFPp2" title="Discord">
-        <span>discord</span>
-      </a>
-
-      <a class={styles.steam} rel="external" href="https://steamcommunity.com/id/JackDotJS/" title="Steam">
-        <span>steam</span>
-      </a>
-
-      <a class={styles.youtube} rel="external" href="https://www.youtube.com/@JackDotJS" title="YouTube">
-        <span>youtube</span>
-      </a>
-
-      <a class={styles.kofi} rel="external" href="https://ko-fi.com/jackdotjs" title="Ko-fi">
-        <span>ko-fi</span>
-      </a>
+          return (
+            <label class={item.style}>
+              <input type="checkbox" autocomplete="off" />
+              <span>{item.title}</span>
+              <div>{item.text}</div>
+            </label>
+          )
+        }}
+      </For>
 
       <span>if it's not linked here, chances are it's not me. <em>you have been warned!</em></span>
     </main>
