@@ -1,0 +1,36 @@
+.sidebar {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-size-desktop);
+  height: 100vh;
+  z-index: 999999;
+  background-color: red;
+}
+
+.mobileBar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--sidebar-size-mobile);
+  background-color: green;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    width: 100vw;
+    left: 100vw;
+  }
+
+  .toggleSidebar:checked + .sidebar {
+    left: 0;
+  }
+
+  .mobileBar {
+    display: block;
+  }
+}
