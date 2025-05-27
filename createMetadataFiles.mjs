@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { parseAndValidate } from './parseMetadata.mjs';
 
 // get list of gallery item directories, ignoring files
@@ -46,9 +46,13 @@ newGalleryData.sort((a, b) => {
 
 //console.debug(inspect(newGalleryData, { depth: null, colors: true }));
 
-mkdirSync(`./public/metadata`);
+const outputDir = `./public/metadata`;
 
-writeFileSync(`./public/metadata/gallery.json`, JSON.stringify(newGalleryData));
+if (!existsSync(outputDir)) {
+  mkdirSync(outputDir);
+}
+
+writeFileSync(`${outputDir}/gallery.json`, JSON.stringify(newGalleryData));
 
 // create avatar metadata
 try {
@@ -56,7 +60,7 @@ try {
   const avatarMetadata = JSON.parse(readFileSync(avatarsPath, { encoding: `utf-8` }));
   const parsedAvatars = parseAndValidate(avatarMetadata, avatarsPath);
 
-  writeFileSync(`./public/metadata/avatar.json`, JSON.stringify(parsedAvatars));
+  writeFileSync(`${outputDir}/avatar.json`, JSON.stringify(parsedAvatars));
 }
 catch (err) {
   console.error(err);
