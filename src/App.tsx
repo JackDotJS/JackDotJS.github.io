@@ -2,7 +2,6 @@ import { type JSXElement, type Component } from 'solid-js';
 
 import './global.css';
 
-import Wallpaper from './components/Wallpaper';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Lightbox } from './components/Lightbox';
