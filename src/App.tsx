@@ -9,16 +9,11 @@ import { Lightbox } from './components/Lightbox';
 
 const App: Component<{ children?: string|JSXElement }> = (props) => {
   return (
-    <>
-      <Lightbox>
-        <Header />
-          {props.children}
-        <Footer />
-      </Lightbox>
-      
-
-      <Wallpaper />
-    </>
+    <Lightbox>
+      <Header />
+        {props.children}
+      <Footer />
+    </Lightbox>
   );
 };
 

@@ -4,22 +4,30 @@
   "images": [
     {
       "filename": "icon.png",
-      "description": "There he is!",
+      "description": "There she is!",
       "year": 2025,
-      "month": 2,
+      "month": 5,
       "index": 9999
+    },
+    {
+      "filename": "last-goat.png",
+      "description": "This was just a handful of minor tweaks. Biggest change was expanding the hair so he didn't just have this giant bald spot on the back lol. This was also my last avatar before I came out as transgender.",
+      "year": 2025,
+      "month": 2
     },
     {
       "filename": "jack-2024-bg.png",
       "description": "My last avatar for 2024.",
       "year": 2024,
-      "month": 5
+      "month": 5,
+      "index": 1
     },
     {
       "filename": "icon_outline.png",
       "description": "This was among my first attempts at making a new icon to go with my new goat fursona. While I was here, I wanted to experiment with a slight artstyle change, since I wasn't too enamored by the whole gradient idea from many past avatars. I was initially experimenting with an really basic outline as a way to make this show up a bit easier on grey backgrounds (i.e, Discord), but I ended up ditching the whole transparent icon idea altogether and just went with a solid, bright background. Not only did it compliment the new artstyle, it also generally works way better across different contexts, like jpegs.",
       "year": 2024,
-      "month": 5
+      "month": 5,
+      "index": 0
     },
     {
       "filename": "2022.png",

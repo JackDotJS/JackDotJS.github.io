@@ -2,16 +2,16 @@
   --void-gap: 2rem;
   --default-content-width: 800px;
   
-  --section-background: #FFE9DA;
-  --text: #21212E;
+  --section-background: #FFC8B5;
+  --text: #242035;
   --text-2: #57576b;
   --text-2-em: #303042;
   --button-bg: #EDDAD1;
   --button-text: var(--section-background);
-  --button-bg-hover: #F34848;
+  --button-bg-hover: #FF98BA;
   --button-text-hover: var(--section-background);
   --button-outline-hover: var(--button-bg);
-  --focus-outline: #F34848;
+  --focus-outline: #EE244A;
 
   --anim-delay: 300ms;
   --anim-duration: 0.75;
@@ -19,16 +19,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --section-background: #21212E;
-    --text: #FFE9DA;
+    --section-background: #242035;
+    --text: #FFC8B5;
     --text-2: #C1B7BE;
     --text-2-em: #D8CAC8;
     --button-bg: #11121d;
     --button-text: #292929;
-    --button-bg-hover: #F34848;
+    --button-bg-hover: #FF98BA;
     --button-text-hover: var(--button-bg);
     --button-outline-hover: var(--button-bg);
-    --focus-outline: #F34848;
+    --focus-outline: #FF98BA;
   }
 }
 
