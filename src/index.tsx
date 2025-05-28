@@ -11,10 +11,10 @@ import App from './App';
 // https://github.com/solidjs-community/solid-transition-group ??
 
 // Routes
+const Home = lazy(() => import(`./pages/Home` /* @vite-ignore */));
 const Gallery = lazy(() => import(`./pages/Gallery` /* @vite-ignore */));
 const Specs = lazy(() => import(`./pages/Specs` /* @vite-ignore */));
 const Commissions = lazy(() => import(`./pages/Commissions` /* @vite-ignore */));
-const Links = lazy(() => import(`./pages/Links` /* @vite-ignore */));
 
 // TODO: make an actual 404 page?
 // https://github.com/solidjs/solid-router/blob/main/README.md#configure-your-routes
@@ -24,10 +24,9 @@ const Links = lazy(() => import(`./pages/Links` /* @vite-ignore */));
 
 render(() => (
   <Router root={App}>
-    <Route path="/" />
+    <Route path="/" component={Home} />
     <Route path="/gallery" component={Gallery} />
     <Route path="/specs" component={Specs} />
     <Route path="/commissions" component={Commissions} />
-    <Route path="/links" component={Links} />
   </Router>
 ), document.body);
