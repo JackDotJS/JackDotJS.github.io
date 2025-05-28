@@ -23,14 +23,21 @@ const Sidebar: Component = () => {
   const [buildDateISO, setBuildDateISO] = createSignal(``);
   const [revHash, setRevHash] = createSignal(`[...]`);
 
+  let currentToggleValue = false;
+  let currentScrollPos = 0;
+
   let navContainer!: HTMLElement;
-  let toggleMenu!: HTMLInputElement;
+  let mobileMenuBar!: HTMLDivElement;
+  let menuToggle!: HTMLInputElement;
 
   createEffect(() => {
     const location = useLocation();
     // console.debug(`new location: ${location.pathname}`);
 
-    toggleMenu.checked = false;
+    menuToggle.checked = false;
+    currentScrollPos = 0;
+    const toggleEvent = new CustomEvent(`change`);
+    menuToggle.dispatchEvent(toggleEvent);
 
     const navLinks = navContainer.querySelectorAll(`a`);
 
@@ -51,6 +58,25 @@ const Sidebar: Component = () => {
       }
     }
   });
+
+  const menuToggleHandler = () => {
+    if (currentToggleValue === menuToggle.checked) return;
+
+    if (menuToggle.checked) {
+      // menu open
+      currentScrollPos = window.scrollY;
+
+      document.body.style.position = `fixed`;
+      document.body.style.top = `-${currentScrollPos}px`;
+    } else {
+      // menu close
+      document.body.style.position = ``;
+      document.body.style.top = ``;
+      window.scrollTo(0, currentScrollPos);
+    }
+
+    currentToggleValue = menuToggle.checked;
+  }
 
   onMount(() => {
     fetchBuild.then(async (orgResponse) => {
@@ -124,11 +150,34 @@ const Sidebar: Component = () => {
     
       setRevHash(text.trim());
     });
+
+    // uncheck sidebar toggle if the screen expands enough for mobile 
+    // view to be disabled.
+    //
+    // since content scrolling is disabled when the sidebar is opened 
+    // on mobile, this ensures scrolling is re-enabled as necessary.
+
+    const mobileMenuObserver = new IntersectionObserver((entries) => {
+      if (entries[0].intersectionRatio === 0) {
+        console.debug(`mobile view disabled`)
+        menuToggle.checked = false;
+        const toggleEvent = new CustomEvent(`change`);
+        menuToggle.dispatchEvent(toggleEvent);
+      }
+    });
+
+    mobileMenuObserver.observe(mobileMenuBar);
   });
 
   return (
     <>
-      <input id="sidebarCheckbox" type="checkbox" ref={toggleMenu} class={styles.sidebarCheckbox}/>
+      <input 
+        id="sidebarCheckbox" 
+        type="checkbox"
+        ref={menuToggle}
+        onchange={menuToggleHandler}
+        class={styles.sidebarCheckbox}
+      />
       <div class={styles.sidebar}>
         <header>
           <img src="/assets/favicon.svg" />
@@ -149,7 +198,7 @@ const Sidebar: Component = () => {
           </div>
         </footer>
       </div>
-      <div class={styles.mobileMenuBar}>
+      <div ref={mobileMenuBar} class={styles.mobileMenuBar}>
         <label for="sidebarCheckbox" class={styles.toggleSidebarButton}>
           <IconMenu2 />
         </label>
