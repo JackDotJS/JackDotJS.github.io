@@ -9,7 +9,9 @@ const App: Component<{ children?: string|JSXElement }> = (props) => {
   return (
     <Lightbox>
       <Sidebar />
-      {props.children}
+      <div class="contentWrapper">
+        {props.children}
+      </div>
     </Lightbox>
   );
 };

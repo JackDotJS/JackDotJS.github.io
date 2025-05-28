@@ -58,27 +58,37 @@
   src: url("/Core\ Sans\ CR\ 55\ Medium.ttf") format("opentype")
 }
 
-:root {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 body {
-  position: relative;
   font-family: "CoreSans", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-2);
-  width: var(--max-page-width);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: var(--void-gap);
+  max-width: var(--max-page-width);
+  height: 100vh;
   margin: 0;
-  padding: var(--void-gap);
   box-sizing: border-box;
   overflow-y: scroll; /* fixes page shifting when content becomes scrollable */
+}
+
+.contentWrapper {
+  display: flex;
+  position: absolute;
+  left: max(
+    calc(((100vw - var(--max-page-width)) / 2) + var(--sidebar-size-desktop)),
+    var(--sidebar-size-desktop)
+  );
+  width: min(
+    calc(var(--max-page-width) - var(--sidebar-size-desktop)),
+    calc(100vw - var(--sidebar-size-desktop))
+  );
+  min-height: 100%;
+  padding: var(--void-gap);
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--section-background);
+  padding: var(--void-gap);
 }
 
 h1, h2, h3, h4, h5 {

@@ -131,11 +131,7 @@ const Sidebar: Component = () => {
       <input id="sidebarCheckbox" type="checkbox" ref={toggleMenu} class={styles.sidebarCheckbox}/>
       <div class={styles.sidebar}>
         <header>
-          <div class={styles.logoMenu}>
-            <label for="sidebarCheckbox" class={styles.toggleSidebarButton}>
-              <IconMenu2 />
-            </label>
-          </div>
+          <img src="/assets/favicon.svg" />
           <nav class={styles.navigation} ref={navContainer}>
             <a href="/">home</a>
             <a href="/gallery">stuff i made</a>
@@ -146,17 +142,18 @@ const Sidebar: Component = () => {
 
         <footer>
           <div>
-            build date: <b><time datetime={buildDateISO()}>{buildDate()}</time></b> ({buildDateRelative()})<br/>
+            last updated: <b><time datetime={buildDateISO()}>{buildDate()}</time></b> ({buildDateRelative()})
           </div>
           <div>
             rev: <b><a href={`https://github.com/JackDotJS/JackDotJS.github.io/commit/${revHash()}`}>{revHash()}</a></b>
           </div>
         </footer>
       </div>
-      <div class={styles.mobileBar}>
+      <div class={styles.mobileMenuBar}>
         <label for="sidebarCheckbox" class={styles.toggleSidebarButton}>
           <IconMenu2 />
         </label>
+        <img src="/assets/favicon.svg" />
       </div>
     </>
   );
