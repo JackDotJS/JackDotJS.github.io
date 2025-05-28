@@ -1,20 +1,162 @@
-import { type Component } from 'solid-js';
-import Header from './Header';
-import Footer from './Footer';
+import { useLocation } from '@solidjs/router';
+import { type Component, createEffect, createSignal, onMount } from 'solid-js';
+import { IconMenu2 } from '@tabler/icons-solidjs';
 
 import styles from './Sidebar.module.css';
 
+const fetchBuild = fetch(`/gha-build.txt`)
+const fetchHash = fetch(`/gha-hash.txt`)
+
+interface UnitList {
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+  minute: number,
+  second: number,
+  [key: string]: number
+}
+
 const Sidebar: Component = () => {
+  const [buildDate, setBuildDate] = createSignal(`[...]`);
+  const [buildDateRelative, setBuildDateRelative] = createSignal(`[...]`);
+  const [buildDateISO, setBuildDateISO] = createSignal(``);
+  const [revHash, setRevHash] = createSignal(`[...]`);
+
+  let navContainer!: HTMLElement;
+  let toggleMenu!: HTMLInputElement;
+
+  createEffect(() => {
+    const location = useLocation();
+    // console.debug(`new location: ${location.pathname}`);
+
+    toggleMenu.checked = false;
+
+    const navLinks = navContainer.querySelectorAll(`a`);
+
+    for (const a of navLinks) {
+      if (!(a instanceof HTMLAnchorElement)) continue;
+
+      const href = a.getAttribute(`href`);
+      if (href == null) continue;
+
+      a.className = ``;
+
+      if (href == `/`) {
+        if (location.pathname == href) {
+          a.classList.add(styles.currentPage);
+        }
+      } else if (location.pathname.startsWith(href)) {
+        a.classList.add(styles.currentPage);
+      }
+    }
+  });
+
+  onMount(() => {
+    fetchBuild.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+      
+      if (response.status !== 200) {
+        return console.error(`couldn't fetch build date: ${response.status}`);
+      }
+    
+      const text = await response.text();
+      const num = parseInt(text);
+    
+      if (isNaN(num)) {
+        return console.error(`gha-build: ${num}`);
+      }
+    
+      const ghbuild = new Date(num * 1000);
+    
+      // uppercase letters are scary
+      setBuildDate(ghbuild.toUTCString().toLocaleLowerCase());
+      setBuildDateISO(ghbuild.toISOString());
+
+      const units: UnitList = {
+        year: 1000 * 60 * 60 * 24 * 365,
+        month: (1000 * 60 * 60 * 24 * 365) / 12,
+        day: 1000 * 60 * 60 * 24,
+        hour: 1000 * 60 * 60,
+        minute: 1000 * 60,
+        second: 1000
+      }
+
+      const rtf = new Intl.RelativeTimeFormat(`en`, { numeric: `auto` });
+
+      const updateRelativeDate = () => {
+        const now = new Date();
+
+        const elapsed = ghbuild.getTime() - now.getTime();
+
+        let selectedUnit = `second`;
+
+        for (const unit in units) {
+          if (Math.abs(elapsed) > units[unit]) {
+            selectedUnit = unit;
+            break;
+          }
+        }
+
+        const formatted = rtf.format(
+          Math.round(elapsed/units[selectedUnit]), 
+          selectedUnit as Intl.RelativeTimeFormatUnit
+        );
+
+        setBuildDateRelative(formatted);
+      }
+
+      updateRelativeDate();
+
+      setInterval(() => {
+        updateRelativeDate();
+      }, 1000);
+    });
+
+    fetchHash.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+
+      if (response.status !== 200) {
+        return console.error(`couldn't fetch revision hash: ${response.status}`);
+      }
+    
+      const text = await response.text();
+    
+      setRevHash(text.trim());
+    });
+  });
+
   return (
     <>
-      <input type="checkbox" id="toggleSidebar" class={styles.toggleSidebar}/>
+      <input id="sidebarCheckbox" type="checkbox" ref={toggleMenu} class={styles.sidebarCheckbox}/>
       <div class={styles.sidebar}>
-        <label for="toggleSidebar">menu</label>
-        <Header />
-        <Footer />
+        <header>
+          <div class={styles.logoMenu}>
+            <label for="sidebarCheckbox" class={styles.toggleSidebarButton}>
+              <IconMenu2 />
+            </label>
+          </div>
+          <nav class={styles.navigation} ref={navContainer}>
+            <a href="/">home</a>
+            <a href="/gallery">stuff i made</a>
+            <a href="/specs">things i use</a>
+            <a href="/commissions">commission info</a>
+          </nav>
+        </header>
+
+        <footer>
+          <div>
+            build date: <b><time datetime={buildDateISO()}>{buildDate()}</time></b> ({buildDateRelative()})<br/>
+          </div>
+          <div>
+            rev: <b><a href={`https://github.com/JackDotJS/JackDotJS.github.io/commit/${revHash()}`}>{revHash()}</a></b>
+          </div>
+        </footer>
       </div>
       <div class={styles.mobileBar}>
-        <label for="toggleSidebar">menu</label>
+        <label for="sidebarCheckbox" class={styles.toggleSidebarButton}>
+          <IconMenu2 />
+        </label>
       </div>
     </>
   );

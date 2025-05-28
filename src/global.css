@@ -1,10 +1,4 @@
 :root {
-  --void-gap: 2rem;
-  --default-content-width: 800px;
-
-  --sidebar-size-desktop: 300px;
-  --sidebar-size-mobile: 50px;
-  
   --section-background: #FFC8B5;
   --text: #242035;
   --text-2: #57576b;
@@ -15,6 +9,17 @@
   --button-text-hover: var(--section-background);
   --button-outline-hover: var(--button-bg);
   --focus-outline: #EE244A;
+
+  --anim-timing: cubic-bezier(0,.65,.5,1);
+
+  --void-gap: 2rem;
+  --default-content-width: 1200px;
+
+  --sidebar-size-desktop: 300px;
+  --sidebar-size-mobile: 50px;
+  --sidebar-size: var(--sidebar-size-desktop);
+
+  --max-page-width: calc(var(--default-content-width) + var(--sidebar-size) + (var(--void-gap) * 2));
 
   --anim-delay: 300ms;
   --anim-duration: 0.75;
@@ -35,6 +40,12 @@
   }
 }
 
+@media screen and (max-width: 800px) {
+  :root {
+    --sidebar-size: 0;
+  }
+}
+
 @font-face {
   font-family: "CoreSans";
   font-weight: bold;
@@ -47,10 +58,17 @@
   src: url("/Core\ Sans\ CR\ 55\ Medium.ttf") format("opentype")
 }
 
+:root {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 body {
+  position: relative;
   font-family: "CoreSans", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-2);
-  width: 100%;
+  width: var(--max-page-width);
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -88,7 +106,7 @@ p {
 
 a {
   color: var(--focus-outline);
-  transition: all 250ms cubic-bezier(0,.65,.5,1);
+  transition: all 250ms var(--anim-timing);
   text-decoration: underline;
   text-decoration-color: transparent;
   font-weight: bold;

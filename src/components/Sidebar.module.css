@@ -3,11 +3,19 @@
   display: flex;
   flex-direction: column;
   top: 0;
-  left: 0;
+  left: max(0px, calc((100vw - var(--max-page-width)) / 2));
   width: var(--sidebar-size-desktop);
   height: 100vh;
   z-index: 999999;
-  background-color: red;
+  background-color: var(--section-background);
+}
+
+.sidebarCheckbox {
+  display: none;
+}
+
+.toggleSidebarButton {
+  display: none;
 }
 
 .mobileBar {
@@ -20,14 +28,38 @@
   background-color: green;
 }
 
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation > a {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.navigation > a.currentPage {
+  background-color: var(--focus-outline);
+  color: var(--section-background);
+  border-radius: 0.25rem;
+}
+
+.navigation > a.currentPage:is(:hover, :focus-visible) {
+  color: var(--text);
+}
+
 @media screen and (max-width: 800px) {
   .sidebar {
     width: 100vw;
     left: 100vw;
   }
 
-  .toggleSidebar:checked + .sidebar {
+  .sidebarCheckbox:checked + .sidebar {
     left: 0;
+  }
+
+  .toggleSidebarButton {
+    display: block;
   }
 
   .mobileBar {
