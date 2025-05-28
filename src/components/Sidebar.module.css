@@ -5,7 +5,7 @@
   flex-direction: column;
   top: 0;
   left: max(0px, calc((100vw - var(--max-page-width)) / 2));
-  width: var(--sidebar-size-desktop);
+  width: var(--sidebar-desktop-size);
   height: 100vh;
   z-index: 10;
   background-color: var(--section-background);
@@ -73,7 +73,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: var(--sidebar-size-mobile);
+  height: var(--sidebar-mobile-header);
   background-color: var(--section-background);
   flex-direction: row;
   justify-content: space-between;
@@ -99,10 +99,10 @@
 
 @media screen and (max-width: 800px) {
   .sidebar {
-    top: var(--sidebar-size-mobile);
+    top: var(--sidebar-mobile-header);
     left: -100vw;
     width: 100vw;
-    height: calc(100vh - calc(var(--sidebar-size-mobile)));
+    height: calc(100vh - calc(var(--sidebar-mobile-header)));
     transition: left 250ms var(--anim-timing);
 
     > header > img {
