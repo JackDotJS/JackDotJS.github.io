@@ -45,147 +45,147 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--void-gap);
-}
 
-.linklist > label {
-  --social-icon-url: none;
-  --social-icon-color: var(--text);
-  --active-bg: #FFF;
-  --active-color: #000;
-  --icon-h-offset: 50%;
-  --icon-v-offset: 80%;
-  --icon-v-offset-hover: 90%;
+  > label {
+    --social-icon-url: none;
+    --social-icon-color: var(--text);
+    --active-bg: #FFF;
+    --active-color: #000;
+    --icon-h-offset: 50%;
+    --icon-v-offset: 80%;
+    --icon-v-offset-hover: 90%;
 
-  --button-height: 3rem;
+    --button-height: 3rem;
 
-  position: relative;
-  display: grid;
-  grid-template-rows: min-content 0fr;
-  align-items: center;
-  width: 100%;
-  color: var(--focus-outline);
-  background-color: var(--button-bg);
-  border: 4px solid transparent;
-  border-radius: 1rem;
-  font-weight: bold;
-  outline: 10px solid transparent;
-  outline-offset: 10px;
-  transition: all 250ms cubic-bezier(0,.65,.5,1);
-}
+    position: relative;
+    display: grid;
+    grid-template-rows: min-content 0fr;
+    align-items: center;
+    width: 100%;
+    color: var(--focus-outline);
+    background-color: var(--button-bg);
+    border: 4px solid transparent;
+    border-radius: 1rem;
+    font-weight: bold;
+    outline: 10px solid transparent;
+    outline-offset: 10px;
+    transition: all 250ms cubic-bezier(0,.65,.5,1);
 
-.linklist > label:has(input:focus-visible) {
-  outline: 3px solid var(--focus-outline);
-  outline-offset: 3px;
-}
+    > input {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      margin: 0;
+    }
 
-.linklist > label > input {
-  width: 0;
-  height: 0;
-  opacity: 0;
-  margin: 0;
-}
+    > input:not(:checked) ~ div {
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      min-height: 0;
+      height: 0;
+    }
 
-.linklist > label:has(input:checked) {
-  grid-template-rows: min-content 1fr;
-}
+    > span {
+      display: flex;
+      min-height: 3rem;
+      flex-direction: row;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
 
-.linklist > label > input:not(:checked) ~ div {
-  pointer-events: none;
-  user-select: none;
-  opacity: 0;
-  min-height: 0;
-  height: 0;
-}
+    > span:before {
+      content: '';
+      display: block;
+      background-color: currentColor;
+      width: 2rem;
+      aspect-ratio: 1;
+      -webkit-mask-image: var(--social-icon-url);
+      mask-image: var(--social-icon-url);
+    }
 
-.linklist > label > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--button-height);
-  z-index: 1;
-  color: var(--active-color);
-  transition: all 250ms cubic-bezier(0,.65,.5,1);
-}
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--button-height);
+      z-index: 1;
+      color: var(--active-color);
+      transition: all 250ms cubic-bezier(0,.65,.5,1);
 
-.linklist > label > div > a {
-  text-align: center;
-  line-break: anywhere;
-  color: var(--active-color);
-}
+      > a {
+        text-align: center;
+        line-break: anywhere;
+        color: var(--active-color);
+      }
 
-.linklist > label > div > a:focus-visible {
-  outline-color: var(--active-color);
-}
+      > a:focus-visible {
+        outline-color: var(--active-color);
+      }
 
-.linklist > label > div > a:hover {
-  color: var(--active-color);
-}
+      > a:hover {
+        color: var(--active-color);
+      }
+    }
+  }
 
-/* makes every other background icon show up on the left side */
-.linklist > label:nth-child(even) {
-  --icon-v-offset: 20%;
-  --icon-v-offset-hover: 10%;
-}
+  > label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    transition: all 250ms cubic-bezier(0,.65,.5,1);
+    box-sizing: border-box;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    -webkit-mask-image: var(--social-icon-url);
+    mask-image: var(--social-icon-url);
+    -webkit-mask-size: auto 300%;
+    mask-size: auto 300%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: var(--icon-v-offset) var(--icon-h-offset);
+    mask-position: var(--icon-v-offset) var(--icon-h-offset);
+    background-color: transparent;
+    border-radius: calc(1rem - 4px);
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
-.linklist > label:before {
-  content: "";
-  display: block;
-  position: absolute;
-  transition: all 250ms cubic-bezier(0,.65,.5,1);
-  box-sizing: border-box;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  -webkit-mask-image: var(--social-icon-url);
-  mask-image: var(--social-icon-url);
-  -webkit-mask-size: auto 300%;
-  mask-size: auto 300%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: var(--icon-v-offset) var(--icon-h-offset);
-  mask-position: var(--icon-v-offset) var(--icon-h-offset);
-  background-color: transparent;
-  border-radius: calc(1rem - 4px);
-  opacity: 0.5;
-  pointer-events: none;
-}
+  /* makes every other background icon show up on the left side */
+  > label:nth-child(even) {
+    --icon-v-offset: 20%;
+    --icon-v-offset-hover: 10%;
+  }
 
-.linklist > label:has(input:checked):before {
-  opacity: 0;
-}
+  > label:has(input:focus-visible) {
+    outline: 3px solid var(--focus-outline);
+    outline-offset: 3px;
+  }
 
-.linklist > label:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)) {
-  transition-duration: 0ms, 250ms;
-  border-color: var(--active-color);
-  background-color: var(--active-bg);
-  color: var(--active-color);
-}
+  > label:has(input:checked) {
+    grid-template-rows: min-content 1fr;
+  }
 
-.linklist > label:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)):before {
-  background-color: var(--active-color);
-  -webkit-mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
-  mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
-}
+  > label:has(input:checked):before {
+    opacity: 0;
+  }
 
-.linklist > label > span {
-  display: flex;
-  min-height: 3rem;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
+  > label:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)) {
+    transition-duration: 0ms, 250ms;
+    border-color: var(--active-color);
+    background-color: var(--active-bg);
+    color: var(--active-color);
+  }
 
-.linklist > label > span:before {
-  content: '';
-  display: block;
-  background-color: currentColor;
-  width: 2rem;
-  aspect-ratio: 1;
-  -webkit-mask-image: var(--social-icon-url);
-  mask-image: var(--social-icon-url);
+  > label:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)):before {
+    background-color: var(--active-color);
+    -webkit-mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
+    mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
+  }
 }
 
 /* bluesky */
