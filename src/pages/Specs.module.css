@@ -1,11 +1,6 @@
-.specs {
-  text-align: center;
-  align-items: center;
-}
-
 .specList {
-  width: 90%;
-  margin: 0 4rem;
+  width: 100%;
+  max-width: 40rem;
 }
 
 .specList > li {
