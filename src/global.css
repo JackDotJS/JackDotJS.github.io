@@ -39,16 +39,6 @@
   }
 }
 
-@media screen and (max-width: 800px) {
-  :root {
-    --sidebar-desktop-size: 0;
-  }
-
-  .contentWrapper {
-    top: var(--sidebar-mobile-header);
-  }
-}
-
 @font-face {
   font-family: "CoreSans";
   font-weight: bold;
@@ -81,6 +71,7 @@ body {
 
 .contentWrapper {
   display: flex;
+  align-items: center;
   position: relative;
   left: max(
     calc(((100vw - var(--max-page-width)) / 2) + var(--sidebar-desktop-size)),
@@ -194,4 +185,15 @@ td, th {
 th {
   font-size: 28px;
   background-color: var(--button-bg);
+}
+
+@media screen and (max-width: 800px) {
+  :root {
+    --sidebar-desktop-size: 0;
+  }
+
+  .contentWrapper {
+    top: var(--sidebar-mobile-header);
+    min-height: calc(100% - var(--sidebar-mobile-header));
+  }
 }
