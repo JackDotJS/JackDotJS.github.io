@@ -91,7 +91,7 @@ const Home: Component = () => {
         </div>
       </div>
 
-      <h2>some places you can find me at</h2>
+      <h2>here's some places you can find me at</h2>
 
       <div class={styles.linklist}>
         <For each={socialLinks}>
