@@ -62,7 +62,8 @@
 
 .linklist {
   display: grid;
-  width: 50%;
+  width: 100%;
+  max-width: 42rem;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
 
@@ -335,4 +336,10 @@
   --social-icon-url: url("/assets/social_icons/kofi.svg");
   --active-bg: #ff4646;
   --active-color: #FFF;
+}
+
+@media screen and (max-width: 800px) {
+  .linklist {
+    max-width: 100%;
+  }
 }
