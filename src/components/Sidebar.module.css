@@ -24,14 +24,29 @@
       width: 6rem;
     }
 
-    > .navigation {
+    > .flavorText {
+      width: 100%;
+      font-style: italic;
+
+      > h3 {
+        color: currentColor;
+      }
+    }
+
+    > nav {
       width: 100%;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
 
       > a {
-        text-align: center;
-        padding: 0.5rem 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.5rem;
       }
 
       > a.currentPage {
@@ -105,8 +120,33 @@
     height: calc(100vh - calc(var(--sidebar-mobile-header)));
     transition: left 250ms var(--anim-timing);
 
-    > header > img {
-      width: 10rem;
+    > header {
+      > img {
+        width: 10rem;
+      }
+
+      > h1 {
+        font-size: 4rem;
+      }
+
+      > .flavorText {
+        font-size: 1.25rem;
+      }
+
+      > nav {
+        width: 66%;
+        
+        > a {
+          font-size: 1.3rem;
+          gap: 1rem;
+          padding: 0.75rem 1rem;
+
+          > svg {
+            width: 2rem;
+            height: 2rem;
+          }
+        }
+      }
     }
   }
 

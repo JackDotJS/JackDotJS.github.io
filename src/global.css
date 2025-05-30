@@ -1,9 +1,9 @@
 :root {
   --section-background: #FFC8B5;
   --text: #242035;
-  --text-2: #57576b;
+  --text-2: #242035AA;
   --text-2-em: #303042;
-  --button-bg: #EDDAD1;
+  --button-bg: #24203522;
   --button-text: var(--section-background);
   --button-bg-hover: #FF98BA;
   --button-text-hover: var(--section-background);
@@ -61,6 +61,10 @@
   src: url("/Core\ Sans\ CR\ 55\ Medium.ttf") format("opentype")
 }
 
+:root {
+  background-color: var(--section-background);
+}
+
 body {
   font-family: "CoreSans", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-2);
@@ -97,7 +101,6 @@ main {
   width: 100%;
   min-height: 100%;
   background-color: var(--section-background);
-  padding: var(--void-gap);
 }
 
 h1, h2, h3, h4, h5 {

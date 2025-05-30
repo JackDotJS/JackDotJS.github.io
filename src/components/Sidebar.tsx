@@ -1,6 +1,6 @@
 import { useLocation } from '@solidjs/router';
 import { type Component, createEffect, createSignal, onMount } from 'solid-js';
-import { IconMenu2 } from '@tabler/icons-solidjs';
+import { IconCpu, IconDevicesPc, IconHome, IconMenu2, IconPencilDollar, IconPhoto } from '@tabler/icons-solidjs';
 
 import styles from './Sidebar.module.css';
 
@@ -17,22 +17,104 @@ interface UnitList {
   [key: string]: number
 }
 
+const flavorTextStringList = [
+  `one of the websites of all time`,
+  `windows? more like winBLOWS haha lol`,
+  `MIT loicense mate`,
+  `rock005.mdl`,
+  `my fumking fromsting`,
+  `STOP SUPER REACTING`,
+  `cabbage`,
+  `HUH???`,
+  `:3`,
+  `:3?`,
+  `severe thunderstorm warning`,
+  `clearly you don't own an airfryer`,
+  `THEN WHO WAS PHONE?`,
+  `YOU FUCKING HEAD OF BEEF`,
+  `give me your wallet`,
+  `that's it, give me your phone`,
+  `\${flavor.text}`,
+  `drink some water`,
+  `stay hydrated!`,
+  `ur mom`,
+  `*yru'oe`,
+  `nights at five freddies`,
+  `five fredies at night`,
+  `friday night fredies`,
+  `fuck`,
+  `don't care mate`,
+  `no`,
+  `ajdfhdklfghj`,
+  `ow`,
+  `ouch`,
+  `omg hiii!!!!!!`,
+  `buals`,
+  `8`,
+  `7`,
+  `jackiedotjs`,
+  `lead poisoning enthusiast`,
+  `now with 50% more lead!`,
+  `mmmmmmmmmmm`,
+  `batteries not included`,
+  `can i get uhhhhh`,
+  `MAX_CALL_STACK_EXCEEDED`,
+  `do you are have stupid`,
+  `eating chair foam`,
+  `#1 tire rubber consumer`,
+  `screen space ambient occlusion`,
+  `3 dollars`,
+  `pee = 3.14`,
+  `ROCK AND STONE`,
+  `spormts car`,
+  `new york times bestseller`,
+  `OH GREAT HEAVENS`,
+  `this will be graphics in 2013`,
+  `OHH MY PKCELLS`,
+  `trans rights are human rights`,
+  `HAVE A FUNGUS`,
+  `a dink hard donk`,
+  `really large solvent`,
+  `evil hay sludge`,
+  `sentenced to 10 minutes of twitter`
+]
+
 const Sidebar: Component = () => {
   const [buildDate, setBuildDate] = createSignal(`[...]`);
   const [buildDateRelative, setBuildDateRelative] = createSignal(`[...]`);
   const [buildDateISO, setBuildDateISO] = createSignal(``);
+  const [flavorTextString, setFlavorTextString] = createSignal(``);
   const [revHash, setRevHash] = createSignal(`[...]`);
 
   let currentToggleValue = false;
   let currentScrollPos = 0;
+  let currentLocation = ``;
 
   let navContainer!: HTMLElement;
   let mobileMenuBar!: HTMLDivElement;
   let menuToggle!: HTMLInputElement;
 
+  const pickFlavorText = () => {
+    let randomIndex = Math.floor(Math.random() * flavorTextStringList.length);
+
+    // ensure we don't pick the same string again
+    if (flavorTextStringList[randomIndex] === flavorTextString()) {
+      randomIndex += 1;
+      if (randomIndex === flavorTextStringList.length) {
+        randomIndex = 0;
+      }
+    }
+
+    setFlavorTextString(flavorTextStringList[randomIndex]);
+  }
+
+  pickFlavorText();
+
   createEffect(() => {
     const location = useLocation();
-    // console.debug(`new location: ${location.pathname}`);
+    if (location.pathname === currentLocation) return;
+
+    pickFlavorText();
 
     menuToggle.checked = false;
     currentScrollPos = 0;
@@ -57,6 +139,8 @@ const Sidebar: Component = () => {
         a.classList.add(styles.currentPage);
       }
     }
+
+    currentLocation = location.pathname;
   });
 
   const menuToggleHandler = () => {
@@ -181,11 +265,21 @@ const Sidebar: Component = () => {
       <div class={styles.sidebar}>
         <header>
           <img src="/assets/favicon.svg" />
-          <nav class={styles.navigation} ref={navContainer}>
-            <a href="/">home</a>
-            <a href="/gallery">stuff i made</a>
-            <a href="/specs">things i use</a>
-            <a href="/commissions">commission info</a>
+          <h1>jackiedotjs</h1>
+          <a 
+            onclick={pickFlavorText} 
+            href="javascript:void(0)" 
+            class={styles.flavorText}
+          >
+            <h3>
+              {flavorTextString()}
+            </h3>
+          </a>
+          <nav ref={navContainer}>
+            <a href="/"> <IconHome/> home</a>
+            <a href="/gallery"> <IconPhoto/> stuff i made</a>
+            <a href="/specs"> <IconDevicesPc/> things i use</a>
+            <a href="/commissions"> <IconPencilDollar/> commission info</a>
           </nav>
         </header>
 
