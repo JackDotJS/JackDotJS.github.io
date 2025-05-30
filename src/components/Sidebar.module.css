@@ -12,9 +12,11 @@
   overflow-y: auto;
   padding: 1rem;
   box-sizing: border-box;
+  box-shadow: 2px 0 var(--button-bg);
 
   header {
     width: 100%;
+    margin-top: 5vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,6 +41,7 @@
       flex-direction: column;
       justify-content: center;
       gap: 0.5rem;
+      margin: 1rem 0;
       flex-grow: 1;
 
       > a {
@@ -76,6 +79,7 @@
 }
 
 .sidebarCheckbox {
+  position: fixed;
   width: 0;
   height: 0;
   opacity: 0;
@@ -87,6 +91,8 @@
 }
 
 .mobileMenuBar {
+  --menu-bar-padding: 0.5rem;
+
   display: none;
   position: fixed;
   top: 0;
@@ -96,9 +102,10 @@
   background-color: var(--section-background);
   flex-direction: row;
   justify-content: space-between;
-  padding: 0.5rem;
+  padding: var(--menu-bar-padding);
   box-sizing: border-box;
   z-index: 10;
+  box-shadow: 0 2px var(--button-bg);
 
   > label {
     aspect-ratio: 1;
@@ -112,7 +119,7 @@
   > img {
     transition: all 250ms var(--anim-timing);
     position: relative;
-    right: 0;
+    transform: translateX(0%);
   }
 }
 
@@ -160,7 +167,7 @@
     }
 
     ~ .mobileMenuBar > img {
-      right: -10%;
+      transform: translateX(calc(100% + var(--menu-bar-padding)));
     }
   }
 
