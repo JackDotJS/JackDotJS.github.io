@@ -72,6 +72,7 @@ body {
 .contentWrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   left: max(
     calc(((100vw - var(--max-page-width)) / 2) + var(--sidebar-desktop-size)),
@@ -93,6 +94,7 @@ main {
   justify-content: center;
   gap: var(--void-gap);
   width: 100%;
+  max-width: 50rem;
   min-height: 100%;
   background-color: var(--section-background);
 }

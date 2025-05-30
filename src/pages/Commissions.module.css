@@ -1,9 +1,3 @@
-.comms {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .comms p {
   margin-bottom: 1rem;
 }
