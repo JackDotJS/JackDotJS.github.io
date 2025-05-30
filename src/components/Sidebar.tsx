@@ -4,6 +4,8 @@ import { IconCpu, IconDevicesPc, IconHome, IconMenu2, IconPencilDollar, IconPhot
 
 import styles from './Sidebar.module.css';
 
+// TODO: fix tab navigation in mobile view
+
 const fetchBuild = fetch(`/gha-build.txt`)
 const fetchHash = fetch(`/gha-hash.txt`)
 

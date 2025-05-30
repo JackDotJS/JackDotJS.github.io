@@ -4,6 +4,7 @@ import { For, type Component, onMount, createSignal, useContext } from 'solid-js
 import { GalleryEntryData, LightBoxContext } from '../components/Lightbox';
 
 import styles from './Home.module.css';
+import { IconCheck } from '@tabler/icons-solidjs';
 
 const fetchAvatars = fetch(`/metadata/avatar.json`);
 
@@ -95,36 +96,75 @@ const Home: Component = () => {
       <div class={styles.linklist}>
         <For each={socialLinks}>
           {(item) => {
-            if (item.url) {
-              let anchor!: HTMLAnchorElement;
+            if (item.text) {
+              let mainButton!: HTMLLabelElement;
+              let checkbox!: HTMLInputElement;
+              let buttonContentWrapper!: HTMLDivElement;
+              let notification!: HTMLSpanElement;
+              let button!: HTMLButtonElement;
 
-              let toggleTabNav = (e: Event) => {
-                if (!(e.target instanceof HTMLInputElement)) return;
+              let oldCheckState = false;
 
-                if (e.target.checked) {
-                  anchor.removeAttribute(`tabindex`);
-                } else {
-                  anchor.setAttribute(`tabindex`, `-1`);
+              const mainButtonClickHandler = (e: MouseEvent) => {
+                if (checkbox.checked && !oldCheckState) {
+                  button.removeAttribute(`tabindex`);
+
+                  const buttonRect = mainButton.getBoundingClientRect();
+                  const relX = e.clientX - buttonRect.left;
+                  
+                  if (relX >= (buttonRect.width / 2)) {
+                    // cursor is on right half
+                    buttonContentWrapper.classList.remove(styles.flipButtonLocation)
+                  } else {
+                    // cursor is on left half
+                    buttonContentWrapper.classList.add(styles.flipButtonLocation)
+                  }
+
+                  oldCheckState = true;
+                } else if (!checkbox.checked && oldCheckState) {
+                  button.setAttribute(`tabindex`, `-1`);
+                  oldCheckState = false;
                 }
               }
 
+              const copyButtonClickHandler = async (e: Event) => {
+                await navigator.clipboard.writeText(item.text);
+
+                // trigger copied animation
+                notification.classList.remove(styles.copyAnimator);
+                void notification.offsetWidth;
+                notification.classList.add(styles.copyAnimator);
+              }
+
               return (
-                <label class={item.style}>
-                  <input onchange={toggleTabNav} type="checkbox" autocomplete="off" />
+                <label 
+                  ref={mainButton} 
+                  onclick={mainButtonClickHandler} 
+                  class={item.style}
+                >
+                  <input ref={checkbox} type="checkbox" autocomplete="off" />
                   <span>{item.title}</span>
-                  <div>
-                    <a ref={anchor} tabindex="-1" href={item.url} rel="external">{item.url}</a>
+                  <div ref={buttonContentWrapper}>
+                    <button ref={button} onclick={copyButtonClickHandler} tabindex="-1">
+                      copy
+                    </button>
+                    <div>
+                      <span class={styles.textButtonContent}>{item.text}</span>
+                      <span class={styles.textCopyNotification} ref={notification}> <IconCheck/> copied!</span>
+                    </div>
                   </div>
                 </label>
               )
             }
 
             return (
-              <label class={item.style}>
-                <input type="checkbox" autocomplete="off" />
+              <a
+                href={item.url} 
+                rel="external"
+                class={item.style}
+              >
                 <span>{item.title}</span>
-                <div>{item.text}</div>
-              </label>
+              </a>
             )
           }}
         </For>

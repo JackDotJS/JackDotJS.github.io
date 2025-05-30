@@ -3,7 +3,7 @@
   --text: #242035;
   --text-2: #242035AA;
   --text-2-em: #303042;
-  --button-bg: #24203522;
+  --button-bg: #24203511;
   --button-text: var(--section-background);
   --button-bg-hover: #FF98BA;
   --button-text-hover: var(--section-background);
@@ -65,8 +65,11 @@
   background-color: var(--section-background);
 }
 
-body {
+* {
   font-family: "CoreSans", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
   color: var(--text-2);
   max-width: var(--max-page-width);
   width: 100%;
@@ -126,24 +129,27 @@ p {
   margin: 0;
 }
 
-a {
+a, button {
   color: var(--focus-outline);
   transition: all 250ms var(--anim-timing);
-  text-decoration: underline;
-  text-decoration-color: transparent;
   font-weight: bold;
   outline: 10px solid transparent;
   outline-offset: 10px;
   border-radius: 0.1em;
 }
 
+a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+}
+
 a[href]:hover, a:focus-visible {
-  transition-duration: 0ms;
   color: var(--text); 
   text-decoration-color: currentColor;
 }
 
-a:focus-visible {
+a:focus-visible, button:focus-visible {
+  transition-duration: 0ms;
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }
