@@ -171,15 +171,26 @@ em {
 table {
   table-layout: fixed;
   width: 100%;
-  border-collapse: collapse;
   border-radius: 0.25rem;
-  border-style: hidden;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
+  border-style: solid;
+  border-collapse: separate;
+  border-color: var(--button-bg);
+  border-width: 2px;
+  border-spacing: 0;
+  box-sizing: border-box;
+
+  & tbody tr:not(:last-of-type) :where(td, th) {
+    border-bottom: 2px solid var(--button-bg);
+  }
+
+  & td:not(:last-child) {
+    border-right: 2px solid var(--button-bg);
+  }
 }
 
 td, th {
   text-align: center;
-  border: 2px solid rgba(0,0,0,0.5);
+  /* border: 2px solid rgba(0,0,0,0.5); */
   padding: 1em;
   overflow-wrap: break-word;
 }
