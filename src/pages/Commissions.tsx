@@ -1,16 +1,26 @@
 import type { Component } from 'solid-js';
 
 import styles from './Commissions.module.css';
+import { IconX } from '@tabler/icons-solidjs';
 
 // TODO: add info regarding art trades
+// TODO: add function to colorize status boxes
 
 const Commissions: Component = () => {
   return (
     <main class={styles.comms}>
-      <h2>commission info</h2>
-
-      <h1>status: closed</h1>
-      <h3>0/3 slots taken</h3>
+      <div class={styles.statusWrapper}>
+        <div class={styles.commissions}>
+          <span>commissions:</span>
+          <div>
+            closed <IconX stroke="2.5" />
+          </div>
+        </div>
+        <div>
+          <span>slots taken:</span>
+          <div>0/3</div>
+        </div>
+      </div>
 
       <table>
         <thead>
@@ -21,20 +31,16 @@ const Commissions: Component = () => {
         </thead>
         <tbody>
           <tr>
-            <td>anthros and furries, including hybrid species</td>
-            <td>anything racist, sexist, queer&shy;phobic, or otherwise discriminatory</td>
+            <td>characters of any species (human, anthro/furry, alien, etc)</td>
+            <td>racist, sexist, and other bigoted/discriminatory content</td>
           </tr>
           <tr>
-            <td>aliens, monsters, and any other non-human creatures (depends on how they look)</td>
-            <td>nsfw/adult content, including "extremely questionable" content</td>
-          </tr>
-          <tr>
-            <td>weapons, tools, and other items</td>
-            <td>excessive gore</td>
+            <td>weapons, tools, and other handheld items</td>
+            <td>nsfw/adult content, including "questionable" content</td>
           </tr>
           <tr>
             <td>fictional vehicles, including spaceships</td>
-            <td>fetish art</td>
+            <td>excessive gore</td>
           </tr>
           <tr>
             <td>interior environments</td>
@@ -47,15 +53,15 @@ const Commissions: Component = () => {
         </tbody>
       </table>
 
-      <p>this is meant to be a general guide. if you're unsure of something, feel free to ask!</p>
+      <p>this is only intended to be a general guide. if you're unsure of something, feel free to ask!</p>
 
       <h2>what i do</h2>
       <p>
-        i'm a blender artist! i make 3d models, and it's something i've been doing for over 13 years. most of the time i'm just making my own things, but now i'm hoping to expand my talents by doing work for others (like you, perhaps!). whether it's for a video game project, or just some cool artwork to look at, i can probably do it for you! i can also use blender to make logos and other 2d graphics, which might sound weird? but trust me, it works lol.<br/>
+        i'm a blender artist! i make 3d models, and it's something i've been doing for over 13 years. most of the time i'm just making my own things, but now i'm hoping to expand my talents by doing work for others (like you, perhaps!). whether it's for a video game project, or just some cool artwork to look at, i can probably do it for you!<br/>
         <br/>
-        if you're interested, feel free to contact me! my preferred method of contact is via Discord, and you can find me through my own server, <a href="/links">which can found on the links page here.</a><br/>
+        if you're interested, feel free to contact me! my preferred method of contact is via Discord, and you can find my handle <a href="/home">here on the homepage.</a><br/>
         <br/>
-        also feel free to check out <a href="/gallery">my gallery</a> for examples of my work!
+        you can also check out <a href="/gallery">my gallery</a> for examples of my work!
       </p>
 
       <h2>pricing</h2>

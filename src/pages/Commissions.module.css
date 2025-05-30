@@ -1,3 +1,57 @@
 .comms p {
   margin-bottom: 1rem;
 }
+
+.statusWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  font-weight: bold;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem 2rem;
+    text-align: center;
+    background-color: var(--text);
+    color: var(--section-background);
+    border-radius: 0.5rem;
+
+    > span {
+      font-size: 1.5rem;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 3.5rem;
+      padding: 0;
+
+      > svg {
+        width: 4.5rem;
+        height: 4.5rem;
+      }
+    }
+  }
+
+  > .commissions {
+
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .statusWrapper {
+    flex-direction: column;
+  }
+}
