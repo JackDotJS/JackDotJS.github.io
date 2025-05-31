@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "vite",
-    "dev": "node createMetadataFiles.mjs & vite",
+    "dev": "node ./preprocessing/createMetadataFiles.mjs & vite",
     "build": "vite build",
     "serve": "vite preview"
   },
