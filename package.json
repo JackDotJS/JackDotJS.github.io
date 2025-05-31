@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "start": "vite",
-    "dev": "node ./preprocessing/index.mjs & vite",
+    "preprocess": "node ./preprocessing/index.mjs",
+    "dev": "pnpm preprocess & vite",
     "build": "vite build",
     "serve": "vite preview"
   },
@@ -17,6 +18,7 @@
   "dependencies": {
     "@solidjs/router": "^0.13.6",
     "@tabler/icons-solidjs": "^3.31.0",
+    "@types/node": "^22.15.29",
     "solid-js": "^1.9.6",
     "ulidx": "^2.4.1"
   },
