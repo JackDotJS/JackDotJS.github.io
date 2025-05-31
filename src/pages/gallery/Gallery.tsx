@@ -1,7 +1,7 @@
  
 import { For, type Component, Show, createSignal, createEffect, onMount, useContext } from 'solid-js';
-
 import { GalleryEntryData, LightBoxContext } from '../../components/Lightbox';
+import metadata from './pageMetadata.json';
 
 import styles from './Gallery.module.css';
 
@@ -13,6 +13,8 @@ const Gallery: Component = () => {
   const [galleryEntries, setGalleryEntries] = createSignal<GalleryEntryData[]>([]);
 
   onMount(() => {
+    document.title = `${metadata.title} - jackiedotjs`;
+
     fetchGallery.then(async (orgResponse) => {
       const response = orgResponse.clone();
 

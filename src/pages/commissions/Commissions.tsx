@@ -1,12 +1,17 @@
-import type { Component } from 'solid-js';
+import { onMount, type Component } from 'solid-js';
+import { IconX } from '@tabler/icons-solidjs';
+import metadata from './pageMetadata.json';
 
 import styles from './Commissions.module.css';
-import { IconX } from '@tabler/icons-solidjs';
 
 // TODO: add info regarding art trades
 // TODO: add function to colorize status boxes
 
 const Commissions: Component = () => {
+  onMount(() => {
+    document.title = `${metadata.title} - jackiedotjs`;
+  });
+
   return (
     <main class={styles.comms}>
       <div class={styles.statusWrapper}>

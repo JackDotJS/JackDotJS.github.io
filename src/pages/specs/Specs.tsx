@@ -1,8 +1,13 @@
-import type { Component } from 'solid-js';
+import { type Component, onMount } from 'solid-js';
+import metadata from './pageMetadata.json';
 
 import styles from './Specs.module.css';
 
 const Specs: Component = () => {
+  onMount(() => {
+    document.title = `${metadata.title} - jackiedotjs`;
+  });
+
   return (
     <main>
       <h2>pc specs</h2>

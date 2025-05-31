@@ -1,10 +1,10 @@
  
 import { For, type Component, onMount, createSignal, useContext } from 'solid-js';
-
+import { IconCheck } from '@tabler/icons-solidjs';
 import { GalleryEntryData, LightBoxContext } from '../../components/Lightbox';
+import metadata from './pageMetadata.json';
 
 import styles from './Home.module.css';
-import { IconCheck } from '@tabler/icons-solidjs';
 
 const fetchAvatars = fetch(`/metadata/avatar.json`);
 
@@ -58,22 +58,24 @@ const Home: Component = () => {
   const { setLBData }: any = useContext(LightBoxContext);
 
   onMount(() => {
-      updateMyTime();
-      setInterval(updateMyTime, 1000);
-  
-      fetchAvatars.then(async (orgResponse) => {
-        const response = orgResponse.clone();
-  
-        if (response.status !== 200) {
-          return console.error(`couldn't fetch avatar gallery data: ${response.status}`);
-        }
-      
-        const data: GalleryEntryData = JSON.parse(await response.text());
-      
-        console.debug(data);
-        setAvatarGallery(data);
-      });
+    document.title = `${metadata.title} - jackiedotjs`;
+
+    updateMyTime();
+    setInterval(updateMyTime, 1000);
+
+    fetchAvatars.then(async (orgResponse) => {
+      const response = orgResponse.clone();
+
+      if (response.status !== 200) {
+        return console.error(`couldn't fetch avatar gallery data: ${response.status}`);
+      }
+    
+      const data: GalleryEntryData = JSON.parse(await response.text());
+    
+      console.debug(data);
+      setAvatarGallery(data);
     });
+  });
 
   return (
     <main>
