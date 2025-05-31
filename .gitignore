@@ -15,6 +15,7 @@ dist-ssr
 gha-build.txt
 gha-hash.txt
 public/metadata/*
+/*.html
 
 # Editor directories and files
 .vscode/*
