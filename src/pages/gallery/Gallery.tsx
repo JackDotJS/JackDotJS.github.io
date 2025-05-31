@@ -13,7 +13,7 @@ const Gallery: Component = () => {
   const [galleryEntries, setGalleryEntries] = createSignal<GalleryEntryData[]>([]);
 
   onMount(() => {
-    document.title = `${metadata.title} - jackiedotjs`;
+    document.title = `${metadata.TITLE} - jackiedotjs`;
 
     fetchGallery.then(async (orgResponse) => {
       const response = orgResponse.clone();

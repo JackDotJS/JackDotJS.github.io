@@ -5,7 +5,7 @@ import styles from './Specs.module.css';
 
 const Specs: Component = () => {
   onMount(() => {
-    document.title = `${metadata.title} - jackiedotjs`;
+    document.title = `${metadata.TITLE} - jackiedotjs`;
   });
 
   return (

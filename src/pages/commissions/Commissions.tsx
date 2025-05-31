@@ -9,7 +9,7 @@ import styles from './Commissions.module.css';
 
 const Commissions: Component = () => {
   onMount(() => {
-    document.title = `${metadata.title} - jackiedotjs`;
+    document.title = `${metadata.TITLE} - jackiedotjs`;
   });
 
   return (
