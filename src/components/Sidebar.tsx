@@ -22,24 +22,17 @@ interface UnitList {
 const flavorTextStringList = [
   `one of the websites of all time`,
   `windows? more like winBLOWS haha lol`,
-  `MIT loicense mate`,
   `rock005.mdl`,
   `my fumking fromsting`,
-  `STOP SUPER REACTING`,
   `cabbage`,
   `HUH???`,
   `:3`,
-  `:3?`,
   `severe thunderstorm warning`,
-  `clearly you don't own an airfryer`,
+  `CLEARLY you don't own an airfryer`,
   `THEN WHO WAS PHONE?`,
-  `YOU FUCKING HEAD OF BEEF`,
-  `give me your wallet`,
-  `that's it, give me your phone`,
-  `\${flavor.text}`,
+  `\${flavorText}`,
   `drink some water`,
   `stay hydrated!`,
-  `ur mom`,
   `*yru'oe`,
   `nights at five freddies`,
   `five fredies at night`,
@@ -52,8 +45,6 @@ const flavorTextStringList = [
   `ouch`,
   `omg hiii!!!!!!`,
   `buals`,
-  `8`,
-  `7`,
   `jackiedotjs`,
   `lead poisoning enthusiast`,
   `now with 50% more lead!`,
@@ -61,24 +52,25 @@ const flavorTextStringList = [
   `batteries not included`,
   `can i get uhhhhh`,
   `MAX_CALL_STACK_EXCEEDED`,
-  `do you are have stupid`,
-  `eating chair foam`,
+  `STATUS: eating chair foam`,
   `#1 tire rubber consumer`,
   `screen space ambient occlusion`,
   `3 dollars`,
-  `pee = 3.14`,
   `ROCK AND STONE`,
-  `spormts car`,
   `new york times bestseller`,
   `OH GREAT HEAVENS`,
   `this will be graphics in 2013`,
   `OHH MY PKCELLS`,
   `trans rights are human rights`,
-  `HAVE A FUNGUS`,
+  `have a fungus`,
   `a dink hard donk`,
   `really large solvent`,
   `evil hay sludge`,
-  `sentenced to 10 minutes of twitter`
+  `sentenced to 10 minutes of twitter`,
+  `i to am in this episode`,
+  `this vexes me`,
+  `THE MONEY`,
+  `baja blastrogen`
 ]
 
 const Sidebar: Component = () => {
@@ -266,7 +258,9 @@ const Sidebar: Component = () => {
       />
       <div class={styles.sidebar}>
         <header>
-          <img src="/assets/favicon.svg" />
+          <a href="/">
+            <img src="/assets/favicon.svg" />
+          </a>
           <h1>jackiedotjs</h1>
           <a 
             onclick={pickFlavorText} 
