@@ -2,12 +2,7 @@
   --section-background: #FFC8B5;
   --text: #242035;
   --text-2: #242035AA;
-  --text-2-em: #303042;
   --button-bg: #24203511;
-  --button-text: var(--section-background);
-  --button-bg-hover: #FF98BA;
-  --button-text-hover: var(--section-background);
-  --button-outline-hover: var(--button-bg);
   --focus-outline: #EE244A;
 
   --anim-timing: cubic-bezier(0,.65,.5,1);
@@ -28,14 +23,9 @@
   :root {
     --section-background: #242035;
     --text: #FFC8B5;
-    --text-2: #C1B7BE;
-    --text-2-em: #D8CAC8;
-    --button-bg: #11121d;
-    --button-text: #292929;
-    --button-bg-hover: #FF98BA;
-    --button-text-hover: var(--button-bg);
-    --button-outline-hover: var(--button-bg);
-    --focus-outline: #FF98BA;
+    --text-2: #FFC8B5AA;
+    --button-bg: #FFC8B511;
+    --focus-outline: #EE244A;
   }
 }
 
@@ -136,13 +126,16 @@ a {
   text-decoration-color: transparent;
 }
 
+:where(a, button):hover, :where(a, button):focus-visible {
+  transition-duration: 0ms;
+}
+
 a[href]:hover, a:focus-visible {
   color: var(--text); 
   text-decoration-color: currentColor;
 }
 
-a:focus-visible, button:focus-visible {
-  transition-duration: 0ms;
+:where(a, button):focus-visible {
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }
@@ -163,7 +156,7 @@ li:not(:first-of-type) {
 }
 
 em {
-  color: var(--text-2-em);
+  color: var(--text);
   font-weight: bold;
   font-style: normal;
 }
