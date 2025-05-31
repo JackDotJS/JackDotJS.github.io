@@ -11,10 +11,10 @@ import App from './App';
 // https://github.com/solidjs-community/solid-transition-group ??
 
 // Routes
-const Home = lazy(() => import(`./pages/Home` /* @vite-ignore */));
-const Gallery = lazy(() => import(`./pages/Gallery` /* @vite-ignore */));
-const Specs = lazy(() => import(`./pages/Specs` /* @vite-ignore */));
-const Commissions = lazy(() => import(`./pages/Commissions` /* @vite-ignore */));
+const Home = lazy(() => import(`./pages/index/Home` /* @vite-ignore */));
+const Gallery = lazy(() => import(`./pages/gallery/Gallery` /* @vite-ignore */));
+const Specs = lazy(() => import(`./pages/specs/Specs` /* @vite-ignore */));
+const Commissions = lazy(() => import(`./pages/commissions/Commissions` /* @vite-ignore */));
 
 // TODO: make an actual 404 page?
 // https://github.com/solidjs/solid-router/blob/main/README.md#configure-your-routes

@@ -1,7 +1,7 @@
  
 import { For, type Component, onMount, createSignal, useContext } from 'solid-js';
 
-import { GalleryEntryData, LightBoxContext } from '../components/Lightbox';
+import { GalleryEntryData, LightBoxContext } from '../../components/Lightbox';
 
 import styles from './Home.module.css';
 import { IconCheck } from '@tabler/icons-solidjs';

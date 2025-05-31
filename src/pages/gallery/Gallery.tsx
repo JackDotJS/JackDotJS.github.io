@@ -1,7 +1,7 @@
  
 import { For, type Component, Show, createSignal, createEffect, onMount, useContext } from 'solid-js';
 
-import { GalleryEntryData, LightBoxContext } from '../components/Lightbox';
+import { GalleryEntryData, LightBoxContext } from '../../components/Lightbox';
 
 import styles from './Gallery.module.css';
 
