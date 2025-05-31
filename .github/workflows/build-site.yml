@@ -57,10 +57,10 @@ jobs:
       - name: Install Dependencies
         run: pnpm i
 
-      - name: Generate Gallery Metadata
-        run: node createMetadataFiles.mjs
+      - name: Run Preprocessor
+        run: pnpm preprocess
 
-      - name: Compile Application
+      - name: Build Website
         run: pnpm build
 
       - name: Write Revision Hash
