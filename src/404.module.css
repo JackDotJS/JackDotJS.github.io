@@ -1,0 +1,13 @@
+.notFound {
+  gap: 0;
+  max-width: 16rem;
+  text-align: center;
+
+  > h1 {
+    font-size: 6rem;
+  }
+
+  > span {
+    font-size: 1.25rem;
+  }
+}
