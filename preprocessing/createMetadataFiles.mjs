@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { parseAndValidate } from './parseMetadata.mjs';
+import { parseAndValidate } from './validateMetadata.mjs';
 
 // get list of gallery item directories, ignoring files
 const galleryItems = readdirSync(`./public/gallery`, { withFileTypes: true })
