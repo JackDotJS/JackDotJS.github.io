@@ -5,6 +5,7 @@ import metadata from './pageMetadata.json';
 import styles from './Commissions.module.css';
 
 // TODO: add info regarding art trades
+
 // TODO: add function to colorize status boxes
 
 const Commissions: Component = () => {

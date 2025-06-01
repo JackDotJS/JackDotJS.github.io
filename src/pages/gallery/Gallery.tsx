@@ -5,7 +5,7 @@ import metadata from './pageMetadata.json';
 
 import styles from './Gallery.module.css';
 
-// TODO: fix mobile styling
+// TODO: needs updated styling for new website design
 
 const fetchGallery = fetch(`/metadata/gallery.json`);
 

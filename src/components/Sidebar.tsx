@@ -6,6 +6,8 @@ import styles from './Sidebar.module.css';
 
 // TODO: fix tab navigation in mobile view
 
+// TODO: add swipe to open sidebar in mobile view
+
 const fetchBuild = fetch(`/gha-build.txt`)
 const fetchHash = fetch(`/gha-hash.txt`)
 

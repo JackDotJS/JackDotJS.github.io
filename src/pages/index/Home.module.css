@@ -67,7 +67,6 @@
   gap: 0.5rem;
 
   > * {
-    position: relative;
     --social-icon-url: none;
     --social-icon-color: var(--text);
     --active-bg: #FFF;
@@ -79,22 +78,18 @@
     --button-height: 3rem;
 
     position: relative;
-    display: grid;
-    grid-template-rows: min-content 0fr;
-    align-items: center;
     width: 100%;
     color: var(--focus-outline);
     background-color: var(--button-bg);
     border: 0px solid transparent;
     border-radius: 0.25rem;
     font-weight: bold;
-    outline: 10px solid transparent;
-    outline-offset: 10px;
     box-sizing: border-box;
     transition: all 250ms var(--anim-timing);
     overflow: hidden;
 
     > input {
+      position: absolute;
       width: 0;
       height: 0;
       opacity: 0;
@@ -132,6 +127,8 @@
 
     > div {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       padding: 1rem;
@@ -162,14 +159,6 @@
       > button:hover {
         opacity: 0.9;
         transition-duration: 0ms;
-      }
-
-      > button:active {
-        opacity: 0.8;
-
-        ~ div > .textCopyNotification {
-          opacity: 1;
-        }
       }
 
       > div {
@@ -268,10 +257,6 @@
     grid-template-rows: min-content 1fr;
   }
 
-  > *:has(input:checked):before {
-    opacity: 0;
-  }
-
   > *:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)) {
     transition-duration: 0ms, 250ms;
     border-color: var(--active-color);
@@ -349,5 +334,25 @@
 
   .summary {
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .linklist {
+    grid-template-columns: 1fr;
+
+    > * > span {
+      justify-content: center;
+    }
+
+    > *:nth-child(odd) {
+      --icon-v-offset: 20%;
+      --icon-v-offset-hover: 10%;
+    }
+
+    > *:nth-child(even) {
+      --icon-v-offset: 80%;
+      --icon-v-offset-hover: 90%;
+    }
   }
 }
