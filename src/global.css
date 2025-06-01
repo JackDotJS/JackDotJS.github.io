@@ -196,6 +196,7 @@ th {
 @media screen and (max-width: 800px) {
   :root {
     --sidebar-desktop-size: 0;
+    --void-gap: 1rem;
   }
 
   .contentWrapper {

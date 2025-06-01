@@ -127,14 +127,18 @@
     width: 100vw;
     height: calc(100vh - calc(var(--sidebar-mobile-header)));
     transition: left 250ms var(--anim-timing);
-
+    box-shadow: none;
+    
     > header {
-      > img {
+      margin-top: 0;
+
+      > a > img {
         width: 10rem;
+        aspect-ratio: 1;
       }
 
       > h1 {
-        font-size: 4rem;
+        font-size: 3rem;
       }
 
       > .flavorText {
@@ -142,7 +146,8 @@
       }
 
       > nav {
-        width: 66%;
+        width: 90%;
+        margin: 2rem 0;
         
         > a {
           font-size: 1.3rem;
