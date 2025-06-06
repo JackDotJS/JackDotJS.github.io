@@ -84,6 +84,10 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-around;
+
+      > span {
+        margin: 0 0.5rem;
+      }
     }
   }
 }
