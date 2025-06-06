@@ -283,11 +283,15 @@ const Sidebar: Component = () => {
 
         <footer>
           <div>
+            <span>copyright &copy; 2025 jackiedotjs</span>
+            <span>all rights reserved</span>
+          </div>
+          <span>
             last updated: <b><time datetime={buildDateISO()}>{buildDate()}</time></b> ({buildDateRelative()})
-          </div>
-          <div>
+          </span>
+          <span>
             rev: <b><a href={`https://github.com/JackDotJS/JackDotJS.github.io/commit/${revHash()}`}>{revHash()}</a></b>
-          </div>
+          </span>
         </footer>
       </div>
       <div ref={mobileMenuBar} class={styles.mobileMenuBar}>
