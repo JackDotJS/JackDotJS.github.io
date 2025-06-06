@@ -72,7 +72,7 @@ const Home: Component = () => {
     
       const data: GalleryEntryData = JSON.parse(await response.text());
     
-      console.debug(data);
+      // console.debug(data);
       setAvatarGallery(data);
     });
   });
@@ -99,19 +99,23 @@ const Home: Component = () => {
         <For each={socialLinks}>
           {(item) => {
             if (item.text) {
-              let mainButton!: HTMLLabelElement;
+              let container!: HTMLDivElement;
               let checkbox!: HTMLInputElement;
               let buttonContentWrapper!: HTMLDivElement;
               let notification!: HTMLSpanElement;
               let button!: HTMLButtonElement;
 
-              let oldCheckState = false;
+              let keepCheckboxState = false;
 
-              const mainButtonClickHandler = (e: MouseEvent) => {
-                if (checkbox.checked && !oldCheckState) {
-                  button.removeAttribute(`tabindex`);
+              // i already tried doing all this with css only.
+              // its 1:30 in the morning and im tired of webdev.
+              // i'm sorry
 
-                  const buttonRect = mainButton.getBoundingClientRect();
+              const pointerEnterHandler = (e: PointerEvent) => {
+                if (checkbox.checked) return;
+
+                if (e.pointerType === `touch`) {
+                  const buttonRect = container.getBoundingClientRect();
                   const relX = e.clientX - buttonRect.left;
                   
                   if (relX >= (buttonRect.width / 2)) {
@@ -121,12 +125,17 @@ const Home: Component = () => {
                     // cursor is on left half
                     buttonContentWrapper.classList.add(styles.flipButtonLocation)
                   }
-
-                  oldCheckState = true;
-                } else if (!checkbox.checked && oldCheckState) {
-                  button.setAttribute(`tabindex`, `-1`);
-                  oldCheckState = false;
                 }
+
+                checkbox.checked = true;
+              }
+
+              const forceCheckboxTrue = () => {
+                checkbox.checked = true;
+              }
+
+              const forceCheckboxFalse = () => {
+                checkbox.checked = false;
               }
 
               const copyButtonClickHandler = async (e: Event) => {
@@ -138,16 +147,71 @@ const Home: Component = () => {
                 notification.classList.add(styles.copyAnimator);
               }
 
+              const buttonFocusHandler = () => {
+                if (container.querySelectorAll(`*:has(:focus-visible)`).length === 0) return;
+
+                keepCheckboxState = true;
+                forceCheckboxTrue();
+              }
+
+              const buttonBlurHandler = () => {
+                keepCheckboxState = false;
+
+                // console.debug(document.activeElement);
+
+                if (document.activeElement == null) return;
+                if (buttonIsActiveElement(document.activeElement)) return;
+                if (container.querySelectorAll(`*:has(:hover)`).length === 0) return;
+
+                forceCheckboxFalse();
+              }
+
+              const containerMouseLeaveHandler = () => {
+                if (keepCheckboxState) return;
+                forceCheckboxFalse();
+              }
+
+              const buttonIsActiveElement = (target: Node|Element|HTMLElement): boolean => {
+                const descendants = container.querySelectorAll(`*`);
+                let found = false;
+                for (const node of descendants) {
+                  if (target === node) {
+                    found = true;
+                    break;
+                  }
+                }
+                
+                // console.debug(found);
+
+                return found;
+              }
+
+              document.addEventListener(`click`, (e: MouseEvent) => {
+                if (e.target == null) return;
+                if (!(e.target instanceof Node)) return;
+
+                if (!buttonIsActiveElement(e.target)) {
+                  checkbox.checked = false;
+                }
+              });
+
               return (
-                <label 
-                  ref={mainButton} 
-                  onclick={mainButtonClickHandler} 
+                <div 
+                  ref={container} 
+                  onpointerenter={pointerEnterHandler}
+                  onmouseleave={containerMouseLeaveHandler}
+                  onclick={forceCheckboxTrue}
                   class={item.style}
                 >
-                  <input ref={checkbox} type="checkbox" autocomplete="off" />
+                  <input ref={checkbox} type="checkbox" autocomplete="off"/>
                   <span>{item.title}</span>
                   <div ref={buttonContentWrapper}>
-                    <button ref={button} onclick={copyButtonClickHandler} tabindex="-1">
+                    <button
+                      ref={button} 
+                      onclick={copyButtonClickHandler}
+                      onfocus={buttonFocusHandler}
+                      onblur={buttonBlurHandler}
+                    >
                       copy
                     </button>
                     <div>
@@ -155,7 +219,7 @@ const Home: Component = () => {
                       <span class={styles.textCopyNotification} ref={notification}> <IconCheck/> copied!</span>
                     </div>
                   </div>
-                </label>
+                </div>
               )
             }
 

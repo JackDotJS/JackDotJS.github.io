@@ -112,7 +112,7 @@ p {
   margin: 0;
 }
 
-a, button {
+a {
   color: var(--focus-outline);
   transition: all 250ms var(--anim-timing);
   font-weight: bold;
@@ -126,16 +126,16 @@ a {
   text-decoration-color: transparent;
 }
 
-:where(a, button):hover, :where(a, button):focus-visible {
+a:hover, a:focus-visible {
   transition-duration: 0ms;
 }
 
-a[href]:hover, a:focus-visible {
+a:hover, a:focus-visible {
   color: var(--text); 
   text-decoration-color: currentColor;
 }
 
-:where(a, button):focus-visible {
+a:focus-visible {
   outline: 3px solid var(--focus-outline);
   outline-offset: 3px;
 }

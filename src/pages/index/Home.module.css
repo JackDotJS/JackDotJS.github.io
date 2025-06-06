@@ -87,13 +87,11 @@
     box-sizing: border-box;
     transition: all 250ms var(--anim-timing);
     overflow: hidden;
+    outline: 10px solid transparent;
+    outline-offset: 10px;
 
     > input {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0;
-      margin: 0;
+      display: none;
     }
 
     > input:not(:checked) ~ div,
@@ -150,10 +148,7 @@
         padding: 0 1rem;
         font-size: 1rem;
         transition: all 250ms var(--anim-timing);
-      }
-
-      > button:focus-visible {
-        transition-duration: 0ms;
+        outline: none;
       }
 
       > button:hover {
@@ -253,14 +248,20 @@
     outline-offset: 3px;
   }
 
-  > *:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)) {
+  > *:is(:hover, :focus-visible, :has(input:checked)) {
     transition-duration: 0ms, 250ms;
     border-color: var(--active-color);
     background-color: var(--active-bg);
     color: var(--active-color);
   }
 
-  > *:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)):before {
+  > *:has(:focus-visible) {
+    transition-duration: 0ms, 250ms;
+    outline: 3px solid var(--focus-outline);
+    outline-offset: 3px;
+  }
+
+  > *:is(:hover, :focus-visible, :has(input:checked)):before {
     background-color: var(--active-color);
     -webkit-mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
     mask-position: var(--icon-v-offset-hover) var(--icon-h-offset);
