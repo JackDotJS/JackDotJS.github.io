@@ -253,10 +253,6 @@
     outline-offset: 3px;
   }
 
-  > *:has(input:checked) {
-    grid-template-rows: min-content 1fr;
-  }
-
   > *:is(:hover, :focus-visible, :has(input:checked), :has(input:focus-visible)) {
     transition-duration: 0ms, 250ms;
     border-color: var(--active-color);
